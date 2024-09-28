@@ -4,7 +4,9 @@ Before start developing or contributing to this project, you should follow some 
 
 ## Design Pattern 
 
-We have looked through several design patterns and we have decided to use the MVC (Model-View-Controller) design pattern. This pattern is widely used in the industry and it is easy to understand and implement. You can find more information about the MVC design pattern [here](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller).
+We have looked through several design patterns, we have decided to use the MVC (Model-View-Controller) design pattern.
+This pattern is widely used in the industry, it is easy to understand and implement. You can find more information about
+the MVC design pattern [here](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller).
 
 Pros:
 - Easy to understand
@@ -18,9 +20,10 @@ Cons:
 
 ## Coding Standards
 
-We have decided to use the Google Java Style Guide for this project. This is because it is widely used in the industry and it is easy to understand and implement. You can find the style guide [here](https://google.github.io/styleguide/javaguide.html).
+We have decided to use the Google Java Style Guide for this project. This is because it is one of the requirements in
+project grading. You can find the style guide [here](https://google.github.io/styleguide/javaguide.html).
 
-## Techical stack
+## Technical stack
 
 - JavaFX    (for the GUI)
 - SQLite    (for the database)
