@@ -19,3 +19,9 @@ Cons:
 ## Coding Standards
 
 We have decided to use the Google Java Style Guide for this project. This is because it is widely used in the industry and it is easy to understand and implement. You can find the style guide [here](https://google.github.io/styleguide/javaguide.html).
+
+## Techical stack
+
+- JavaFX    (for the GUI)
+- SQLite    (for the database)
+- JDBC      (for the database connection)
