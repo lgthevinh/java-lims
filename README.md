@@ -11,6 +11,12 @@ This project is a library management system developed in Java. The project is a 
 - [SQLite](https://www.sqlite.org/index.html) - The database used
 - [JDBC](https://www.oracle.com/java/technologies/jdbc.html) - The Java database connectivity used
 
+## Contribute Documents
+
+Before start contributing to this project, you first have to read about project developing guide and convention.
+
+To view the development documents, please visit /docs directory [here](./docs/development.md)
+
 ## Team members
 
 - **Lương Thế Vinh** - 23020715 ([GitHub](https://github.com/lgthevinh))
