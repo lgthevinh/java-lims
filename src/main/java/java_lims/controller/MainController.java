@@ -1,8 +1,8 @@
-package com.controller;
+package java_lims.controller;
 
 import javafx.stage.Stage;
 
-import static com.view.HomeView.showHomeView;
+import static java_lims.view.HomeView.showHomeView;
 
 public class MainController {
 
