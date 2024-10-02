@@ -2,8 +2,6 @@ package java_lims.controller;
 
 import javafx.stage.Stage;
 
-import static java_lims.view.HomeView.showHomeView;
-
 public class MainController {
 
     // Initializing logic stage goes in here
@@ -13,6 +11,5 @@ public class MainController {
 
     // Main loop of application goes in here
     public static void loopApplication(Stage stage) {
-        showHomeView(stage);
     }
 }
