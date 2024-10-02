@@ -1,4 +1,5 @@
 package java_lims.view;
 
-public class HomeScence {
+public class HomeScene {
+
 }
