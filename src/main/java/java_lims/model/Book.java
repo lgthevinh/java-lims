@@ -1,7 +1,6 @@
 package java_lims.model;
 
-public class BookModel implements Model {
-
+public class Book implements Model {
     @Override
     public void create() {
 
