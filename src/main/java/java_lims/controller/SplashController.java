@@ -7,9 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
 public class SplashController extends Preloader {
-
+    private HomeController homeController;
     private Stage preloaderStage;
 
     @Override
