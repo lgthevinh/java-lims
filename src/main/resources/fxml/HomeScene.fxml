@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.Pane?>
-<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23"
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/23"
       fx:controller="java_lims.controller.HomeController">
     <children>
-        <TableView prefHeight="400.0" prefWidth="600.0">
-            <columns>
-                <TableColumn fx:id="isbn" prefWidth="75.0" text="isbn"/>
-                <TableColumn fx:id="title" prefWidth="75.0" text="title"/>
-                <TableColumn fx:id="author" prefWidth="75.0" text="author"/>
-                <TableColumn fx:id="author1" prefWidth="76.0" text="yop"/>
-                <TableColumn fx:id="author11" prefWidth="76.0" text="publisher"/>
-            </columns>
-        </TableView>
+        <ListView fx:id="book_list" prefHeight="400.0" prefWidth="600.0"/>
     </children>
 </Pane>
