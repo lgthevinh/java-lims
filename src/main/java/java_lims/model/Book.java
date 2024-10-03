@@ -1,48 +1,31 @@
 package java_lims.model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import static java_lims.model.DatabaseManager.getConnection;
 
 public class Book {
-    private Integer isbn;
+    private Number isbn;
     private String title;
     private String author;
-    private Date year_of_publication;
+    private Date yearOfPublication;
     private String publisher;
-    private String image_url;
+    private String imageUrl;
+    private Integer availableAmount;
 
-    public static List<Book> getAllBooks() throws SQLException {
-        List<Book> books = new ArrayList<>();
-        Connection conn = getConnection();
-        Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Book LIMIT 5");
-
-        while (resultSet.next()) {
-            Book book = new Book();
-            book.setIsbn(resultSet.getInt("isbn"));
-            book.setTitle(resultSet.getString("title"));
-            book.setAuthor(resultSet.getString("author"));
-            book.setPublisher(resultSet.getString("publisher"));
-            book.setYear_of_publication(resultSet.getDate("year_of_publication"));
-            book.setImage_url(resultSet.getString("image_url"));
-
-            books.add(book);
-        }
-        return books;
+    public Book(Number isbn, String title, String author, Date yearOfPublication, String publisher, String imageUrl, Integer availableAmount) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.yearOfPublication = yearOfPublication;
+        this.publisher = publisher;
+        this.imageUrl = imageUrl;
+        this.availableAmount = availableAmount;
     }
 
-    public Integer getIsbn() {
+    public Number getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(Number isbn) {
         this.isbn = isbn;
     }
 
@@ -62,12 +45,12 @@ public class Book {
         this.author = author;
     }
 
-    public Date getYear_of_publication() {
-        return year_of_publication;
+    public Date getYearOfPublication() {
+        return yearOfPublication;
     }
 
-    public void setYear_of_publication(Date year_of_publication) {
-        this.year_of_publication = year_of_publication;
+    public void setYearOfPublication(Date year_of_publication) {
+        this.yearOfPublication = year_of_publication;
     }
 
     public String getPublisher() {
@@ -78,11 +61,19 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String image_url) {
+        this.imageUrl = image_url;
+    }
+
+    public Integer getAvailableAmount() {
+        return availableAmount;
+    }
+
+    public void setAvailableAmount(Integer availableAmount) {
+        this.availableAmount = availableAmount;
     }
 }
