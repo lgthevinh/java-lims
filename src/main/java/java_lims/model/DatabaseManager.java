@@ -19,7 +19,7 @@ public class DatabaseManager {
 
         while (resultSet.next()) {
             Book book = new Book(
-                    resultSet.getInt("isbn"),
+                    resultSet.getString("isbn"),
                     resultSet.getString("title"),
                     resultSet.getString("author"),
                     resultSet.getDate("year_of_publication"),
@@ -41,7 +41,7 @@ public class DatabaseManager {
         if (resultSet.first()) {
             conn.close();
             return new Book(
-                    resultSet.getInt("isbn"),
+                    resultSet.getString("isbn"),
                     resultSet.getString("title"),
                     resultSet.getString("author"),
                     resultSet.getDate("year_of_publication"),
@@ -57,8 +57,8 @@ public class DatabaseManager {
     public static void addBookToDatabase(Book book) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        statement.executeUpdate("INSERT INTO Book VALUES (%d, %s, %s, %s, %s, %s, %d)".formatted(
-                (Integer) book.getIsbn(),
+        statement.executeUpdate("INSERT INTO Book VALUES (%s, %s, %s, %s, %s, %s, %d)".formatted(
+                book.getIsbn(),
                 book.getTitle(),
                 book.getAuthor(),
                 book.getYearOfPublication(),

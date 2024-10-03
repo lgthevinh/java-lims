@@ -3,7 +3,7 @@ package java_lims.model;
 import java.util.Date;
 
 public class Book {
-    private Number isbn;
+    private String isbn;
     private String title;
     private String author;
     private Date yearOfPublication;
@@ -11,7 +11,7 @@ public class Book {
     private String imageUrl;
     private Integer availableAmount;
 
-    public Book(Number isbn, String title, String author, Date yearOfPublication, String publisher, String imageUrl, Integer availableAmount) {
+    public Book(String isbn, String title, String author, Date yearOfPublication, String publisher, String imageUrl, Integer availableAmount) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -21,11 +21,11 @@ public class Book {
         this.availableAmount = availableAmount;
     }
 
-    public Number getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Number isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
