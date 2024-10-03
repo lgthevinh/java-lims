@@ -5,7 +5,7 @@ import javafx.scene.control.ListView;
 
 import java.sql.SQLException;
 
-import static java_lims.model.Book.getAllBooks;
+import static java_lims.model.DatabaseManager.getAllBooks;
 
 public class HomeController {
     @FXML
