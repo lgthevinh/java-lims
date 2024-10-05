@@ -65,7 +65,7 @@ Development manual:
 0. Import static methods
 
 ```java
-import static com.lims.model.DatabaseManager.*;
+import static com.lims.DatabaseManager.*;
 ```
 
 1. Get all books from the database
@@ -74,7 +74,7 @@ import static com.lims.model.DatabaseManager.*;
 List<Book> books = getAllBook();
 ```
 
-- Parameters: None (May implement pagenation in the future)
+- Parameters: None (May implement pagination in the future)
 - Return type: Array list of Book objects
 
 2. Get book by ISBN
@@ -90,7 +90,7 @@ Book book = getBookByISBN(isbn = "978-3-16-148410-0");
 3. Add new book to the database
 
 ```java
-addBookToDatabase(book =new Book("978-3-16-148410-0", "Book Title","Author","Publisher",2021,10));
+addBookToDatabase(book=new Book("978-3-16-148410-0","Book Title","Author","Publisher",2021,10));
 ```
 
 - Parameters:
