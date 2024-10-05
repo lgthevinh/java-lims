@@ -1,4 +1,6 @@
-package com.lims.model;
+package com.lims;
+
+import com.lims.model.Book;
 
 import java.sql.*;
 import java.util.ArrayList;
