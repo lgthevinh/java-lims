@@ -6,7 +6,7 @@ public class Librarian extends User {
     private Integer empId;
 
     public Librarian(Integer userId, Integer socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password) {
-        super(userId, socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
+        super(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
     }
 
     public Integer getEmpId() {

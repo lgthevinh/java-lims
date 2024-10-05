@@ -11,8 +11,7 @@ public class BorrowDetail {
     private Date expectedReturnDate;
     private Date actualReturnDate;
 
-    public BorrowDetail(Integer id, String bookIsbn, String borrowerId, String librarianId, Date borrowDate, Date expectedReturnDate, Date actualReturnDate) {
-        this.id = id;
+    public BorrowDetail(String bookIsbn, String borrowerId, String librarianId, Date borrowDate, Date expectedReturnDate, Date actualReturnDate) {
         this.bookIsbn = bookIsbn;
         this.borrowerId = borrowerId;
         this.librarianId = librarianId;
