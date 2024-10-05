@@ -71,7 +71,7 @@ public class DatabaseManager {
         conn.close();
     }
 
-    public static void deleteBookInDatabase(String book_isbn) throws SQLException {
+    public static void deleteBookFromDatabase(String book_isbn) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         statement.executeUpdate("DELETE FROM Book WHERE isbn = " + book_isbn);
