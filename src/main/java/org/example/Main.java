@@ -1,13 +1,11 @@
 package org.example;
 
-import com.lims.controller.SplashController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.Objects;
+import view.controller.SplashController;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -26,7 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/HomeScene.fxml")));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/HomeScene.fxml"));
 
         primaryStage.setTitle("Java Library Management System");
         primaryStage.setScene(new Scene(root));

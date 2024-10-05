@@ -1,4 +1,4 @@
-package com.lims;
+package com.lims.dao;
 
 import com.lims.model.Book;
 
@@ -69,5 +69,16 @@ public class DatabaseManager {
                 book.getAvailableAmount()
         ));
         conn.close();
+    }
+
+    public static void deleteBookFromDatabase(String book_isbn) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("DELETE FROM Book WHERE isbn = " + book_isbn);
+        conn.close();
+    }
+
+    public static void updateBookInDatabase(Book book) throws SQLException {
+
     }
 }

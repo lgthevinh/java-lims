@@ -65,7 +65,7 @@ Development manual:
 0. Import static methods
 
 ```java
-import static com.lims.DatabaseManager.*;
+
 ```
 
 1. Get all books from the database
@@ -80,7 +80,7 @@ List<Book> books = getAllBook();
 2. Get book by ISBN
 
 ```java
-Book book = getBookByISBN(isbn = "978-3-16-148410-0");
+Book book = getBookByISBN(isbn;
 ```
 
 - Parameters:
@@ -90,9 +90,19 @@ Book book = getBookByISBN(isbn = "978-3-16-148410-0");
 3. Add new book to the database
 
 ```java
-addBookToDatabase(book=new Book("978-3-16-148410-0","Book Title","Author","Publisher",2021,10));
+addBookToDatabase(book);
 ```
 
 - Parameters:
     - Book: Book object
+- Return type: None
+
+4. Delete book from database
+
+```java
+deleteBookFromDatabase(isbn)
+```
+
+- Parameters:
+  - ISBN: String (ISBN of the book)
 - Return type: None
