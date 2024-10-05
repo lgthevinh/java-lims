@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="24.7.17">
   <diagram name="Page-1" id="SJ87eWfn9eQxjJyZifXm">
-    <mxGraphModel dx="1136" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="1">
+    <mxGraphModel dx="1373" dy="699" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="1">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -124,7 +124,7 @@
         </mxCell>
         <mxCell id="C1T18Cza7Uqyj3mJv797-62" value="Call function" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="C1T18Cza7Uqyj3mJv797-55">
           <mxGeometry x="-0.1766" y="-1" relative="1" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint x="-1" y="29" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="C1T18Cza7Uqyj3mJv797-53" value="Utils (Services, Authentication,...)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
