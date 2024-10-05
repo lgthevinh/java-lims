@@ -1,6 +1,6 @@
 package org.example;
 
-import java_lims.controller.SplashController;
+import com.lims.controller.SplashController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

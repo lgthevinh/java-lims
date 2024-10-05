@@ -1,4 +1,4 @@
-package java_lims.controller;
+package com.lims.controller;
 
 import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;

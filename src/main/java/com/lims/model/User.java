@@ -1,4 +1,4 @@
-package java_lims.model;
+package com.lims.model;
 
 import java.util.Date;
 
