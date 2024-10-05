@@ -22,3 +22,7 @@ To view the development documents, please visit /docs directory [here](./docs/de
 - **Lương Thế Vinh** - 23020715 ([GitHub](https://github.com/lgthevinh))
 - **Chu Anh Quốc**
 - **Trịnh Ngọc Thống**
+
+## Project Requirements Sheeet
+
+- [Google Docs](https://google.com)
