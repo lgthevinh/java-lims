@@ -1,4 +1,4 @@
-package com.lims.controller;
+package view.controller;
 
 import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class SplashController extends Preloader {
-    private HomeController homeController;
     private Stage preloaderStage;
 
     @Override

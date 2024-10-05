@@ -1,11 +1,11 @@
-package com.lims.controller;
+package view.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
 import java.sql.SQLException;
 
-import static com.lims.DatabaseManager.getAllBooks;
+import static com.lims.dao.DatabaseManager.getAllBooks;
 
 public class HomeController {
     @FXML
