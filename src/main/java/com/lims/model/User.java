@@ -12,8 +12,7 @@ public class User {
     private String email;
     private String password;
 
-    public User(Integer userId, Integer socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password) {
-        this.userId = userId;
+    public User(Integer socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password) {
         this.socialId = socialId;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
