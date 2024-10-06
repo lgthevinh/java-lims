@@ -80,7 +80,7 @@ List<Book> books = getAllBook();
 2. Get book by ISBN
 
 ```java
-Book book = getBookByISBN(isbn;
+Book book = getBookByISBN(isbn);
 ```
 
 - Parameters:
