@@ -65,7 +65,7 @@ Development manual:
 0. Import static methods
 
 ```java
-
+import static com.lims.dao.DatabaseManager.*;
 ```
 
 1. Get all books from the database
@@ -106,3 +106,14 @@ deleteBookFromDatabase(isbn)
 - Parameters:
   - ISBN: String (ISBN of the book)
 - Return type: None
+
+5. Update book in the database
+
+```java
+updateBookInDatabase(book);
+```
+
+- Parameters:
+    - Book: Book object
+- Return type: None
+- Note: This method take book object and get the ISBN from the object and update the book in the database (the ISBN in the object should be the same as the ISBN in the database)
