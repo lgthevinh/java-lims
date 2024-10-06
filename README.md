@@ -25,4 +25,4 @@ To view the development documents, please visit /docs directory [here](./docs/de
 
 ## Project Requirements Sheeet
 
-- [Google Docs]([https://google.com](https://docs.google.com/spreadsheets/d/1KPrj80LEh6aZJvNF8xq1esvCk0cKNqM22anU3czhD0Q/edit?gid=0#gid=0))
+- [Google Docs](https://docs.google.com/spreadsheets/d/1KPrj80LEh6aZJvNF8xq1esvCk0cKNqM22anU3czhD0Q/edit?gid=0#gid=0)
