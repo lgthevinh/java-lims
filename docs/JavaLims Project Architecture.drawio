@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="24.7.17">
   <diagram name="Page-1" id="SJ87eWfn9eQxjJyZifXm">
-    <mxGraphModel dx="1734" dy="883" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="1">
+    <mxGraphModel dx="969" dy="494" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="1">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -66,7 +66,7 @@
             <mxPoint x="-35" y="23" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="C1T18Cza7Uqyj3mJv797-12" value="com.lims.DatabaseManager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="C1T18Cza7Uqyj3mJv797-12" value="com.lims.dao.DatabaseManager" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="478" y="605" width="200" height="60" as="geometry" />
         </mxCell>
         <mxCell id="CGFkXE0XyXRtsUfrexfI-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="C1T18Cza7Uqyj3mJv797-21" target="C1T18Cza7Uqyj3mJv797-12" edge="1">
