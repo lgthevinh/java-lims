@@ -22,10 +22,6 @@ public class User {
         this.password = password;
     }
 
-    public boolean isMatchingPassword(String password) {
-        return password.equals(this.password);
-    }
-
     public Integer getUserId() {
         return userId;
     }
@@ -82,7 +78,12 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
