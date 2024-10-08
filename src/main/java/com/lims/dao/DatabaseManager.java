@@ -43,9 +43,8 @@ public class DatabaseManager {
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Book WHERE isbn = " + isbn);
 
-        if (resultSet.first()) {
-            conn.close();
-            return new Book(
+        if (resultSet.next()) {
+            Book book = new Book(
                     resultSet.getString("isbn"),
                     resultSet.getString("title"),
                     resultSet.getString("author"),
@@ -54,7 +53,10 @@ public class DatabaseManager {
                     resultSet.getString("image_url"),
                     resultSet.getInt("available_amount")
             );
+            conn.close();
+            return book;
         }
+
         conn.close();
         return null;
     }
@@ -127,7 +129,7 @@ public class DatabaseManager {
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM User WHERE id = " + id);
 
-        if (resultSet.first()) {
+        if (resultSet.next()) {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
@@ -138,9 +140,11 @@ public class DatabaseManager {
                     resultSet.getString("password")
             );
             user.setUserId(resultSet.getInt("id"));
+            conn.close();
             return user;
         }
 
+        conn.close();
         return null;
     }
 
