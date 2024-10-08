@@ -143,4 +143,43 @@ public class DatabaseManager {
 
         return null;
     }
+
+    public static void addUserToDatabase(User user) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        String sqlStatement = "INSERT INTO USER VALUES (null ,'%s', '%s', '%s', '%s', '%s', '%s', '%s')".formatted(
+                user.getSocialId(),
+                user.getName(),
+                formatDatetime("yyyy-MM-dd", user.getDateOfBirth()),
+                user.getAddressLine(),
+                user.getPhoneNumber(),
+                user.getEmail(),
+                user.getPassword()
+        );
+        statement.executeUpdate(sqlStatement);
+        conn.close();
+    }
+
+    public static void deleteUserFromDatabase(String user_id) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("DELETE FROM User WHERE id = " + user_id);
+        conn.close();
+    }
+
+    public static void updateUserInDatabase(User user) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("UPDATE User SET social_id = '%s', name = '%s', date_of_birth = '%s', address_line = '%s', phone_number = '%s', email = '%s', password = '%s' WHERE id = %d".formatted(
+                user.getSocialId(),
+                user.getName(),
+                formatDatetime("yyyy-MM-dd", user.getDateOfBirth()),
+                user.getAddressLine(),
+                user.getPhoneNumber(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getUserId()
+        ));
+        conn.close();
+    }
 }
