@@ -24,6 +24,6 @@ public class AuthenticationController implements AuthenticationControllerInterfa
 
     @Override
     public boolean isUserAuthenticated(User user) {
-        return null;
+        return false;
     }
 }
