@@ -11,7 +11,16 @@ interface AuthenticationControllerInterface {
 }
 
 public class AuthenticationController implements AuthenticationControllerInterface {
+    private User authenticatedUser;
 
+    /**
+     * {@code authenticateUser}
+     *
+     * <p>Authenticate user by storing authenticated user object into variable (could use encrypt data in the future)</p>
+     *
+     * @param user The user object in com.lims.model.User.
+     * @since 10-8-2024
+     */
     @Override
     public void authenticateUser(User user) {
 
