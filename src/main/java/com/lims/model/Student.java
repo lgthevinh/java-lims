@@ -7,7 +7,7 @@ public class Student extends User {
     private String school;
     private String major;
 
-    public Student(Integer userId, Integer socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password, Integer studentId, String school, String major) {
+    public Student(Integer userId, String socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password, Integer studentId, String school, String major) {
         super(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
     }
 

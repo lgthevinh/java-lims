@@ -1,6 +1,7 @@
 package com.lims.dao;
 
 import com.lims.model.Book;
+import com.lims.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class DatabaseManager {
         List<Book> books = new ArrayList<>();
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Book LIMIT 100");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Book");
 
         while (resultSet.next()) {
             Book book = new Book(
@@ -37,14 +38,13 @@ public class DatabaseManager {
         return books;
     }
 
-    public static Book getBookByISBN(Integer isbn) throws SQLException {
+    public static Book getBookByISBN(String isbn) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Book WHERE isbn = " + isbn);
 
-        if (resultSet.first()) {
-            conn.close();
-            return new Book(
+        if (resultSet.next()) {
+            Book book = new Book(
                     resultSet.getString("isbn"),
                     resultSet.getString("title"),
                     resultSet.getString("author"),
@@ -53,7 +53,10 @@ public class DatabaseManager {
                     resultSet.getString("image_url"),
                     resultSet.getInt("available_amount")
             );
+            conn.close();
+            return book;
         }
+
         conn.close();
         return null;
     }
@@ -93,6 +96,93 @@ public class DatabaseManager {
                 book.getImageUrl(),
                 book.getAvailableAmount(),
                 book.getIsbn()
+        ));
+        conn.close();
+    }
+
+    public static List<User> getAllUsers() throws SQLException {
+        List<User> userList = new ArrayList<>();
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM User");
+
+        while (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    resultSet.getDate("date_of_birth"),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            user.setUserId(resultSet.getInt("id"));
+            userList.add(user);
+        }
+
+        conn.close();
+        return userList;
+    }
+
+    public static User getUserById(Integer id) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM User WHERE id = " + id);
+
+        if (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    resultSet.getDate("date_of_birth"),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            user.setUserId(resultSet.getInt("id"));
+            conn.close();
+            return user;
+        }
+
+        conn.close();
+        return null;
+    }
+
+    public static void addUserToDatabase(User user) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        String sqlStatement = "INSERT INTO USER VALUES (null ,'%s', '%s', '%s', '%s', '%s', '%s', '%s')".formatted(
+                user.getSocialId(),
+                user.getName(),
+                formatDatetime("yyyy-MM-dd", user.getDateOfBirth()),
+                user.getAddressLine(),
+                user.getPhoneNumber(),
+                user.getEmail(),
+                user.getPassword()
+        );
+        statement.executeUpdate(sqlStatement);
+        conn.close();
+    }
+
+    public static void deleteUserFromDatabase(String user_id) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("DELETE FROM User WHERE id = " + user_id);
+        conn.close();
+    }
+
+    public static void updateUserInDatabase(User user) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("UPDATE User SET social_id = '%s', name = '%s', date_of_birth = '%s', address_line = '%s', phone_number = '%s', email = '%s', password = '%s' WHERE id = %d".formatted(
+                user.getSocialId(),
+                user.getName(),
+                formatDatetime("yyyy-MM-dd", user.getDateOfBirth()),
+                user.getAddressLine(),
+                user.getPhoneNumber(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getUserId()
         ));
         conn.close();
     }
