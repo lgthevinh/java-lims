@@ -15,10 +15,19 @@ public class Main {
         addBookToDatabase(book1);
         addBookToDatabase(book2);
 
-        List<Book> bookList = getAllBooks();
-        Book findBook = getBookByISBN("9780670020553");
+        try {
+            List<Book> bookList = getAllBooks();
+            Book findBook = getBookByISBN("9780670020553");
 
-        System.out.println(bookList.getFirst().getTitle().equals("The House of the Spirits"));
-        System.out.println(findBook != null ? findBook.getTitle() : null);
+            System.out.println(bookList.getFirst().getTitle().equals("The House of the Spirits"));
+            System.out.println(findBook != null ? findBook.getTitle() : null);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        deleteBookFromDatabase(book1.getIsbn());
+        deleteBookFromDatabase(book2.getIsbn());
+
+        System.out.println("List size: " + getAllBooks().size());
     }
 }
