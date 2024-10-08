@@ -4,9 +4,7 @@ import com.lims.model.User;
 
 interface AuthenticationControllerInterface {
     void authenticateUser(User user);
-
     void deleteAuthentication();
-
     boolean isUserAuthenticated(User user);
 }
 
@@ -38,6 +36,14 @@ public class AuthenticationController implements AuthenticationControllerInterfa
 
     }
 
+    /**
+     * {@code isUserAuthenticated}
+     *
+     * <p>Check if user object is match authentication data (authenticatedUser)</p>
+     *
+     * @param user The user object in com.lims.model.User.
+     * @return 10-8-2024
+     */
     @Override
     public boolean isUserAuthenticated(User user) {
         return false;
