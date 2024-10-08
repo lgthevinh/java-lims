@@ -42,7 +42,8 @@ public class AuthenticationController implements AuthenticationControllerInterfa
      * <p>Check if user object is match authentication data (authenticatedUser)</p>
      *
      * @param user The user object in com.lims.model.User.
-     * @return 10-8-2024
+     * @return {@code true} if user is match authentication data, {@code false} if not
+     * @since 10-8-2024
      */
     @Override
     public boolean isUserAuthenticated(User user) {
