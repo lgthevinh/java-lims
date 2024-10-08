@@ -26,6 +26,13 @@ public class AuthenticationController implements AuthenticationControllerInterfa
 
     }
 
+    /**
+     * {@code deleteAuthentication}
+     *
+     * <p>Delete user authentication data from authenticatedUser variable</p>
+     *
+     * @since 10-8-2024
+     */
     @Override
     public void deleteAuthentication() {
 
