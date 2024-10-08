@@ -6,6 +6,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lims.Utils.formatDatetime;
+
 public class DatabaseManager {
     private static final String DB_URL = "jdbc:sqlite:./src/main/resources/database/db.sqlite";
 
@@ -59,26 +61,39 @@ public class DatabaseManager {
     public static void addBookToDatabase(Book book) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        statement.executeUpdate("INSERT INTO Book VALUES (%s, %s, %s, %s, %s, %s, %d)".formatted(
+        String sqlStatement = "INSERT INTO Book VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d)".formatted(
                 book.getIsbn(),
                 book.getTitle(),
                 book.getAuthor(),
-                book.getYearOfPublication(),
+                formatDatetime("yyyy", book.getYearOfPublication()),
                 book.getPublisher(),
                 book.getImageUrl(),
                 book.getAvailableAmount()
-        ));
+        );
+        System.out.println(sqlStatement);
+        statement.executeUpdate(sqlStatement);
         conn.close();
     }
 
     public static void deleteBookFromDatabase(String book_isbn) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        statement.executeUpdate("DELETE FROM Book WHERE isbn = " + book_isbn);
+        statement.executeUpdate("DELETE FROM Book WHERE isbn = '%s'".formatted(book_isbn));
         conn.close();
     }
 
     public static void updateBookInDatabase(Book book) throws SQLException {
-
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("UPDATE Book SET title = '%s', author = '%s', year_of_publication = '%s', publisher = '%s', image_url = '%s', available_amount = '%d' WHERE isbn = '%s'".formatted(
+                book.getTitle(),
+                book.getAuthor(),
+                formatDatetime("yyyy", book.getYearOfPublication()),
+                book.getPublisher(),
+                book.getImageUrl(),
+                book.getAvailableAmount(),
+                book.getIsbn()
+        ));
+        conn.close();
     }
 }
