@@ -121,4 +121,26 @@ public class DatabaseManager {
         conn.close();
         return userList;
     }
+
+    public static User getUserById(Integer id) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM User WHERE id = " + id);
+
+        if (resultSet.first()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    resultSet.getDate("date_of_birth"),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            user.setUserId(resultSet.getInt("id"));
+            return user;
+        }
+
+        return null;
+    }
 }
