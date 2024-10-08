@@ -38,7 +38,7 @@ public class DatabaseManager {
         return books;
     }
 
-    public static Book getBookByISBN(Integer isbn) throws SQLException {
+    public static Book getBookByISBN(String isbn) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Book WHERE isbn = " + isbn);
