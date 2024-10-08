@@ -1,6 +1,7 @@
 package com.lims.dao;
 
 import com.lims.model.Book;
+import com.lims.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class DatabaseManager {
         List<Book> books = new ArrayList<>();
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Book LIMIT 100");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Book");
 
         while (resultSet.next()) {
             Book book = new Book(
@@ -95,5 +96,29 @@ public class DatabaseManager {
                 book.getIsbn()
         ));
         conn.close();
+    }
+
+    public static List<User> getAllUsers() throws SQLException {
+        List<User> userList = new ArrayList<>();
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM User");
+
+        while (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    resultSet.getDate("date_of_birth"),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            user.setUserId(resultSet.getInt("id"));
+            userList.add(user);
+        }
+
+        conn.close();
+        return userList;
     }
 }
