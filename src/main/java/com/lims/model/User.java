@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class User {
     private Integer userId;
-    private Integer socialId;
+    private String socialId;
     private String name;
     private Date dateOfBirth;
     private String addressLine;
@@ -12,7 +12,7 @@ public class User {
     private String email;
     private String password;
 
-    public User(Integer socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password) {
+    public User(String socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password) {
         this.socialId = socialId;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -20,10 +20,6 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
-    }
-
-    public boolean isMatchingPassword(String password) {
-        return password.equals(this.password);
     }
 
     public Integer getUserId() {
@@ -34,11 +30,11 @@ public class User {
         this.userId = userId;
     }
 
-    public Integer getSocialId() {
+    public String getSocialId() {
         return socialId;
     }
 
-    public void setSocialId(Integer socialId) {
+    public void setSocialId(String socialId) {
         this.socialId = socialId;
     }
 
@@ -82,7 +78,12 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
