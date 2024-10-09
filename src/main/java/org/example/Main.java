@@ -40,6 +40,9 @@ public class Main {
         List<User> userList = getAllUsers();
         System.out.println(userList.get(1).getName());
 
+        user1 = userList.getFirst();
+        user2 = userList.get(1);
+
         user1.setAddressLine("Nam Tu Liem, Hanoi");
         updateUserInDatabase(user1);
 
