@@ -117,3 +117,54 @@ updateBookInDatabase(book);
     - Book: Book object
 - Return type: None
 - Note: This method take book object and get the ISBN from the object and update the book in the database (the ISBN in the object should be the same as the ISBN in the database)
+
+6. Get all user from database
+
+```java
+List<User> userList = getAllUser();
+```
+
+- Parameters: None (May implement pagination in the future)
+- Return type: Array list of User objects
+
+7. Get user by user id (id)
+
+```java
+User user = getUserById(id);
+```
+
+- Parameters:
+    - id: int (User id) This parameter should match the id in the database
+- Return type: User object
+
+8. Add new user to the database
+
+```java
+addUserToDatabase(user);
+```
+
+- Parameters:
+    - User: User object
+- Return type: None
+- Note: If the user is already in the database, it will throw an exception (not implemented yet)
+
+9. Delete user from the database
+
+```java
+deleteUserFromDatabase(id);
+```
+
+- Parameters:
+    - id: int (User id) This parameter should match the id in the database
+- Return type: None
+
+10. Update user in the database
+
+```java
+updateUserInDatabase(user);
+```
+
+- Parameters:
+    - User: User object
+- Return type: None
+- Note: This method take user object and get the id from the object and update the user in the database (the id in the object should be the same as the id in the database)
