@@ -1,6 +1,7 @@
 package org.example;
 
 import com.lims.model.Book;
+import com.lims.model.User;
 
 import java.util.List;
 
@@ -29,5 +30,23 @@ public class Main {
         deleteBookFromDatabase(book2.getIsbn());
 
         System.out.println("List size: " + getAllBooks().size());
+
+        User user1 = new User("031205002163", "Luong The Vinh", convertStringToDatetime("yyyy-MM-dd", "2005-08-03"), "S3.03 Vinhomes Smart City, Nam Tu Liem, Hanoi", "0398742752", "everwellmax@gmail.com", "test@123");
+        User user2 = new User("031001102552", "Nguyen Van A", convertStringToDatetime("yyyy-MM-dd", "2004-02-03"), "Nam Tu Liem, Hanoi", "034325345", "nguyenvana@gmail.com", "test@123");
+
+        addUserToDatabase(user1);
+        addUserToDatabase(user2);
+
+        List<User> userList = getAllUsers();
+        System.out.println(userList.get(1).getName());
+
+        user1.setAddressLine("Nam Tu Liem, Hanoi");
+        updateUserInDatabase(user1);
+
+        System.out.println(getUserById(user1.getUserId()).getAddressLine());
+
+        deleteUserFromDatabase(String.valueOf(user1.getUserId()));
+        deleteUserFromDatabase(String.valueOf(user2.getUserId()));
+        System.out.println("User list size: " + getAllUsers().size());
     }
 }
