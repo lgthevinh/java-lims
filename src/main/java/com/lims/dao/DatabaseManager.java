@@ -4,9 +4,11 @@ import com.lims.model.Book;
 import com.lims.model.User;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lims.Utils.convertStringToDatetime;
 import static com.lims.Utils.formatDatetime;
 
 public class DatabaseManager {
@@ -100,7 +102,7 @@ public class DatabaseManager {
         conn.close();
     }
 
-    public static List<User> getAllUsers() throws SQLException {
+    public static List<User> getAllUsers() throws SQLException, ParseException {
         List<User> userList = new ArrayList<>();
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
@@ -110,7 +112,7 @@ public class DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    resultSet.getDate("date_of_birth"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -124,7 +126,7 @@ public class DatabaseManager {
         return userList;
     }
 
-    public static User getUserById(Integer id) throws SQLException {
+    public static User getUserById(Integer id) throws SQLException, ParseException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM User WHERE id = " + id);
@@ -133,7 +135,7 @@ public class DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    resultSet.getDate("date_of_birth"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
