@@ -1,19 +1,27 @@
 package view.controller;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import java.sql.SQLException;
+public class HomeController extends Application {
 
-import static com.lims.dao.DatabaseManager.getAllBooks;
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/HomeScene.fxml"));
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("Anydev J-LiMS");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-public class HomeController {
-    @FXML
-    private ListView book_list;
-
-    @FXML
-    public void initialize() throws SQLException {
-        System.out.println("Run initializer");
-        book_list.getItems().addAll(getAllBooks());
+    public static void main(String[] args) {
+        launch(args);
     }
 }
