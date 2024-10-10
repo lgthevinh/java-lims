@@ -1,6 +1,7 @@
 package com.lims.dao;
 
 import com.lims.model.Book;
+import com.lims.model.Librarian;
 import com.lims.model.User;
 
 import java.sql.*;
@@ -166,10 +167,10 @@ public class DatabaseManager {
         conn.close();
     }
 
-    public static void deleteUserFromDatabase(String user_id) throws SQLException {
+    public static void deleteUserFromDatabase(User user) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        statement.executeUpdate("DELETE FROM User WHERE id = " + user_id);
+        statement.executeUpdate("DELETE FROM User WHERE id = " + user.getUserId());
         conn.close();
     }
 
@@ -187,5 +188,62 @@ public class DatabaseManager {
                 user.getUserId()
         ));
         conn.close();
+    }
+
+    public static List<Librarian> getAllLibrarian() throws SQLException, ParseException {
+        List<Librarian> librarianList = new ArrayList<>();
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Librarian INNER JOIN User ON Librarian.user_id = User.id");
+        while (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            Librarian librarian = new Librarian(user, resultSet.getInt("emp_id"));
+            librarianList.add(librarian);
+        }
+        conn.close();
+        return librarianList;
+    }
+
+    public static Librarian getLibrarianByEmpId(Integer empId) throws SQLException, ParseException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Librarian INNER JOIN User ON Librarian.user_id = User.id WHERE emp_id = " + empId);
+        if (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            Librarian librarian = new Librarian(user, resultSet.getInt("emp_id"));
+            conn.close();
+            return librarian;
+        }
+        conn.close();
+        return null;
+    }
+
+    public static void addLibrarianToDatabase(Librarian librarian) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("INSERT INTO Librarian VALUES (null , '%s')".formatted(librarian.getUserId()));
+        conn.close();
+    }
+
+    public static void deleteLibrarianFromDatabase(Librarian librarian) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("DELETE FROM Librarian WHERE emp_id = " + librarian.getEmpId());
     }
 }
