@@ -1,12 +1,12 @@
 package com.lims.model;
 
-import java.util.Date;
-
 public class Librarian extends User {
     private Integer empId;
 
-    public Librarian(Integer userId, String socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password) {
-        super(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
+    public Librarian(User user, Integer empId) {
+        super(user.getSocialId(), user.getName(), user.getDateOfBirth(), user.getAddressLine(), user.getPhoneNumber(), user.getEmail(), user.getPassword());
+        this.setUserId(user.getUserId());
+        this.empId = empId;
     }
 
     public Integer getEmpId() {
