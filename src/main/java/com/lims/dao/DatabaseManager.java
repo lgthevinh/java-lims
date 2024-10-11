@@ -1,7 +1,6 @@
 package com.lims.dao;
 
-import com.lims.model.Book;
-import com.lims.model.User;
+import com.lims.model.*;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -166,10 +165,10 @@ public class DatabaseManager {
         conn.close();
     }
 
-    public static void deleteUserFromDatabase(String user_id) throws SQLException {
+    public static void deleteUserFromDatabase(User user) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        statement.executeUpdate("DELETE FROM User WHERE id = " + user_id);
+        statement.executeUpdate("DELETE FROM User WHERE id = " + user.getUserId());
         conn.close();
     }
 
@@ -185,6 +184,210 @@ public class DatabaseManager {
                 user.getEmail(),
                 user.getPassword(),
                 user.getUserId()
+        ));
+        conn.close();
+    }
+
+    public static List<Librarian> getAllLibrarian() throws SQLException, ParseException {
+        List<Librarian> librarianList = new ArrayList<>();
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Librarian INNER JOIN User ON Librarian.user_id = User.id");
+        while (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            Librarian librarian = new Librarian(user);
+            librarian.setEmpId(resultSet.getInt("emp_id"));
+            librarianList.add(librarian);
+        }
+        conn.close();
+        return librarianList;
+    }
+
+    public static Librarian getLibrarianByEmpId(Integer empId) throws SQLException, ParseException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Librarian INNER JOIN User ON Librarian.user_id = User.id WHERE emp_id = " + empId);
+        if (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            Librarian librarian = new Librarian(user);
+            librarian.setEmpId(resultSet.getInt("emp_id"));
+            conn.close();
+            return librarian;
+        }
+        conn.close();
+        return null;
+    }
+
+    public static void addLibrarianToDatabase(Librarian librarian) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("INSERT INTO Librarian VALUES (null , '%s')".formatted(librarian.getUserId()));
+        conn.close();
+    }
+
+    public static void deleteLibrarianFromDatabase(Librarian librarian) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("DELETE FROM Librarian WHERE emp_id = " + librarian.getEmpId());
+    }
+
+    public static List<Student> getAllStudents() throws SQLException, ParseException {
+        List<Student> studentList = new ArrayList<>();
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Student");
+        while (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            Student student = new Student(user);
+            student.setStudentId(resultSet.getString("student_id"));
+            student.setSchool(resultSet.getString("school_name"));
+            student.setMajor(resultSet.getString("major"));
+            studentList.add(student);
+        }
+        conn.close();
+        return studentList;
+    }
+
+    public static Student getStudentByStudentId(String student_id) throws SQLException, ParseException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Student INNER JOIN User ON Student.user_id = User.id WHERE student_id = '%s'".formatted(student_id));
+        if (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            Student student = new Student(user);
+            student.setStudentId(resultSet.getString("student_id"));
+            student.setSchool(resultSet.getString("school_name"));
+            student.setMajor(resultSet.getString("major"));
+            conn.close();
+            return student;
+        }
+        conn.close();
+        return null;
+    }
+
+    public static void addStudentToDatabase(Student student) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("INSERT INTO Student VALUES ('%s', %d, '%s', %s)".formatted(
+                student.getStudentId(),
+                student.getUserId(),
+                student.getSchool(),
+                student.getMajor()
+        ));
+        conn.close();
+    }
+
+    public static void deleteStudentFromDatabase(Student student) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("DELETE FROM Student where student_id = '%s'".formatted(student.getStudentId()));
+        conn.close();
+    }
+
+    public static void updateStudentInDatabase(Student student) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("UPDATE Student SET student_id = '%s', school_name = '%s', major = '%s' WHERE user_id = %d".formatted(
+                student.getStudentId(),
+                student.getSchool(),
+                student.getMajor(),
+                student.getUserId()
+        ));
+        conn.close();
+    }
+
+    public static List<BorrowDetail> getAllBorrowDetail() throws SQLException {
+        List<BorrowDetail> borrowDetailList = new ArrayList<>();
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM BorrowDetail");
+        return borrowDetailList;
+    }
+
+    public static BorrowDetail getBorrowDetailById(Integer id) throws SQLException, ParseException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM BorrowDetail WHERE id = " + id);
+        if (resultSet.next()) {
+            BorrowDetail borrowDetail = new BorrowDetail(
+                    resultSet.getString("book_isbn"),
+                    resultSet.getInt("borrower_id"),
+                    resultSet.getInt("librarian_id"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("borrow_date")),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("expected_return_date")),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("actual_return_date"))
+            );
+            conn.close();
+            return borrowDetail;
+        }
+        conn.close();
+        return null;
+    }
+
+    public static void addBorrowDetailToDatabase(BorrowDetail borrowDetail) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("INSERT INTO BorrowDetail VALUES (null, '%s', %d, %d, '%s', '%s', '%s')".formatted(
+                borrowDetail.getBookIsbn(),
+                borrowDetail.getBorrowerId(),
+                borrowDetail.getLibrarianId(),
+                formatDatetime("yyyy-MM-dd", borrowDetail.getBorrowDate()),
+                formatDatetime("yyyy-MM-dd", borrowDetail.getExpectedReturnDate()),
+                formatDatetime("yyyy-MM-dd", borrowDetail.getActualReturnDate())
+        ));
+        conn.close();
+    }
+
+    public static void deleteBorrowDetailFromDatabase(BorrowDetail borrowDetail) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("DELETE FROM BorrowDetail WHERE id = " + borrowDetail.getId());
+        conn.close();
+    }
+
+    public static void updateBorrowDetailInDatabase(BorrowDetail borrowDetail) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("UPDATE BorrowDetail SET book_isbn = '%s', borrower_id = %d, librarian_id = %d, borrow_date = '%s', expected_return_date = '%s', actual_return_date = '%s' WHERE id = %d".formatted(
+                borrowDetail.getBookIsbn(),
+                borrowDetail.getBorrowerId(),
+                borrowDetail.getLibrarianId(),
+                borrowDetail.getBorrowDate(),
+                borrowDetail.getExpectedReturnDate(),
+                borrowDetail.getActualReturnDate(),
+                borrowDetail.getId()
         ));
         conn.close();
     }

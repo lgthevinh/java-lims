@@ -60,7 +60,7 @@ means only one instance of this class can be created. You can find the
 class [here](/com/lims/model/DatabaseManager.java). DAO (Data Access Object) pattern is used in this class. You can find
 more information about the DAO pattern [here](https://en.wikipedia.org/wiki/Data_access_object).
 
-Development manual:
+### Development manual:
 
 0. Import static methods
 
@@ -168,3 +168,164 @@ updateUserInDatabase(user);
     - User: User object
 - Return type: None
 - Note: This method take user object and get the id from the object and update the user in the database (the id in the object should be the same as the id in the database)
+
+11. Get all librarian from the database
+
+```java
+List<Librarian> librarianList = getAllLibrarian();
+```
+
+- Parameters: None
+- Return type: Array list of Librarian objects
+
+12. Get librarian by librarian id (emp_id)
+
+```java
+Librarian librarian = getLibrarianById(emp_id);
+```
+
+- Parameters:
+    - emp_id: int (Librarian id) This parameter should match the emp_id in the database
+- Return type: Librarian object
+
+13. Add new librarian to the database
+
+```java
+addLibrarianToDatabase(librarian);
+```
+
+- Parameters:
+    - Librarian: Librarian object
+- Return type: None
+- Note: If the librarian is already in the database, it will throw an exception
+
+14. Delete librarian from the database
+
+```java
+deleteLibrarianFromDatabase(librarian);
+```
+
+- Parameters:
+    - Librarian: Librarian object
+- Return type: None
+
+16. Get all student from the database
+
+```java
+List<Student> studentList = getAllStudent();
+```
+
+- Parameters: None
+- Return type: Array list of Student objects
+
+17. Get student by student id (id)
+
+```java
+Student student = getStudentById(id);
+```
+
+- Parameters:
+    - id: int (Student id) This parameter should match the id in the database
+- Return type: Student object
+
+18. Add new student to the database
+
+```java
+addStudentToDatabase(student);
+```
+
+- Parameters:
+    - Student: Student object
+- Return type: None
+- Note: If the student is already in the database, it will throw an exception
+
+19. Delete student from the database
+
+```java
+deleteStudentFromDatabase(student);
+```
+
+- Parameters:
+    - Student: Student object
+- Return type: None
+- Note: This method will delete the student from the database, 
+
+20. Update student in the database
+
+```java
+updateStudentInDatabase(student);
+```
+
+- Parameters:
+    - Student: Student object
+- Return type: None
+- Note: This method take student object and get the id from the object and update the student in the database (the id in the object should be the same as the id in the database)
+
+21. Get all borrow details from the database
+
+```java
+List<BorrowDetail> borrowDetails = getAllBorrowDetail();
+```
+
+- Parameters: None
+- Return type: Array list of BorrowDetail objects
+
+22. Get borrow detail by borrow id
+
+```java
+BorrowDetail borrowDetail = getBorrowDetailById(borrow_id);
+```
+
+- Parameters:
+    - borrow_id: int (Borrow id) This parameter should match the borrow_id in the database
+- Return type: BorrowDetail object
+
+23. Add new borrow detail to the database
+
+```java
+addBorrowDetailToDatabase(borrowDetail);
+```
+
+- Parameters:
+    - BorrowDetail: BorrowDetail object
+- Return type: None
+
+24. Delete borrow detail from the database
+
+```java
+deleteBorrowDetailFromDatabase(borrowDetail);
+```
+
+- Parameters:
+    - BorrowDetail: BorrowDetail object
+- Return type: None
+- Note: This method will delete the borrow detail from the database, be sure the id in the borrow detail object is the same as the id of the data in the database
+
+25. Update borrow detail in the database
+
+```java
+updateBorrowDetailInDatabase(borrowDetail);
+```
+
+- Parameters:
+    - BorrowDetail: BorrowDetail object
+- Return type: None
+- Note: This method take borrow detail object and get the id from the object and update the borrow detail in the database (the id in the object should be the same as the id in the database)
+
+### Versioning
+
+Some of the methods or features may not be implemented yet, we will keep note of the changes in the versioning in this document.
+
+- Version 1.0.0: Initial release
+    - Basic CRUD operations for Book, User, Librarian, Student and BorrowDetail (all base on Object class, no primitive data type parameters implemented yet)
+    - Singleton class
+    - No exception handling
+    - No pagination
+    - Manual testing (no unit test created yet)
+
+Bucket list for the next version:
+- [ ] Implement exception handling
+- [ ] Implement pagination
+- [ ] Implement primitive data type parameters or multiple methods for different data types for complex queries
+- [ ] Singleton class with extends DAOs object 
+- [ ] Unit tests
