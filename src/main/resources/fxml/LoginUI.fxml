@@ -24,8 +24,8 @@
                   <Font name="System Bold" size="34.0" />
                </font>
             </Label>
-            <PasswordField layoutX="70.0" layoutY="367.0" prefHeight="40.0" prefWidth="345.0" promptText="********" style="-fx-background-color: #F5F5F5; -fx-background-radius: 5; -fx-border-color: #DDDDDD; -fx-border-radius: 5; -fx-padding: 8 10; -fx-font-size: 14px;" />
-            <TextField layoutX="70.0" layoutY="278.0" prefHeight="40.0" prefWidth="345.0" promptText="example@gmail.com" style="-fx-background-color: #F5F5F5; -fx-background-radius: 5; -fx-border-color: #DDDDDD; -fx-border-radius: 5; -fx-padding: 8 10; -fx-font-size: 14px;" />
+            <PasswordField layoutX="70.0" layoutY="367.0" prefHeight="40.0" prefWidth="345.0" promptText="********" stylesheets="@../CSS/css/LoginUser/Field.css" />
+            <TextField layoutX="70.0" layoutY="278.0" prefHeight="40.0" prefWidth="345.0" promptText="example@gmail.com" stylesheets="@../CSS/css/LoginUser/Field.css" />
             <ImageView fitHeight="176.0" fitWidth="314.0" layoutX="85.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/Login-bg.png" />
@@ -41,7 +41,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <CheckBox layoutX="63.0" layoutY="421.0" mnemonicParsing="false" opacity="0.6" prefHeight="23.0" prefWidth="125.0" style="-fx-padding: 4;" text="Remember me">
+            <CheckBox layoutX="70.0" layoutY="422.0" mnemonicParsing="false" opacity="0.6" prefHeight="23.0" prefWidth="125.0" stylesheets="@../CSS/css/LoginUser/CheckBox.css" text="Remember me">
                <font>
                   <Font size="11.0" />
                </font>
@@ -56,12 +56,12 @@
                   <Font size="14.0" />
                </font>
             </Hyperlink>
-            <Button fx:id="signInButton" layoutX="68.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="345.0" style="-fx-background-color: #416abf; -fx-background-radius: 8; -fx-padding: 8 20; -fx-font-weight: bold; -fx-font-size: 14px;" text="Sign In" textFill="WHITE">
+            <Button fx:id="signInButton" layoutX="68.0" layoutY="474.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="345.0" styleClass="Button" stylesheets="@../CSS/css/LoginUser/Button.css" text="Sign In" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Hyperlink alignment="CENTER_RIGHT" layoutX="300.0" layoutY="423.0" prefHeight="24.0" prefWidth="124.0" text="Forgot Password?" underline="true" />
+            <Hyperlink alignment="CENTER_RIGHT" layoutX="289.0" layoutY="422.0" prefHeight="24.0" prefWidth="124.0" text="Forgot Password?" underline="true" />
             <Label alignment="CENTER" layoutX="-4.0" prefHeight="101.0" prefWidth="233.0" style="-fx-text-fill: #002e73;" text="J-LiMS" textFill="#051197">
                <font>
                   <Font name="System Bold" size="49.0" />
