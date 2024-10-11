@@ -5,11 +5,8 @@ public class Student extends User {
     private String school;
     private String major;
 
-    public Student(User user, String studentId, String school, String major) {
+    public Student(User user) {
         super(user.getSocialId(), user.getName(), user.getDateOfBirth(), user.getAddressLine(), user.getPhoneNumber(), user.getEmail(), user.getPassword());
-        this.studentId = studentId;
-        this.school = school;
-        this.major = major;
     }
 
     public String getStudentId() {
