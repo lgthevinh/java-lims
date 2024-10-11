@@ -168,3 +168,95 @@ updateUserInDatabase(user);
     - User: User object
 - Return type: None
 - Note: This method take user object and get the id from the object and update the user in the database (the id in the object should be the same as the id in the database)
+
+11. Get all librarian from the database
+
+```java
+List<Librarian> librarianList = getAllLibrarian();
+```
+
+- Parameters: None
+- Return type: Array list of Librarian objects
+
+12. Get librarian by librarian id (emp_id)
+
+```java
+Librarian librarian = getLibrarianById(emp_id);
+```
+
+- Parameters:
+    - emp_id: int (Librarian id) This parameter should match the emp_id in the database
+- Return type: Librarian object
+
+13. Add new librarian to the database
+
+```java
+addLibrarianToDatabase(librarian);
+```
+
+- Parameters:
+    - Librarian: Librarian object
+- Return type: None
+- Note: If the librarian is already in the database, it will throw an exception
+
+14. Delete librarian from the database
+
+```java
+deleteLibrarianFromDatabase(librarian);
+```
+
+- Parameters:
+    - Librarian: Librarian object
+- Return type: None
+
+16. Get all student from the database
+
+```java
+List<Student> studentList = getAllStudent();
+```
+
+- Parameters: None
+- Return type: Array list of Student objects
+
+17. Get student by student id (id)
+
+```java
+Student student = getStudentById(id);
+```
+
+- Parameters:
+    - id: int (Student id) This parameter should match the id in the database
+- Return type: Student object
+
+18. Add new student to the database
+
+```java
+addStudentToDatabase(student);
+```
+
+- Parameters:
+    - Student: Student object
+- Return type: None
+- Note: If the student is already in the database, it will throw an exception
+
+19. Delete student from the database
+
+```java
+deleteStudentFromDatabase(student);
+```
+
+- Parameters:
+    - Student: Student object
+- Return type: None
+- Note: This method will delete the student from the database, 
+
+20. Update student in the database
+
+```java
+updateStudentInDatabase(student);
+```
+
+- Parameters:
+    - Student: Student object
+- Return type: None
+- Note: This method take student object and get the id from the object and update the student in the database (the id in the object should be the same as the id in the database)
