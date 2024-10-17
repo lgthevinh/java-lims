@@ -1,0 +1,82 @@
+package com.lims.dao;
+
+import com.lims.model.BorrowDetail;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.lims.Utils.convertStringToDatetime;
+import static com.lims.Utils.formatDatetime;
+
+public class BorrowDetailDAO extends DatabaseManager {
+
+    public static List<BorrowDetail> getAllBorrowDetail() throws SQLException {
+        List<BorrowDetail> borrowDetailList = new ArrayList<>();
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM BorrowDetail");
+        return borrowDetailList;
+    }
+
+    public static BorrowDetail getBorrowDetailById(Integer id) throws SQLException, ParseException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM BorrowDetail WHERE id = " + id);
+        if (resultSet.next()) {
+            BorrowDetail borrowDetail = new BorrowDetail(
+                    resultSet.getString("book_isbn"),
+                    resultSet.getInt("borrower_id"),
+                    resultSet.getInt("librarian_id"),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("borrow_date")),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("expected_return_date")),
+                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("actual_return_date"))
+            );
+            conn.close();
+            return borrowDetail;
+        }
+        conn.close();
+        return null;
+    }
+
+    public static void addBorrowDetailToDatabase(BorrowDetail borrowDetail) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("INSERT INTO BorrowDetail VALUES (null, '%s', %d, %d, '%s', '%s', '%s')".formatted(
+                borrowDetail.getBookIsbn(),
+                borrowDetail.getBorrowerId(),
+                borrowDetail.getLibrarianId(),
+                formatDatetime("yyyy-MM-dd", borrowDetail.getBorrowDate()),
+                formatDatetime("yyyy-MM-dd", borrowDetail.getExpectedReturnDate()),
+                formatDatetime("yyyy-MM-dd", borrowDetail.getActualReturnDate())
+        ));
+        conn.close();
+    }
+
+    public static void deleteBorrowDetailFromDatabase(BorrowDetail borrowDetail) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("DELETE FROM BorrowDetail WHERE id = " + borrowDetail.getId());
+        conn.close();
+    }
+
+    public static void updateBorrowDetailInDatabase(BorrowDetail borrowDetail) throws SQLException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        statement.executeUpdate("UPDATE BorrowDetail SET book_isbn = '%s', borrower_id = %d, librarian_id = %d, borrow_date = '%s', expected_return_date = '%s', actual_return_date = '%s' WHERE id = %d".formatted(
+                borrowDetail.getBookIsbn(),
+                borrowDetail.getBorrowerId(),
+                borrowDetail.getLibrarianId(),
+                borrowDetail.getBorrowDate(),
+                borrowDetail.getExpectedReturnDate(),
+                borrowDetail.getActualReturnDate(),
+                borrowDetail.getId()
+        ));
+        conn.close();
+    }
+
+}
