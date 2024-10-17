@@ -65,7 +65,9 @@ more information about the DAO pattern [here](https://en.wikipedia.org/wiki/Data
 0. Import static methods
 
 ```java
-import static com.lims.dao.DatabaseManager.*;
+// import static com.lims.dao.DatabaseManager.*; (All methods are structurize in DAO Objects) (version 2)
+
+import static com.lims.dao.*;
 ```
 
 1. Get all books from the database
@@ -192,10 +194,14 @@ Librarian librarian = getLibrarianById(emp_id);
 
 ```java
 addLibrarianToDatabase(librarian);
+
+// OR
+addLirarianToDatabase(user); // Recommended
 ```
 
 - Parameters:
-    - Librarian: Librarian object
+  - Method 1: Librarian object
+  - Method 2: User object (this is recommended due to complex logic when construct Librarian object)
 - Return type: None
 - Note: If the librarian is already in the database, it will throw an exception
 
@@ -232,10 +238,14 @@ Student student = getStudentById(id);
 
 ```java
 addStudentToDatabase(student);
+
+// OR
+addStudentToDatabase(user, studentId, school, major);
 ```
 
 - Parameters:
-    - Student: Student object
+  - Method 1: Student object
+  - Method 2: User object, String, String, String
 - Return type: None
 - Note: If the student is already in the database, it will throw an exception
 
@@ -323,9 +333,11 @@ Some of the methods or features may not be implemented yet, we will keep note of
     - No pagination
     - Manual testing (no unit test created yet)
 
-Bucket list for the next version:
+Bucket list for version 2:
 - [ ] Implement exception handling
 - [ ] Implement pagination
-- [ ] Implement primitive data type parameters or multiple methods for different data types for complex queries
-- [ ] Singleton class with extends DAOs object 
+- [x] Overloading constructor methods
+- [ ] Overloading CRUD methods (with filter)
+- [x] ~~Singleton class with extends DAOs object~~ Multi-DAO Objects implemented
 - [ ] Unit tests
+- [ ] Version documents
