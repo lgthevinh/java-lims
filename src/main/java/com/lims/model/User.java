@@ -12,6 +12,9 @@ public class User {
     private String email;
     private String password;
 
+    public User() {
+    }
+
     public User(String socialId, String name, Date dateOfBirth, String addressLine, String phoneNumber, String email, String password) {
         this.socialId = socialId;
         this.name = name;
