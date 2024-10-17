@@ -61,7 +61,7 @@ public class BookDAO extends DatabaseManager {
     public static void addBookToDatabase(Book book) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        String sqlStatement = "INSERT INTO Book VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d)".formatted(
+        statement.executeUpdate("INSERT INTO Book VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d)".formatted(
                 book.getIsbn(),
                 book.getTitle(),
                 book.getAuthor(),
@@ -69,9 +69,7 @@ public class BookDAO extends DatabaseManager {
                 book.getPublisher(),
                 book.getImageUrl(),
                 book.getAvailableAmount()
-        );
-        System.out.println(sqlStatement);
-        statement.executeUpdate(sqlStatement);
+        ));
         conn.close();
     }
 
