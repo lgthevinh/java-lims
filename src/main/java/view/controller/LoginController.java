@@ -1,48 +1,27 @@
+// src/main/java/com/example/LoginController.java
 package view.controller;
 
-import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class LoginController extends Application {
+import java.io.IOException;
+
+public class LoginController {
 
     @FXML
-    private Button signInButton;
+    private void handleSignUpAction(ActionEvent event) throws IOException {
+        Parent signUpParent = FXMLLoader.load(getClass().getResource("/fxml/SignUp.fxml"));
+        Scene signUpScene = new Scene(signUpParent);
 
-    @Override
-    public void start(Stage primaryStage) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginUI.fxml"));
-            Scene scene = new Scene(root);
-            primaryStage.setTitle("Anydev J-LiMS");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Get the stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(signUpScene);
+        window.show();
     }
 
-    @FXML
-    public void initialize() {
-        signInButton.setOnAction(event -> {
-            try {
-                Parent homeRoot = FXMLLoader.load(getClass().getResource("/fxml/HomeScene.fxml"));
-                Scene homeScene = new Scene(homeRoot);
-                Stage primaryStage = (Stage) signInButton.getScene().getWindow();
-                primaryStage.setScene(homeScene);
-                primaryStage.setTitle("Anydev J-LiMS");
-                primaryStage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

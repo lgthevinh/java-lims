@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.LoginController">
    <children>
       <ImageView fitHeight="578.0" fitWidth="929.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -49,13 +49,13 @@
          </font>
       </PasswordField>
       <Hyperlink layoutX="536.0" layoutY="346.0" styleClass="custom-style" stylesheets="@../css/Login/Font3.css" text="Forgot Password?" />
-      <Button layoutX="542.0" layoutY="377.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="297.0" styleClass="custom-style" stylesheets="@../css/Login/Button.css" text="LOGIN" textFill="WHITE">
+      <Button layoutX="540.0" layoutY="377.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="291.0" styleClass="custom-style" stylesheets="@../css/Login/Button.css" text="LOGIN" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
       <Label layoutX="552.0" layoutY="516.0" prefHeight="21.0" prefWidth="210.0" styleClass="custom-style" stylesheets="@../css/Login/Font4.css" text="Don’t have an account?  Let’s" />
-      <Hyperlink layoutX="743.0" layoutY="512.0" styleClass="custom-style" stylesheets="@../css/Login/Font4.css" text="SIGN UP" />
+      <Hyperlink layoutX="743.0" layoutY="512.0" onAction="#handleSignUpAction" styleClass="custom-style" stylesheets="@../css/Login/Font4.css" text="SIGN UP" />
       <Label contentDisplay="CENTER" layoutX="84.0" layoutY="242.0" prefHeight="188.0" prefWidth="273.0" styleClass="custom-style" stylesheets="@../css/Login/Font5.css" text="J-LiMS is a computerized system for libraries to manage books, manage students, calculate fines, produce reports, and manage daily book transactions." textFill="#fffafa" textOverrun="WORD_ELLIPSIS" wrapText="true">
          <font>
             <Font size="46.0" />
