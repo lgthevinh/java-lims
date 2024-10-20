@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="981.0" prefWidth="1745.0" style="-fx-background-color: #E8E8E8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.HomeController">
+   <children>
+      <AnchorPane prefHeight="981.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="11.0" layoutY="915.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Login-bg.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="66.0" layoutX="81.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icon-0.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="56.0" layoutY="85.0" prefHeight="39.0" prefWidth="111.0" styleClass="custom-style" text="J-LiMS" textFill="#c56e33">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="2.0" layoutY="79.0" prefHeight="51.0" prefWidth="222.0" styleClass="custom-style" stylesheets="@../css/Login/Font1.css" text="                 " underline="true">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="122.0" text="Java Library Mangement System" textFill="#c56e33" />
+            <Button layoutX="24.0" layoutY="172.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="174.0" style="-fx-background-radius: 16;" styleClass="your-class" text="Dashboard" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0">
+               <stylesheets>
+                  <URL value="@../css/Home/Font1.css" />
+                  <URL value="@../css/Home/Button1.css" />
+               </stylesheets>
+            </Button>
+            <Button layoutX="17.0" layoutY="330.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="191.0" style="-fx-background-radius: 16;" styleClass="your-class" text="Book" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0">
+               <stylesheets>
+                  <URL value="@../css/Home/Button2.css" />
+                  <URL value="@../css/Home/Font2.css" />
+               </stylesheets>
+            </Button>
+            <Button layoutX="16.0" layoutY="409.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="191.0" style="-fx-background-radius: 16;" styleClass="your-class" text="Users" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0">
+               <stylesheets>
+                  <URL value="@../css/Home/Button2.css" />
+                  <URL value="@../css/Home/Font2.css" />
+               </stylesheets>
+            </Button>
+            <Button layoutX="18.0" layoutY="251.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="191.0" style="-fx-background-radius: 16;" styleClass="your-class" text="Catalog" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0">
+               <stylesheets>
+                  <URL value="@../css/Home/Button2.css" />
+                  <URL value="@../css/Home/Font2.css" />
+               </stylesheets>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="275.0" prefHeight="110.0" prefWidth="1133.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0px 0px 0px 20px;" AnchorPane.bottomAnchor="872.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="381.0" AnchorPane.topAnchor="-1.0" />
+      <AnchorPane layoutX="1364.0" prefHeight="110.0" prefWidth="382.0" style="-fx-background-color: #FFFFFF;" />
+      <AnchorPane prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="690.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="147.0" />
+      <AnchorPane layoutX="255.0" layoutY="347.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="514.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="323.0" />
+      <AnchorPane layoutX="255.0" layoutY="570.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="336.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="501.0" />
+      <AnchorPane layoutX="255.0" layoutY="764.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="674.0" />
+      <AnchorPane prefHeight="727.0" prefWidth="732.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="655.0" AnchorPane.rightAnchor="358.0" AnchorPane.topAnchor="164.0" />
+      <AnchorPane prefHeight="134.0" prefWidth="283.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" AnchorPane.bottomAnchor="683.0" AnchorPane.leftAnchor="1430.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="164.0" />
+      <AnchorPane prefHeight="603.0" prefWidth="283.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="1430.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="322.0" />
+   </children>
+</AnchorPane>

@@ -11,7 +11,7 @@ public class HomeController extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/HomeScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/HomeDashboard.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setTitle("Anydev J-LiMS");
             primaryStage.setScene(scene);
