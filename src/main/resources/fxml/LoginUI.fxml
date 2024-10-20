@@ -48,7 +48,7 @@
             <Font size="14.0" />
          </font>
       </PasswordField>
-      <Hyperlink layoutX="536.0" layoutY="346.0" styleClass="custom-style" stylesheets="@../css/Login/Font3.css" text="Forgot Password?" />
+      <Hyperlink layoutX="536.0" layoutY="346.0" styleClass="custom-style" stylesheets="@../css/Login/Font3.css" text="Forgot Password?" onAction="#handleForgotPasswordAction"/>
       <Button layoutX="540.0" layoutY="377.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="291.0" styleClass="custom-style" stylesheets="@../css/Login/Button.css" text="LOGIN" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
