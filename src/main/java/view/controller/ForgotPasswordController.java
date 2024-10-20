@@ -26,4 +26,20 @@ public class ForgotPasswordController {
             e.printStackTrace();
         }
     }
+    public void handleResetPasswordAction(ActionEvent event) {
+        try {
+            // Load the login UI
+            Parent loginRoot = FXMLLoader.load(getClass().getResource("/fxml/ResetPassword.fxml"));
+            Scene loginScene = new Scene(loginRoot);
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the login scene
+            stage.setScene(loginScene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
