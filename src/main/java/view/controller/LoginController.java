@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import animatefx.animation.ZoomIn;
 
 import java.io.IOException;
 
@@ -23,6 +24,12 @@ public class LoginController {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(signUpScene);
         window.show();
+
+        // Create a fade transition
+        FadeTransition fadeTransition = new FadeTransition(javafx.util.Duration.millis(1000), signUpParent);
+        fadeTransition.setFromValue(0.8);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
     }
 
     @FXML
@@ -43,6 +50,7 @@ public class LoginController {
 
         // Play the fade transition
         fadeTransition.play();
+        new ZoomIn(homeParent).play();
     }
 
     public void handleForgotPasswordAction(ActionEvent event) {
@@ -57,8 +65,15 @@ public class LoginController {
             // Set the forgot password scene
             stage.setScene(forgotPasswordScene);
             stage.centerOnScreen();
+
+            // Create a fade transition
+            FadeTransition fadeTransition = new FadeTransition(javafx.util.Duration.millis(1000), forgotPasswordScene.getRoot());
+            fadeTransition.setFromValue(0.8);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

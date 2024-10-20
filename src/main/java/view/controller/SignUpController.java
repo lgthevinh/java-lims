@@ -1,5 +1,6 @@
 package view.controller;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +23,12 @@ public class SignUpController {
             // Set the login scene
             stage.setScene(loginScene);
             stage.centerOnScreen();
+
+            // Create a fade transition
+            FadeTransition fadeTransition = new FadeTransition(javafx.util.Duration.millis(1000), loginRoot);
+            fadeTransition.setFromValue(0.8);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.play();
         } catch (IOException e) {
             e.printStackTrace();
         }

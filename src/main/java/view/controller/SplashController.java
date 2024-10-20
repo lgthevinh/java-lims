@@ -1,5 +1,7 @@
 package view.controller;
 
+import animatefx.animation.FadeOut;
+import animatefx.animation.ZoomIn;
 import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +21,7 @@ public class SplashController extends Preloader {
         stage.setScene(new Scene(root));
         stage.centerOnScreen();
         stage.show();
+
     }
 
     @Override

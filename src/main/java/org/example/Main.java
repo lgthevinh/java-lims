@@ -1,5 +1,6 @@
 package org.example;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,5 +33,11 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();
         primaryStage.show();
+
+        // Create a fade transition
+        FadeTransition fadeTransition = new FadeTransition(javafx.util.Duration.millis(1000), root);
+        fadeTransition.setFromValue(0.8);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
     }
 }
