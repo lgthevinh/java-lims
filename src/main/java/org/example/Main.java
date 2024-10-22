@@ -29,7 +29,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginUI.fxml"));
 
         primaryStage.setTitle("Anydev J-LiMS");
-        // primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon-0.png")));
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();
         primaryStage.show();
