@@ -20,7 +20,7 @@ To view the development documents, please visit /docs directory [here](./docs/de
 ## Team members
 
 - **Lương Thế Vinh** - 23020715 ([GitHub](https://github.com/lgthevinh))
-- **Chu Anh Quốc**
+- **Chu Anh Quốc** - 23020696 ([GitHub](https://github.com/CrisAQ2410))
 - **Trịnh Ngọc Thống**
 
 ## Project Requirements Sheeet
