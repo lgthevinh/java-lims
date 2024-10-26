@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="981.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.MenuController" >
+    <children>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="11.0" layoutY="915.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/Login-bg.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="71.0" fitWidth="66.0" layoutX="81.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/icon-0.png" />
+            </image>
+        </ImageView>
+        <Label alignment="CENTER" layoutX="56.0" layoutY="85.0" prefHeight="39.0" prefWidth="111.0" styleClass="custom-style" text="J-LiMS" textFill="#c56e33">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="2.0" layoutY="79.0" prefHeight="51.0" prefWidth="222.0" styleClass="custom-style" stylesheets="@../css/Login/Font1.css" text="                 " underline="true">
+            <font>
+                <Font size="21.0" />
+            </font>
+        </Label>
+        <Label layoutX="27.0" layoutY="122.0" text="Java Library Mangement System" textFill="#c56e33" />
+        <Button fx:id="dashboardButton" layoutX="24.0" layoutY="172.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="174.0" style="-fx-background-radius: 16;" styleClass="your-class" text="Dashboard" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0">
+            <stylesheets>
+                <URL value="@../css/Home/Font1.css" />
+                <URL value="@../css/Home/Button1.css" />
+            </stylesheets>
+        </Button>
+        <Button fx:id="booksButton" layoutX="17.0" layoutY="330.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="191.0" style="-fx-background-radius: 16;" styleClass="your-class" text="Book" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0">
+            <stylesheets>
+                <URL value="@../css/Home/Button2.css" />
+                <URL value="@../css/Home/Font2.css" />
+            </stylesheets>
+        </Button>
+        <Button fx:id="usersButton" layoutX="16.0" layoutY="409.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="191.0" style="-fx-background-radius: 16;" styleClass="your-class" text="Users" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0">
+            <stylesheets>
+                <URL value="@../css/Home/Button2.css" />
+                <URL value="@../css/Home/Font2.css" />
+            </stylesheets>
+        </Button>
+        <Button fx:id="catalogButton" layoutX="18.0" layoutY="251.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="191.0" style="-fx-background-radius: 16;" styleClass="your-class" text="Catalog" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="17.0">
+            <stylesheets>
+                <URL value="@../css/Home/Button2.css" />
+                <URL value="@../css/Home/Font2.css" />
+            </stylesheets>
+        </Button>
+    </children>
+</AnchorPane>

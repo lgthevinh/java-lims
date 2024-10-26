@@ -9,17 +9,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.animation.FadeTransition;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class HomeController extends Application {
+public class Dashboard extends Application {
+
+    @FXML
+    private Label timeLabel;
+
+    @FXML
+    private Label dateLabel;
+
+    @FXML
+    private PieChart booksPieChart;
+
+    @FXML
+    private Label changeAccountButton;
 
     @Override
     public void start(Stage primaryStage) {
@@ -30,33 +41,6 @@ public class HomeController extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private Label timeLabel;
-
-    @FXML
-    private Label dateLabel;
-
-    @FXML
-    private Label changeAccountButton;
-
-    @FXML
-    private void handleChangeAccountAction(ActionEvent event) {
-        try {
-            Parent loginParent = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-            Scene loginScene = new Scene(loginParent);
-
-            // Get the stage information
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the new scene
-            window.setScene(loginScene);
-            window.centerOnScreen();
-            window.show();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -76,22 +60,12 @@ public class HomeController extends Application {
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
 
-        // Set up the change account button
         changeAccountButton.setOnMouseClicked(event -> {
             try {
                 Parent loginParent = FXMLLoader.load(getClass().getResource("/fxml/LoginUI.fxml"));
                 Scene loginScene = new Scene(loginParent);
 
-                // Get the stage information
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-                // Add a fade transition
-                FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), loginParent);
-                fadeTransition.setFromValue(0.8);
-                fadeTransition.setToValue(1.0);
-                fadeTransition.play();
-
-                // Set the new scene
                 window.setScene(loginScene);
                 window.centerOnScreen();
                 window.show();
@@ -99,6 +73,12 @@ public class HomeController extends Application {
                 e.printStackTrace();
             }
         });
+
+        // Set up the PieChart
+        PieChart.Data borrowedBooks = new PieChart.Data("Borrowed Books", 5);
+        PieChart.Data remainingBooks = new PieChart.Data("Remaining Books", 15);
+
+        booksPieChart.getData().addAll(borrowedBooks, remainingBooks);
     }
 
     public static void main(String[] args) {
