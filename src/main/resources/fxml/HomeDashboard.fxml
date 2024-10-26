@@ -37,17 +37,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="1364.0" prefHeight="110.0" prefWidth="382.0" style="-fx-background-color: #FFFFFF;">
-         <children>
-            <AnchorPane layoutX="367.0" layoutY="20.0" prefHeight="70.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
-            <Label fx:id="timeLabel" layoutX="266.0" layoutY="25.0" prefHeight="30.0" prefWidth="92.0" styleClass="your-class" stylesheets="@../css/Home/Font1.css" text="Time" />
-            <Label fx:id="dateLabel" layoutX="257.0" layoutY="55.0" prefHeight="25.0" prefWidth="101.0" text="Date">
-               <font>
-                  <Font name="System Bold Italic" size="16.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
+      <fx:include source="Time.fxml" />
       <AnchorPane prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="690.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="147.0">
          <children>
             <AnchorPane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />

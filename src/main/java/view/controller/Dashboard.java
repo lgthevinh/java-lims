@@ -21,12 +21,6 @@ import java.time.format.DateTimeFormatter;
 public class Dashboard extends Application {
 
     @FXML
-    private Label timeLabel;
-
-    @FXML
-    private Label dateLabel;
-
-    @FXML
     private PieChart booksPieChart;
 
     @FXML
@@ -47,19 +41,6 @@ public class Dashboard extends Application {
 
     @FXML
     public void initialize() {
-        // Set up the date and time labels
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            LocalDateTime now = LocalDateTime.now();
-            timeLabel.setText(now.format(timeFormatter));
-            dateLabel.setText(now.format(dateFormatter));
-        }), new KeyFrame(Duration.seconds(1)));
-
-        clock.setCycleCount(Timeline.INDEFINITE);
-        clock.play();
-
         changeAccountButton.setOnMouseClicked(event -> {
             try {
                 Parent loginParent = FXMLLoader.load(getClass().getResource("/fxml/LoginUI.fxml"));
