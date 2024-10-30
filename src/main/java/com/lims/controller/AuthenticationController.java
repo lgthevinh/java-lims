@@ -9,15 +9,12 @@ import java.util.Scanner;
 interface AuthenticationControllerInterface {
     void authenticate(String email, String password);
     void deleteAuthentication();
-
     boolean isAuthenticated();
 }
 
 public class AuthenticationController implements AuthenticationControllerInterface {
 
     private final String authDataPath = "src/main/resources/auth/data.txt";
-    private String user;
-    private String password;
 
     private File checkFile() throws IOException {
         File authData = new File(this.authDataPath);
