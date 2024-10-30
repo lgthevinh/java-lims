@@ -1,52 +1,94 @@
 package com.lims.controller;
 
-import com.lims.model.User;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.Scanner;
 
 interface AuthenticationControllerInterface {
-    void authenticateUser(User user);
+    void authenticate(String email, String password);
     void deleteAuthentication();
-    boolean isUserAuthenticated(User user);
+
+    boolean isAuthenticated();
 }
 
 public class AuthenticationController implements AuthenticationControllerInterface {
-    private User authenticatedUser;
 
-    /**
-     * {@code authenticateUser}
-     *
-     * <p>Authenticate user by storing authenticated user object into variable (could use encrypt data in the future)</p>
-     *
-     * @param user The user object in com.lims.model.User.
-     * @since 10-8-2024
-     */
-    @Override
-    public void authenticateUser(User user) {
+    private final String authDataPath = "src/main/resources/auth/data.txt";
+    private String user;
+    private String password;
 
+    private File checkFile() throws IOException {
+        File authData = new File(this.authDataPath);
+        if (authData.createNewFile()) {
+            System.out.println("AUTH FIlE NOT FOUND, recreating auth data file");
+        }
+        return authData;
     }
 
     /**
-     * {@code deleteAuthentication}
-     *
-     * <p>Delete user authentication data from authenticatedUser variable</p>
-     *
+     * @since 10-8-2024
+     */
+    @Override
+    public void authenticate(String email, String password) {
+        try {
+            File authFile = this.checkFile();
+            FileWriter fileWriter = new FileWriter(authFile);
+
+            Base64.Encoder enc = Base64.getEncoder();
+
+            String concatenated = email + ":" + password;
+            String encoded = enc.encodeToString(concatenated.getBytes());
+
+            fileWriter.write(encoded);
+            fileWriter.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred, please try again later...");
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * @since 10-8-2024
      */
     @Override
     public void deleteAuthentication() {
+        try {
+            File authFile = this.checkFile();
+            FileWriter fileWriter = new FileWriter(authFile);
 
+            fileWriter.write("");
+            fileWriter.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred, please try again later...");
+            e.printStackTrace();
+        }
     }
 
     /**
-     * {@code isUserAuthenticated}
-     *
-     * <p>Check if user object is match authentication data (authenticatedUser)</p>
-     *
-     * @param user The user object in com.lims.model.User.
-     * @return {@code true} if user is match authentication data, {@code false} if not
      * @since 10-8-2024
      */
     @Override
-    public boolean isUserAuthenticated(User user) {
-        return false;
+    public boolean isAuthenticated() {
+        try {
+            File authFile = this.checkFile();
+            Scanner scanner = new Scanner(authFile);
+            Base64.Decoder dec = Base64.getDecoder();
+
+            if (!scanner.hasNextLine()) {
+                return false;
+            }
+
+            String encoded = scanner.nextLine();
+            String[] data = (new String(dec.decode(encoded))).split(":");
+            System.out.println(data[0] + " " + data[1]);
+
+            return true;
+        } catch (IOException e) {
+            System.out.println("NO AUTH FILE FOUND, please sign in...");
+            return false;
+        }
+
     }
 }
