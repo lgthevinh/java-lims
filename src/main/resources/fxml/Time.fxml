@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" />
+<Pane layoutX="1148.0" layoutY="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="111.0" prefWidth="375.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.Time">
+    <children>
+        <Pane layoutX="367.0" layoutY="20.0" prefHeight="70.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
+        <Label fx:id="timeLabel" layoutX="266.0" layoutY="25.0" prefHeight="30.0" prefWidth="92.0" styleClass="your-class" stylesheets="@../css/Home/Font1.css" text="Time" />
+        <Label fx:id="dateLabel" layoutX="257.0" layoutY="55.0" prefHeight="25.0" prefWidth="101.0" text="Date">
+            <font>
+                <Font name="System Bold Italic" size="16.0" />
+            </font>
+        </Label>
+    </children>
+</Pane>
