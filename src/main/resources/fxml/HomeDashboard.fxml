@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import java.net.URL?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="981.0" prefWidth="1745.0" style="-fx-background-color: #E8E8E8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.Dashboard">
+<Pane prefHeight="981.0" prefWidth="1523.0" style="-fx-background-color: #E8E8E8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.Dashboard">
    <children>
-      <fx:include source="Menu.fxml" />
-      <AnchorPane layoutX="275.0" prefHeight="110.0" prefWidth="1133.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0px 0px 0px 20px;" AnchorPane.bottomAnchor="872.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="381.0" AnchorPane.topAnchor="-1.0">
+      <Pane layoutX="14.0" prefHeight="111.0" prefWidth="1134.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0px 0px 0px 20px;">
          <children>
             <ImageView fitHeight="71.0" fitWidth="66.0" layoutX="19.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -36,94 +33,105 @@
                </font>
             </Label>
          </children>
-      </AnchorPane>
+      </Pane>
       <fx:include source="Time.fxml" />
-      <AnchorPane prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="690.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="147.0">
+      <Pane layoutX="54.0" layoutY="147.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;">
          <children>
-            <AnchorPane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
-            <AnchorPane layoutX="59.0" layoutY="25.0" prefHeight="96.0" prefWidth="96.0" styleClass="your-class" stylesheets="@../css/Home/bg1.css">
+            <Pane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
+            <Pane layoutX="59.0" layoutY="25.0" prefHeight="96.0" prefWidth="96.0" styleClass="your-class" stylesheets="@../css/Home/bg1.css">
                <children>
                   <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="24.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/student.png" />
                      </image>
                   </ImageView>
-               </children></AnchorPane>
-            <Label alignment="CENTER" layoutX="189.0" layoutY="43.0" prefHeight="72.0" prefWidth="101.0" stylesheets="@../css/Home/Font4.css" text="100" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="29.0" />
-            <Label alignment="CENTER" layoutX="182.0" layoutY="89.0" prefHeight="25.0" prefWidth="67.0" stylesheets="@../css/Home/Font5.css" text="Students" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="182.0" AnchorPane.topAnchor="89.0" />
-         </children></AnchorPane>
-      <AnchorPane layoutX="255.0" layoutY="347.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="514.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="323.0">
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="165.0" layoutY="25.0" prefHeight="72.0" prefWidth="101.0" stylesheets="@../css/Home/Font4.css" text="100" />
+            <Label alignment="CENTER" layoutX="182.0" layoutY="89.0" prefHeight="25.0" prefWidth="67.0" stylesheets="@../css/Home/Font5.css" text="Students" />
+         </children>
+      </Pane>
+      <Pane layoutX="54.0" layoutY="322.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;">
          <children>
-            <AnchorPane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
-            <AnchorPane layoutX="59.0" layoutY="25.0" prefHeight="96.0" prefWidth="96.0" styleClass="your-class" stylesheets="@../css/Home/bg1.css">
+            <Pane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
+            <Pane layoutX="59.0" layoutY="25.0" prefHeight="96.0" prefWidth="96.0" styleClass="your-class" stylesheets="@../css/Home/bg1.css">
                <children>
                   <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="24.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/book.png" />
                      </image>
                   </ImageView>
-               </children></AnchorPane>
-            <Label alignment="CENTER" layoutX="164.0" layoutY="37.0" prefHeight="72.0" prefWidth="101.0" stylesheets="@../css/Home/Font4.css" text="20" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="29.0" />
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="166.0" layoutY="25.0" prefHeight="72.0" prefWidth="101.0" stylesheets="@../css/Home/Font4.css" text="20" />
             <Label alignment="CENTER" layoutX="192.0" layoutY="89.0" prefHeight="25.0" prefWidth="48.0" stylesheets="@../css/Home/Font5.css" text="Books" />
-         </children></AnchorPane>
-      <AnchorPane layoutX="255.0" layoutY="570.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="336.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="501.0">
+         </children>
+      </Pane>
+      <Pane layoutX="54.0" layoutY="501.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;">
          <children>
-            <AnchorPane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
-            <AnchorPane layoutX="59.0" layoutY="25.0" prefHeight="96.0" prefWidth="96.0" styleClass="your-class" stylesheets="@../css/Home/bg1.css">
+            <Pane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
+            <Pane layoutX="59.0" layoutY="25.0" prefHeight="96.0" prefWidth="96.0" styleClass="your-class" stylesheets="@../css/Home/bg1.css">
                <children>
                   <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="24.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/remain.png" />
                      </image>
                   </ImageView>
-               </children></AnchorPane>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="174.0" layoutY="35.0" prefHeight="72.0" prefWidth="101.0" stylesheets="@../css/Home/Font4.css" text="15" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="165.0" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="29.0" />
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="164.0" layoutY="25.0" prefHeight="72.0" prefWidth="101.0" stylesheets="@../css/Home/Font4.css" text="15" />
             <Label alignment="CENTER" layoutX="155.0" layoutY="89.0" prefHeight="25.0" prefWidth="147.0" stylesheets="@../css/Home/Font5.css" text="Remaining Books" />
-         </children></AnchorPane>
-      <AnchorPane layoutX="255.0" layoutY="764.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="1133.0" AnchorPane.topAnchor="674.0">
+         </children>
+      </Pane>
+      <Pane layoutX="54.0" layoutY="673.0" prefHeight="144.0" prefWidth="358.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;">
          <children>
-            <AnchorPane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
-            <AnchorPane layoutX="59.0" layoutY="25.0" prefHeight="96.0" prefWidth="96.0" styleClass="your-class" stylesheets="@../css/Home/bg1.css">
+            <Pane layoutX="25.0" layoutY="21.0" prefHeight="103.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
+            <Pane layoutX="59.0" layoutY="25.0" prefHeight="96.0" prefWidth="96.0" styleClass="your-class" stylesheets="@../css/Home/bg1.css">
                <children>
                   <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="24.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/borrow.png" />
                      </image>
                   </ImageView>
-               </children></AnchorPane>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="177.0" layoutY="46.0" prefHeight="72.0" prefWidth="101.0" stylesheets="@../css/Home/Font4.css" text="5" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="29.0" />
-            <Label alignment="CENTER" layoutX="165.0" layoutY="89.0" prefHeight="25.0" prefWidth="147.0" stylesheets="@../css/Home/Font5.css" text="Borrowed Books" />
-         </children></AnchorPane>
-      <AnchorPane prefHeight="727.0" prefWidth="732.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="655.0" AnchorPane.rightAnchor="358.0" AnchorPane.topAnchor="164.0">
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="165.0" layoutY="25.0" prefHeight="72.0" prefWidth="101.0" stylesheets="@../css/Home/Font4.css" text="5" />
+            <Label alignment="CENTER" layoutX="155.0" layoutY="85.0" prefHeight="25.0" prefWidth="147.0" stylesheets="@../css/Home/Font5.css" text="Borrowed Books" />
+         </children>
+      </Pane>
+      <Pane layoutX="454.0" layoutY="164.0" prefHeight="727.0" prefWidth="732.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
          <children>
-            <Label alignment="CENTER" layoutX="114.0" layoutY="59.0" prefHeight="58.0" prefWidth="516.0" stylesheets="@../css/Home/Font3.css" text="Borrowed Books - November" AnchorPane.bottomAnchor="612.0" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="103.0" AnchorPane.topAnchor="59.0" />
-            <AnchorPane layoutX="122.0" layoutY="117.0" prefHeight="3.0" prefWidth="500.0" style="-fx-background-color: #973F04;" />
+            <Label alignment="CENTER" layoutX="114.0" layoutY="59.0" prefHeight="58.0" prefWidth="516.0" stylesheets="@../css/Home/Font3.css" text="Borrowed Books - November" />
+            <Pane layoutX="122.0" layoutY="117.0" prefHeight="3.0" prefWidth="500.0" style="-fx-background-color: #973F04;" />
             <PieChart fx:id="booksPieChart" layoutX="37.0" layoutY="136.0" prefHeight="569.0" prefWidth="660.0" stylesheets="@../css/Home/Chart.css">
                <styleClass>
                   <String fx:value="default-color0" />
                   <String fx:value="default-color1" />
-               </styleClass></PieChart>
-         </children></AnchorPane>
-      <AnchorPane prefHeight="134.0" prefWidth="283.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" AnchorPane.bottomAnchor="683.0" AnchorPane.leftAnchor="1430.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="164.0" />
-      <AnchorPane prefHeight="603.0" prefWidth="283.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="1430.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="322.0">
+               </styleClass>
+            </PieChart>
+         </children>
+      </Pane>
+      <Pane layoutX="1217.0" layoutY="164.0" prefHeight="134.0" prefWidth="283.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;" />
+      <Pane layoutX="1217.0" layoutY="322.0" prefHeight="603.0" prefWidth="283.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
          <children>
             <Label alignment="CENTER" layoutX="81.0" layoutY="14.0" prefHeight="30.0" prefWidth="122.0" styleClass="your-class" text="Borrower" textFill="#c56e33">
                <font>
                   <Font name="Times New Roman Bold" size="28.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="51.0" layoutY="53.0" prefHeight="3.0" prefWidth="182.0" style="-fx-background-color: #973F04;" />
-         </children></AnchorPane>
-      <AnchorPane accessibleRole="BUTTON" layoutX="312.0" layoutY="866.0" prefHeight="86.0" prefWidth="266.0" style="-fx-background-color: white; -fx-background-radius: 16;">
+            <Pane layoutX="51.0" layoutY="53.0" prefHeight="3.0" prefWidth="182.0" style="-fx-background-color: #973F04;" />
+         </children>
+      </Pane>
+      <Pane layoutX="109.0" layoutY="866.0" prefHeight="86.0" prefWidth="266.0" style="-fx-background-color: white; -fx-background-radius: 16;">
          <children>
-            <AnchorPane layoutX="13.0" layoutY="14.0" prefHeight="67.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="76.0" AnchorPane.topAnchor="10.0" />
-            <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+            <Pane layoutX="13.0" layoutY="10.0" prefHeight="67.0" prefWidth="2.0" style="-fx-background-color: #C56E33;" />
+            <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="21.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/refresh-circle 1.png" />
                </image>
             </ImageView>
-            <Label fx:id="changeAccountButton"  layoutX="93.0" layoutY="10.0" prefHeight="67.0" prefWidth="147.0" styleClass="your-class" stylesheets="@../css/Home/Font1.css" text="Change Account" wrapText="true" />
+            <Label fx:id="changeAccountButton" layoutX="94.0" layoutY="10.0" prefHeight="67.0" prefWidth="147.0" styleClass="your-class" stylesheets="@../css/Home/Font1.css" text="Change Account" wrapText="true" />
          </children>
-      </AnchorPane>
+      </Pane>
    </children>
-</AnchorPane>
+</Pane>

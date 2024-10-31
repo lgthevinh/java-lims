@@ -2,12 +2,9 @@ package view.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
+import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class MenuController {
@@ -25,8 +22,17 @@ public class MenuController {
     private Button usersButton;
 
     @FXML
+    private AnchorPane contentPane;
+
+    private Button activeButton; // Variable to store the current button
+
+    @FXML
     public void initialize() {
-        // Thiết lập chức năng cho từng nút
+        // Set initial state for the button
+        activeButton = dashboardButton;
+        updateButtonStyles(activeButton); // Update button style
+
+        // Assign events to buttons
         setupButtonStyles(catalogButton, "/fxml/HomeCatalog.fxml");
         setupButtonStyles(dashboardButton, "/fxml/HomeDashboard.fxml");
         setupButtonStyles(booksButton, "/fxml/HomeBooks.fxml");
@@ -35,35 +41,33 @@ public class MenuController {
 
     private void setupButtonStyles(Button button, String fxmlPath) {
         button.setOnAction(event -> {
-            // Đặt kiểu `button1` cho nút được nhấn
-            applyButtonStyles(button);
-
-            // Chuyển cảnh
-            try {
-                Parent parent = FXMLLoader.load(getClass().getResource(fxmlPath));
-                Scene scene = new Scene(parent);
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(scene);
-                window.show();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (button != activeButton) { // Only load new content if a different button is selected
+                activeButton = button; // Update the active button
+                updateButtonStyles(activeButton); // Update button style
+                loadContent(fxmlPath); // Load new content
             }
         });
     }
 
-    private void applyButtonStyles(Button activeButton) {
-        // Tạo một mảng các nút để dễ dàng lặp lại
+    private void loadContent(String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent newContent = loader.load();
+            contentPane.getChildren().setAll(newContent); // Ensure contentPane is not null
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateButtonStyles(Button activeButton) {
         Button[] buttons = {catalogButton, dashboardButton, booksButton, usersButton};
 
         for (Button button : buttons) {
+            button.getStyleClass().removeAll("button-style-active", "button-style-inactive");
             if (button == activeButton) {
-                // Thêm các lớp cho nút được nhấn
-                button.getStyleClass().removeAll("button-style-inactive");
-                button.getStyleClass().addAll("button-style-active");
+                button.getStyleClass().add("button-style-active");
             } else {
-                // Thêm các lớp cho các nút không được nhấn
-                button.getStyleClass().removeAll("button-style-active");
-                button.getStyleClass().addAll("button-style-inactive");
+                button.getStyleClass().add("button-style-inactive");
             }
         }
     }

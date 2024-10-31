@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="981.0" prefWidth="1745.0" style="-fx-background-color: #E8E8E8;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.MainController">
+    <children>
+
+        <!-- Khu vực nội dung -->
+        <AnchorPane fx:id="contentPane" layoutX="230.0" prefHeight="981.0" prefWidth="1523.0" style="-fx-background-color: #E8E8E8;">
+            <fx:include source="HomeDashboard.fxml" /> <!-- Nội dung mặc định có thể là Dashboard -->
+        </AnchorPane>
+        <!-- Khu vực Menu -->
+        <fx:include source="Menu.fxml" />
+    </children>
+</AnchorPane>

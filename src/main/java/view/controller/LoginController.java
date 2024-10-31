@@ -34,7 +34,7 @@ public class LoginController {
 
     @FXML
     private void handleLoginAction(ActionEvent event) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getResource("/fxml/HomeDashboard.fxml"));
+        Parent homeParent = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
         Scene homeScene = new Scene(homeParent);
 
         // Get the stage information

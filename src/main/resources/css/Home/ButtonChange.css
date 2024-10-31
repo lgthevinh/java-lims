@@ -1,7 +1,6 @@
-/* Button1.css */
 .button-style-active {
     -fx-background-color: #FFDDC5;
-    -fx-border-radius: 24px;
+    -fx-background-radius: 24px;
     -fx-text-fill: #885D40;
     -fx-font-family: "Montserrat";
     -fx-font-size: 20px;
@@ -11,10 +10,9 @@
 
 }
 
-/* Button2.css */
 .button-style-inactive {
     -fx-background-color: #FFFFFF;
-    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
     -fx-text-fill: #727374;
     -fx-font-family: "Montserrat";
     -fx-font-size: 20px;
