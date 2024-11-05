@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="1343.0" spacing="75.0" styleClass="label" stylesheets="@../css/Home/Font7.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.CatalogController">
+   <children>
+      <Label fx:id="nameLabel" alignment="CENTER" prefWidth="150.0" text="Name">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
+      <Label fx:id="idLabel" alignment="CENTER" prefWidth="150.0" text="ID">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
+      <Label fx:id="amountLabel" alignment="CENTER" layoutX="218.0" layoutY="39.0" prefWidth="150.0" text="Amount">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
+      <Label fx:id="dueDateLabel" alignment="CENTER" layoutX="426.0" layoutY="39.0" prefWidth="150.0" text="Due Date">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
+      <Label fx:id="dateTimeLabel" alignment="CENTER" layoutX="634.0" layoutY="39.0" prefWidth="150.0" text="Date and time">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </Label>
+      <ImageView fitHeight="24.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+         <HBox.margin>
+            <Insets left="60.0" />
+         </HBox.margin>
+         <image>
+            <Image url="@../images/View Icon.png" />
+         </image>
+      </ImageView>
+   </children>
+   <padding>
+      <Insets left="20.0" top="10.0" />
+   </padding>
+</HBox>
