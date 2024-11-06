@@ -4,16 +4,21 @@ import com.lims.controller.AuthenticationController;
 
 public class Main {
 
-    static AuthenticationController authController = new AuthenticationController();
+    private static void printHelloWorld() {
+        System.out.println("Hello World from LiMS");
+    }
 
     public static void main(String[] args) {
         System.out.println("Data-core");
-        authController.authenticate("everwellmax@gmail.com", "123456");
-        if (authController.isAuthenticated()) {
-            System.out.println("Authenticated");
+
+        AuthenticationController.authenticate("everwellmax@gmail.com", "123456");
+
+        if (AuthenticationController.isAuthenticated()) {
+            printHelloWorld();
         } else {
-            System.out.println("Not Authenticated");
+            System.out.println("Not Authenticated, unable to print hello world");
         }
-        authController.deleteAuthentication();
+
+        AuthenticationController.deleteAuthentication();
     }
 }
