@@ -1,25 +1,22 @@
 package com.lims.controller;
 
+import com.lims.dao.DatabaseManager;
+import com.lims.model.User;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Scanner;
 
-interface AuthenticationControllerInterface {
-    void authenticate(String email, String password);
-    void deleteAuthentication();
-    boolean isAuthenticated();
-}
+public class AuthenticationController {
 
-public class AuthenticationController implements AuthenticationControllerInterface {
+    static final String authDataPath = "src/main/resources/auth/data.txt";
 
-    private final String authDataPath = "src/main/resources/auth/data.txt";
-
-    private File checkFile() throws IOException {
-        File authData = new File(this.authDataPath);
+    private static File getFile() throws IOException {
+        File authData = new File(authDataPath);
         if (authData.createNewFile()) {
-            System.out.println("AUTH FIlE NOT FOUND, recreating auth data file");
+            System.out.println("AUTH FIlE NOT FOUND, recreating auth data file...");
         }
         return authData;
     }
@@ -27,32 +24,50 @@ public class AuthenticationController implements AuthenticationControllerInterfa
     /**
      * @since 10-8-2024
      */
-    @Override
-    public void authenticate(String email, String password) {
+    public static void authenticate(String email, String password) {
         try {
-            File authFile = this.checkFile();
-            FileWriter fileWriter = new FileWriter(authFile);
+            User user = DatabaseManager.getUserByEmail(email);
 
-            Base64.Encoder enc = Base64.getEncoder();
+            if (user == null) {
+                System.out.println("User not found, please try again...");
+                return;
+            }
 
-            String concatenated = email + ":" + password;
-            String encoded = enc.encodeToString(concatenated.getBytes());
+            if (!user.getPassword().equals(password)) {
+                System.out.println("Wrong password, please try again...");
+                return;
+            }
 
-            fileWriter.write(encoded);
-            fileWriter.close();
+            try {
+                File authFile = getFile();
+                FileWriter fileWriter = new FileWriter(authFile);
+
+                Base64.Encoder enc = Base64.getEncoder();
+
+                String concatenated = user.getUserId() + ":" + user.getEmail() + ":" + user.getPassword();
+                String encoded = enc.encodeToString(concatenated.getBytes());
+
+                fileWriter.write(encoded);
+                fileWriter.close();
+
+                System.out.println("Authenticate success");
+            } catch (Exception e) {
+                System.out.println("An error occurred, please try again later...");
+                e.printStackTrace();
+            }
+
         } catch (Exception e) {
-            System.out.println("An error occurred, please try again later...");
             e.printStackTrace();
+            System.out.println("An error occurred, please try again later...");
         }
     }
 
     /**
-     * @since 10-8-2024
+     * @since 11-3-2024
      */
-    @Override
-    public void deleteAuthentication() {
+    public static void deleteAuthentication() {
         try {
-            File authFile = this.checkFile();
+            File authFile = getFile();
             FileWriter fileWriter = new FileWriter(authFile);
 
             fileWriter.write("");
@@ -64,12 +79,11 @@ public class AuthenticationController implements AuthenticationControllerInterfa
     }
 
     /**
-     * @since 10-8-2024
+     * @since 11-5-2024
      */
-    @Override
-    public boolean isAuthenticated() {
+    public static boolean isAuthenticated() {
         try {
-            File authFile = this.checkFile();
+            File authFile = getFile();
             Scanner scanner = new Scanner(authFile);
             Base64.Decoder dec = Base64.getDecoder();
 
@@ -79,13 +93,18 @@ public class AuthenticationController implements AuthenticationControllerInterfa
 
             String encoded = scanner.nextLine();
             String[] data = (new String(dec.decode(encoded))).split(":");
-            System.out.println(data[0] + " " + data[1]);
 
-            return true;
-        } catch (IOException e) {
-            System.out.println("NO AUTH FILE FOUND, please sign in...");
+            User user = DatabaseManager.getUserById(Integer.valueOf(data[0]));
+
+            if (user == null) {
+                return false;
+            }
+
+            return user.getEmail().equals(data[1]) && user.getPassword().equals(data[2]);
+        } catch (Exception e) {
+            System.out.println("An error occurred, please try again...");
+            e.printStackTrace();
             return false;
         }
-
     }
 }
