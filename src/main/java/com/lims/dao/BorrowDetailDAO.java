@@ -15,11 +15,23 @@ import static com.lims.Utils.formatDatetime;
 
 public class BorrowDetailDAO extends DatabaseManager {
 
-    public static List<BorrowDetail> getAllBorrowDetail() throws SQLException {
+    public static List<BorrowDetail> getAllBorrowDetail() throws SQLException, ParseException {
         List<BorrowDetail> borrowDetailList = new ArrayList<>();
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM BorrowDetail");
+        while (resultSet.next()) {
+            BorrowDetail borrowDetail = new BorrowDetail(
+                    resultSet.getString("book_isbn"),
+                    resultSet.getInt("borrower_id"),
+                    resultSet.getInt("librarian_id"),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("borrow_date")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("expected_return_date")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("actual_return_date"))
+            );
+            borrowDetailList.add(borrowDetail);
+        }
+        conn.close();
         return borrowDetailList;
     }
 
@@ -32,9 +44,9 @@ public class BorrowDetailDAO extends DatabaseManager {
                     resultSet.getString("book_isbn"),
                     resultSet.getInt("borrower_id"),
                     resultSet.getInt("librarian_id"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("borrow_date")),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("expected_return_date")),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("actual_return_date"))
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("borrow_date")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("expected_return_date")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("actual_return_date"))
             );
             conn.close();
             return borrowDetail;
@@ -50,9 +62,9 @@ public class BorrowDetailDAO extends DatabaseManager {
                 borrowDetail.getBookIsbn(),
                 borrowDetail.getBorrowerId(),
                 borrowDetail.getLibrarianId(),
-                formatDatetime("yyyy-MM-dd", borrowDetail.getBorrowDate()),
-                formatDatetime("yyyy-MM-dd", borrowDetail.getExpectedReturnDate()),
-                formatDatetime("yyyy-MM-dd", borrowDetail.getActualReturnDate())
+                formatDatetime("MM-dd-yyyy", borrowDetail.getBorrowDate()),
+                formatDatetime("MM-dd-yyyy", borrowDetail.getExpectedReturnDate()),
+                formatDatetime("MM-dd-yyyy", borrowDetail.getActualReturnDate())
         ));
         conn.close();
     }
