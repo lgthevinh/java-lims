@@ -326,6 +326,8 @@ updateBorrowDetailInDatabase(borrowDetail);
 
 Some of the methods or features may not be implemented yet, we will keep note of the changes in the versioning in this document.
 
+Current version: 1.1.0
+
 - Version 1.0.0: Initial release
     - Basic CRUD operations for Book, User, Librarian, Student and BorrowDetail (all base on Object class, no primitive data type parameters implemented yet)
     - Singleton class
@@ -333,11 +335,5 @@ Some of the methods or features may not be implemented yet, we will keep note of
     - No pagination
     - Manual testing (no unit test created yet)
 
-Bucket list for version 2:
-- [ ] Implement exception handling
-- [ ] Implement pagination
-- [x] Overloading constructor methods
-- [ ] Overloading CRUD methods (with filter)
-- [x] ~~Singleton class with extends DAOs object~~ Multi-DAO Objects implemented
-- [ ] Unit tests
-- [ ] Version documents
+- Version 1.1.0: Additional changes:
+  - Additional query function (getUserByEmail)
