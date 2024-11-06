@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="755.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.LibrarianController">
+    <children>
+        <VBox alignment="CENTER" spacing="10">
+            <GridPane alignment="CENTER" hgap="10" vgap="10">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+                <Label text="Social ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="socialIdField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Date of Birth:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <DatePicker fx:id="dateOfBirthField" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Address Line:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="addressLineField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <Label text="Employee ID:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                <TextField fx:id="empIdField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                    <Button onAction="#handleAddLibrarian" text="Add Librarian" />
+                    <Button onAction="#handleDeleteLibrarian" text="Delete Librarian" />
+                </HBox>
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+            <TableView fx:id="librarianTable">
+                <columns>
+                    <TableColumn fx:id="socialIdColumn" prefWidth="75.0" text="Social ID" />
+                    <TableColumn fx:id="nameColumn" prefWidth="71.0" text="Name" />
+                    <TableColumn fx:id="dateOfBirthColumn" prefWidth="94.0" text="Date of Birth" />
+                    <TableColumn fx:id="addressLineColumn" prefWidth="98.0" text="Address Line" />
+                    <TableColumn fx:id="phoneNumberColumn" prefWidth="113.0" text="Phone Number" />
+                    <TableColumn fx:id="emailColumn" prefWidth="167.0" text="Email" />
+                    <TableColumn fx:id="empIdColumn" prefWidth="136.0" text="Employee ID" />
+                </columns>
+            </TableView>
+            <Button onAction="#handleBack" text="Back">
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin></Button>
+        </VBox>
+    </children>
+</StackPane>

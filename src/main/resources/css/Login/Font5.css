@@ -1,8 +1,0 @@
-.custom-style {
-    -fx-text-fill: #FFFFFF; /* Màu chữ (trắng) */
-    -fx-font-family: "Montserrat"; /* Font chữ */
-    -fx-font-size: 20px; /* Kích thước font */
-    -fx-font-style: normal; /* Kiểu chữ (thường) */
-    -fx-font-weight: 500; /* Độ đậm của font */
-    -fx-line-height: 25.2px; /* Chiều cao dòng */
-}

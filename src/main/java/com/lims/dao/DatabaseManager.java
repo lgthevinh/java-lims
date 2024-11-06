@@ -69,7 +69,7 @@ public class DatabaseManager {
                 book.getIsbn(),
                 book.getTitle(),
                 book.getAuthor(),
-                formatDatetime("yyyy", book.getYearOfPublication()),
+                formatDatetime("MM-dd-yyyy", book.getYearOfPublication()),
                 book.getPublisher(),
                 book.getImageUrl(),
                 book.getAvailableAmount()
