@@ -40,7 +40,7 @@ CREATE TABLE Librarian
     emp_id  INTEGER AUTO_INCREMENT PRIMARY KEY,
     user_id INTEGER UNIQUE REFERENCES User (id)
 );
-s
+
 CREATE TABLE BorrowDetail
 (
     id                   INTEGER AUTO_INCREMENT PRIMARY KEY,
@@ -52,3 +52,8 @@ CREATE TABLE BorrowDetail
     actual_return_date   DATE
 );
 
+-- CREATE TABLE AppEntity
+-- {
+--     key VARCHAR(100) PRIMARY KEY
+--     value VARCHAR(100)
+-- };
