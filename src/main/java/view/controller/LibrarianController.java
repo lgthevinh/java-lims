@@ -1,5 +1,5 @@
 package view.controller;
-
+import com.lims.dao.DatabaseManager;
 import com.lims.model.Librarian;
 import com.lims.model.User;
 import javafx.collections.FXCollections;
@@ -16,10 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 public class LibrarianController {
     @FXML
     private TableView<Librarian> librarianTable;
@@ -53,14 +53,11 @@ public class LibrarianController {
     private TextField passwordField;
     @FXML
     private TextField empIdField;
-
     private ObservableList<Librarian> librarianList = FXCollections.observableArrayList();
-
     @FXML
     private void initialize() {
         // Initialize the librarian table with the librarian list
         librarianTable.setItems(librarianList);
-
         // Set up the columns in the table
         socialIdColumn.setCellValueFactory(new PropertyValueFactory<>("socialId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -69,8 +66,15 @@ public class LibrarianController {
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         empIdColumn.setCellValueFactory(new PropertyValueFactory<>("empId"));
-    }
 
+        try {
+            librarianList.addAll(DatabaseManager.getAllLibrarian());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     private void handleAddLibrarian() {
         String socialId = socialIdField.getText();
@@ -84,15 +88,12 @@ public class LibrarianController {
         String email = emailField.getText();
         String password = passwordField.getText();
         Integer empId = Integer.parseInt(empIdField.getText());
-
         User user = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
         Librarian newLibrarian = new Librarian(user);
         newLibrarian.setEmpId(empId);
-
         librarianList.add(newLibrarian);
-        clearFields();
-    }
 
+    }
     @FXML
     private void handleDeleteLibrarian() {
         Librarian selectedLibrarian = librarianTable.getSelectionModel().getSelectedItem();
@@ -100,7 +101,6 @@ public class LibrarianController {
             librarianList.remove(selectedLibrarian);
         }
     }
-
     @FXML
     private void handleBack(ActionEvent event) {
         try {
@@ -113,7 +113,6 @@ public class LibrarianController {
             e.printStackTrace();
         }
     }
-
     private void clearFields() {
         socialIdField.clear();
         nameField.clear();

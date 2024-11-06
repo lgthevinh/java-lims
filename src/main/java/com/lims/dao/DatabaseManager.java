@@ -4,7 +4,9 @@ import com.lims.model.*;
 
 import java.sql.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.lims.Utils.convertStringToDatetime;
@@ -24,11 +26,19 @@ public class DatabaseManager {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Book");
 
         while (resultSet.next()) {
+            String dateString = resultSet.getString("year_of_publication");
+            Date yearOfPublication = null;
+            try {
+                yearOfPublication = new SimpleDateFormat("MM-dd-yyyy").parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             Book book = new Book(
                     resultSet.getString("isbn"),
                     resultSet.getString("title"),
                     resultSet.getString("author"),
-                    resultSet.getDate("year_of_publication"),
+                    yearOfPublication,
                     resultSet.getString("publisher"),
                     resultSet.getString("image_url"),
                     resultSet.getInt("available_amount")
@@ -111,7 +121,7 @@ public class DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -134,7 +144,7 @@ public class DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -155,7 +165,7 @@ public class DatabaseManager {
         String sqlStatement = "INSERT INTO USER VALUES (null ,'%s', '%s', '%s', '%s', '%s', '%s', '%s')".formatted(
                 user.getSocialId(),
                 user.getName(),
-                formatDatetime("yyyy-MM-dd", user.getDateOfBirth()),
+                formatDatetime("MM-dd-yyyy", user.getDateOfBirth()),
                 user.getAddressLine(),
                 user.getPhoneNumber(),
                 user.getEmail(),
@@ -178,7 +188,7 @@ public class DatabaseManager {
         statement.executeUpdate("UPDATE User SET social_id = '%s', name = '%s', date_of_birth = '%s', address_line = '%s', phone_number = '%s', email = '%s', password = '%s' WHERE id = %d".formatted(
                 user.getSocialId(),
                 user.getName(),
-                formatDatetime("yyyy-MM-dd", user.getDateOfBirth()),
+                formatDatetime("MM-dd-yyyy", user.getDateOfBirth()),
                 user.getAddressLine(),
                 user.getPhoneNumber(),
                 user.getEmail(),
@@ -197,7 +207,7 @@ public class DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -219,7 +229,7 @@ public class DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -256,7 +266,7 @@ public class DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -280,7 +290,7 @@ public class DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -345,9 +355,9 @@ public class DatabaseManager {
                     resultSet.getString("book_isbn"),
                     resultSet.getInt("borrower_id"),
                     resultSet.getInt("librarian_id"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("borrow_date")),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("expected_return_date")),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("actual_return_date"))
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("borrow_date")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("expected_return_date")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("actual_return_date"))
             );
             conn.close();
             return borrowDetail;
@@ -363,9 +373,9 @@ public class DatabaseManager {
                 borrowDetail.getBookIsbn(),
                 borrowDetail.getBorrowerId(),
                 borrowDetail.getLibrarianId(),
-                formatDatetime("yyyy-MM-dd", borrowDetail.getBorrowDate()),
-                formatDatetime("yyyy-MM-dd", borrowDetail.getExpectedReturnDate()),
-                formatDatetime("yyyy-MM-dd", borrowDetail.getActualReturnDate())
+                formatDatetime("MM-dd-yyyy", borrowDetail.getBorrowDate()),
+                formatDatetime("MM-dd-yyyy", borrowDetail.getExpectedReturnDate()),
+                formatDatetime("MM-dd-yyyy", borrowDetail.getActualReturnDate())
         ));
         conn.close();
     }

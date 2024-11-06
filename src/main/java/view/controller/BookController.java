@@ -1,5 +1,4 @@
 package view.controller;
-
 import com.lims.dao.DatabaseManager;
 import com.lims.model.Book;
 import javafx.collections.FXCollections;
@@ -15,10 +14,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
 import java.util.Date;
-
 public class BookController {
     @FXML
     private TableView<Book> bookTable;
@@ -50,14 +47,11 @@ public class BookController {
     private TextField imageUrlField;
     @FXML
     private TextField availableAmountField;
-
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
-
     @FXML
     private void initialize() {
         // Initialize the book table with the book list
         bookTable.setItems(bookList);
-
         // Set up the columns in the table
         isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -66,11 +60,13 @@ public class BookController {
         publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
         imageUrlColumn.setCellValueFactory(new PropertyValueFactory<>("imageUrl"));
         availableAmountColumn.setCellValueFactory(new PropertyValueFactory<>("availableAmount"));
-
         // Load books from the database
-        loadBooksFromDatabase();
+        try {
+            bookList.addAll(DatabaseManager.getAllBooks());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
     @FXML
     private void handleAddBook() {
         String isbn = isbnField.getText();
@@ -83,31 +79,16 @@ public class BookController {
         String publisher = publisherField.getText();
         String imageUrl = imageUrlField.getText();
         Integer availableAmount = Integer.parseInt(availableAmountField.getText());
-
         Book newBook = new Book(isbn, title, author, yearOfPublication, publisher, imageUrl, availableAmount);
-
         // Save the book to the database
-        saveBookToDatabase(newBook);
-
+        try {
+            DatabaseManager.addBookToDatabase(newBook);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         // Add the book to the observable list
         bookList.add(newBook);
         clearFields();
-    }
-
-    private void saveBookToDatabase(Book book) {
-        try {
-            DatabaseManager.addBookToDatabase(book);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadBooksFromDatabase() {
-        try {
-            bookList.addAll(DatabaseManager.getAllBooks());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -122,7 +103,6 @@ public class BookController {
             }
         }
     }
-
     @FXML
     private void handleBack(ActionEvent event) {
         try {
@@ -135,8 +115,6 @@ public class BookController {
             e.printStackTrace();
         }
     }
-
-
     private void clearFields() {
         isbnField.clear();
         titleField.clear();

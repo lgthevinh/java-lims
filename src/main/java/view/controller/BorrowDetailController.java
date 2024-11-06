@@ -1,5 +1,4 @@
 package view.controller;
-
 import com.lims.model.BorrowDetail;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,11 +13,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 public class BorrowDetailController {
     @FXML
     private TableView<BorrowDetail> borrowDetailTable;
@@ -46,14 +43,11 @@ public class BorrowDetailController {
     private DatePicker expectedReturnDateField;
     @FXML
     private DatePicker actualReturnDateField;
-
     private ObservableList<BorrowDetail> borrowDetailList = FXCollections.observableArrayList();
-
     @FXML
     private void initialize() {
         // Initialize the borrow detail table with the borrow detail list
         borrowDetailTable.setItems(borrowDetailList);
-
         // Set up the columns in the table
         bookIsbnColumn.setCellValueFactory(new PropertyValueFactory<>("bookIsbn"));
         borrowerIdColumn.setCellValueFactory(new PropertyValueFactory<>("borrowerId"));
@@ -62,7 +56,6 @@ public class BorrowDetailController {
         expectedReturnDateColumn.setCellValueFactory(new PropertyValueFactory<>("expectedReturnDate"));
         actualReturnDateColumn.setCellValueFactory(new PropertyValueFactory<>("actualReturnDate"));
     }
-
     @FXML
     private void handleAddBorrowDetail() {
         String bookIsbn = bookIsbnField.getText();
@@ -80,13 +73,10 @@ public class BorrowDetailController {
         if (actualReturnDateField.getValue() != null) {
             actualReturnDate = java.sql.Date.valueOf(actualReturnDateField.getValue());
         }
-
         BorrowDetail newBorrowDetail = new BorrowDetail(bookIsbn, borrowerId, librarianId, borrowDate, expectedReturnDate, actualReturnDate);
-
         borrowDetailList.add(newBorrowDetail);
         clearFields();
     }
-
     @FXML
     private void handleDeleteBorrowDetail() {
         BorrowDetail selectedBorrowDetail = borrowDetailTable.getSelectionModel().getSelectedItem();
@@ -94,7 +84,6 @@ public class BorrowDetailController {
             borrowDetailList.remove(selectedBorrowDetail);
         }
     }
-
     @FXML
     private void handleBack(ActionEvent event) {
         try {
@@ -107,7 +96,6 @@ public class BorrowDetailController {
             e.printStackTrace();
         }
     }
-
     private void clearFields() {
         bookIsbnField.clear();
         borrowerIdField.clear();
