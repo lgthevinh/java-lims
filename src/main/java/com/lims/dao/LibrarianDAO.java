@@ -15,7 +15,7 @@ import static com.lims.Utils.convertStringToDatetime;
 
 public class LibrarianDAO extends DatabaseManager {
 
-    public static List<Librarian> getAllLibrarian() throws SQLException, ParseException {
+    public static List<Librarian> getAllLibrarians() throws SQLException, ParseException {
         List<Librarian> librarianList = new ArrayList<>();
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
@@ -24,7 +24,7 @@ public class LibrarianDAO extends DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -38,7 +38,7 @@ public class LibrarianDAO extends DatabaseManager {
         return librarianList;
     }
 
-    public static Librarian getLibrarianById(int id) throws SQLException, ParseException {
+    public static Librarian getLibrarianById(Integer id) throws SQLException, ParseException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Librarian INNER JOIN User ON Librarian.user_id = User.id WHERE id = " + id);
@@ -46,7 +46,7 @@ public class LibrarianDAO extends DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -68,7 +68,7 @@ public class LibrarianDAO extends DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -83,7 +83,7 @@ public class LibrarianDAO extends DatabaseManager {
         return null;
     }
 
-    public static void addLibrarianToDatabase(User user) throws SQLException, ParseException {
+    public static void addLibrarianToDatabase(User user) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         statement.executeUpdate("INSERT INTO Librarian VALUES (null , '%s')".formatted(user.getUserId()));

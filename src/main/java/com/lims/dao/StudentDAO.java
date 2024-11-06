@@ -24,7 +24,7 @@ public class StudentDAO extends DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -40,7 +40,7 @@ public class StudentDAO extends DatabaseManager {
         return studentList;
     }
 
-    public static Student getStudentByUserId(String userId) throws SQLException, ParseException {
+    public static Student getStudentById(Integer userId) throws SQLException, ParseException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Student INNER JOIN User ON Student.user_id = User.id WHERE social_id= '%s'".formatted(userId));
@@ -48,7 +48,7 @@ public class StudentDAO extends DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -73,7 +73,7 @@ public class StudentDAO extends DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),

@@ -25,7 +25,7 @@ public class UserDAO extends DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -48,7 +48,7 @@ public class UserDAO extends DatabaseManager {
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("yyyy-MM-dd", resultSet.getString("date_of_birth")),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
@@ -63,13 +63,35 @@ public class UserDAO extends DatabaseManager {
         return null;
     }
 
+    public static User getUserByEmail(String email) throws SQLException, ParseException {
+        Connection conn = getConnection();
+        Statement statement = conn.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM User WHERE email = '%s'".formatted(email));
+        if (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            user.setUserId(resultSet.getInt("id"));
+            conn.close();
+            return user;
+        }
+        conn.close();
+        return null;
+    }
+
     public static void addUserToDatabase(User user) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         String sqlStatement = "INSERT INTO USER VALUES (null ,'%s', '%s', '%s', '%s', '%s', '%s', '%s')".formatted(
                 user.getSocialId(),
                 user.getName(),
-                formatDatetime("yyyy-MM-dd", user.getDateOfBirth()),
+                formatDatetime("MM-dd-yyyy", user.getDateOfBirth()),
                 user.getAddressLine(),
                 user.getPhoneNumber(),
                 user.getEmail(),
@@ -92,7 +114,7 @@ public class UserDAO extends DatabaseManager {
         statement.executeUpdate("UPDATE User SET social_id = '%s', name = '%s', date_of_birth = '%s', address_line = '%s', phone_number = '%s', email = '%s', password = '%s' WHERE id = %d".formatted(
                 user.getSocialId(),
                 user.getName(),
-                formatDatetime("yyyy-MM-dd", user.getDateOfBirth()),
+                formatDatetime("MM-dd-yyyy", user.getDateOfBirth()),
                 user.getAddressLine(),
                 user.getPhoneNumber(),
                 user.getEmail(),

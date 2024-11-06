@@ -38,7 +38,7 @@ public class BookDAO extends DatabaseManager {
     public static Book getBookByISBN(String isbn) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Book WHERE isbn = " + isbn);
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Book WHERE isbn = '%s'".formatted(isbn));
 
         if (resultSet.next()) {
             Book book = new Book(
@@ -65,7 +65,7 @@ public class BookDAO extends DatabaseManager {
                 book.getIsbn(),
                 book.getTitle(),
                 book.getAuthor(),
-                formatDatetime("yyyy", book.getYearOfPublication()),
+                formatDatetime("MM-dd-yyyy", book.getYearOfPublication()),
                 book.getPublisher(),
                 book.getImageUrl(),
                 book.getAvailableAmount()
@@ -86,7 +86,7 @@ public class BookDAO extends DatabaseManager {
         statement.executeUpdate("UPDATE Book SET title = '%s', author = '%s', year_of_publication = '%s', publisher = '%s', image_url = '%s', available_amount = '%d' WHERE isbn = '%s'".formatted(
                 book.getTitle(),
                 book.getAuthor(),
-                formatDatetime("yyyy", book.getYearOfPublication()),
+                formatDatetime("MM-dd-yyyy", book.getYearOfPublication()),
                 book.getPublisher(),
                 book.getImageUrl(),
                 book.getAvailableAmount(),
