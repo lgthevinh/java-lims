@@ -15,11 +15,11 @@ public class DatabaseManager {
         return DriverManager.getConnection(DB_URL);
     }
 
-    public static List<Book> getAllBooks() throws SQLException {
+    public static List<Book> getAllBooks() throws SQLException, ParseException {
         return BookDAO.getAllBooks();
     }
 
-    public static Book getBookByISBN(String isbn) throws SQLException {
+    public static Book getBookByISBN(String isbn) throws SQLException, ParseException {
         return BookDAO.getBookByISBN(isbn);
     }
 
