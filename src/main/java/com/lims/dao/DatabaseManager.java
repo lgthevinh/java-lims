@@ -23,15 +23,15 @@ public class DatabaseManager {
         return BookDAO.getBookByISBN(isbn);
     }
 
-    public static void addBook(Book book) throws SQLException {
+    public static void addBookToDatabase(Book book) throws SQLException {
         BookDAO.addBookToDatabase(book);
     }
 
-    public static void deleteBook(String isbn) throws SQLException {
+    public static void deleteBookFromDatabase(String isbn) throws SQLException {
         BookDAO.deleteBookFromDatabase(isbn);
     }
 
-    public static void updateBook(Book book) throws SQLException {
+    public static void updateBookInDatabase(Book book) throws SQLException {
         BookDAO.updateBookInDatabase(book);
     }
 
@@ -67,7 +67,7 @@ public class DatabaseManager {
         return LibrarianDAO.getLibrarianById(id);
     }
 
-    public static Librarian getLibrarianEmpId(Integer empId) throws SQLException, ParseException {
+    public static Librarian getLibrarianByEmpId(Integer empId) throws SQLException, ParseException {
         return LibrarianDAO.getLibrarianByEmpId(empId);
     }
 
