@@ -1,5 +1,6 @@
 package view.controller;
 
+import com.lims.dao.DatabaseManager;
 import com.lims.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,13 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,10 +58,31 @@ public class UserController {
         // Set up the columns in the table
         socialIdColumn.setCellValueFactory(new PropertyValueFactory<>("socialId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+//        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
         addressLineColumn.setCellValueFactory(new PropertyValueFactory<>("addressLine"));
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        dateOfBirthColumn.setCellFactory(column -> {
+            return new TableCell<User, Date>() {
+                @Override
+                protected void updateItem(Date date, boolean empty) {
+                    super.updateItem(date, empty);
+                    if (empty || date == null) {
+                        setText(null);
+                    } else {
+                        setText(dateFormat.format(date));
+                    }
+                }
+            };
+        });
+
+        try {
+            userList.addAll(DatabaseManager.getAllUsers());
+        } catch (SQLException | ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -79,6 +99,12 @@ public class UserController {
         String password = passwordField.getText();
 
         User newUser = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
+
+        try {
+            DatabaseManager.addUserToDatabase(newUser);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         userList.add(newUser);
         clearFields();

@@ -8,12 +8,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 public class MainViewController {
@@ -26,7 +29,7 @@ public class MainViewController {
     @FXML
     private TableColumn<Book, String> authorColumn;
     @FXML
-    private TableColumn<Book, Integer> yearOfPublicationColumn;
+    private TableColumn<Book, Date> yearOfPublicationColumn;
     @FXML
     private TableColumn<Book, String> publisherColumn;
     @FXML
@@ -39,9 +42,24 @@ public class MainViewController {
         isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-        yearOfPublicationColumn.setCellValueFactory(new PropertyValueFactory<>("yearOfPublication"));
+//        yearOfPublicationColumn.setCellValueFactory(new PropertyValueFactory<>("yearOfPublication"));
         publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
         availableAmountColumn.setCellValueFactory(new PropertyValueFactory<>("availableAmount"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        yearOfPublicationColumn.setCellValueFactory(new PropertyValueFactory<>("yearOfPublication"));
+        yearOfPublicationColumn.setCellFactory(column -> {
+            return new TableCell<Book, Date>() {
+                @Override
+                protected void updateItem(Date date, boolean empty) {
+                    super.updateItem(date, empty);
+                    if (empty || date == null) {
+                        setText(null);
+                    } else {
+                        setText(dateFormat.format(date));
+                    }
+                }
+            };
+        });
         bookTable.setItems(bookList);
         try {
             bookList.addAll(DatabaseManager.getAllBooks());

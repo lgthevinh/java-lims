@@ -91,7 +91,19 @@ public class LibrarianController {
         User user = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
         Librarian newLibrarian = new Librarian(user);
         newLibrarian.setEmpId(empId);
-        librarianList.add(newLibrarian);
+        try {
+            // Check if a librarian with the same user_id already exists
+            if (DatabaseManager.getLibrarianByEmpId(empId) == null) {
+                DatabaseManager.addLibrarianToDatabase(newLibrarian);
+                librarianList.add(newLibrarian);
+            } else {
+                System.out.println("A librarian with this user_id already exists.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
     }
     @FXML

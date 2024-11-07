@@ -204,10 +204,17 @@ public class DatabaseManager {
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Librarian INNER JOIN User ON Librarian.user_id = User.id");
         while (resultSet.next()) {
+            String dateString = resultSet.getString("date_of_birth");
+            Date dateOfBirth = null;
+            try {
+                dateOfBirth = new SimpleDateFormat("MM-dd-yyyy").parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             User user = new User(
                     resultSet.getString("social_id"),
                     resultSet.getString("name"),
-                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
+                    dateOfBirth,
                     resultSet.getString("address_line"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("email"),
