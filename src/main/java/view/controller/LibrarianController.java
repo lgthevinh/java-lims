@@ -1,4 +1,5 @@
 package view.controller;
+
 import com.lims.dao.DatabaseManager;
 import com.lims.model.Librarian;
 import com.lims.model.User;
@@ -12,13 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 public class LibrarianController {
     @FXML
@@ -68,7 +68,7 @@ public class LibrarianController {
         empIdColumn.setCellValueFactory(new PropertyValueFactory<>("empId"));
 
         try {
-            librarianList.addAll(DatabaseManager.getAllLibrarian());
+            librarianList.addAll(DatabaseManager.getAllLibrarians());
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ParseException e) {
