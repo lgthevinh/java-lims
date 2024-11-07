@@ -6,14 +6,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lims.Utils.convertStringToDatetime;
 import static com.lims.Utils.formatDatetime;
 
 public class BookDAO extends DatabaseManager {
 
-    public static List<Book> getAllBooks() throws SQLException {
+    public static List<Book> getAllBooks() throws SQLException, ParseException {
         List<Book> books = new ArrayList<>();
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
@@ -24,7 +26,7 @@ public class BookDAO extends DatabaseManager {
                     resultSet.getString("isbn"),
                     resultSet.getString("title"),
                     resultSet.getString("author"),
-                    resultSet.getDate("year_of_publication"),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("year_of_publication")),
                     resultSet.getString("publisher"),
                     resultSet.getString("image_url"),
                     resultSet.getInt("available_amount")
@@ -35,7 +37,7 @@ public class BookDAO extends DatabaseManager {
         return books;
     }
 
-    public static Book getBookByISBN(String isbn) throws SQLException {
+    public static Book getBookByISBN(String isbn) throws SQLException, ParseException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Book WHERE isbn = '%s'".formatted(isbn));
@@ -45,7 +47,7 @@ public class BookDAO extends DatabaseManager {
                     resultSet.getString("isbn"),
                     resultSet.getString("title"),
                     resultSet.getString("author"),
-                    resultSet.getDate("year_of_publication"),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("year_of_publication")),
                     resultSet.getString("publisher"),
                     resultSet.getString("image_url"),
                     resultSet.getInt("available_amount")

@@ -83,9 +83,9 @@ public class BorrowDetailDAO extends DatabaseManager {
                 borrowDetail.getBookIsbn(),
                 borrowDetail.getBorrowerId(),
                 borrowDetail.getLibrarianId(),
-                borrowDetail.getBorrowDate(),
-                borrowDetail.getExpectedReturnDate(),
-                borrowDetail.getActualReturnDate(),
+                formatDatetime("MM-dd-yyyy", borrowDetail.getBorrowDate()),
+                formatDatetime("MM-dd-yyyy", borrowDetail.getExpectedReturnDate()),
+                formatDatetime("MM-dd-yyyy", borrowDetail.getActualReturnDate()),
                 borrowDetail.getId()
         ));
         conn.close();
