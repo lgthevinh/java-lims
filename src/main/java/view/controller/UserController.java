@@ -114,6 +114,11 @@ public class UserController {
     private void handleDeleteUser() {
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
+            try {
+                DatabaseManager.deleteUserFromDatabase(selectedUser);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             userList.remove(selectedUser);
         }
     }

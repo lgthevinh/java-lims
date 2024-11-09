@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 public class BookController {
     @FXML
@@ -81,6 +82,7 @@ public class BookController {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+        bookTable.setOnMouseClicked(event -> handleRowSelect());
     }
     @FXML
     private void handleAddBook() {
@@ -118,6 +120,50 @@ public class BookController {
             }
         }
     }
+
+    @FXML
+    private void handleUpdateBook() {
+        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
+            selectedBook.setTitle(titleField.getText());
+            selectedBook.setAuthor(authorField.getText());
+            if (yearOfPublicationField.getValue() != null) {
+                selectedBook.setYearOfPublication(java.sql.Date.valueOf(yearOfPublicationField.getValue()));
+            }
+            selectedBook.setPublisher(publisherField.getText());
+            selectedBook.setImageUrl(imageUrlField.getText());
+            selectedBook.setAvailableAmount(Integer.parseInt(availableAmountField.getText()));
+
+            try {
+                DatabaseManager.updateBookInDatabase(selectedBook);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            bookTable.refresh();
+            clearFields();
+        }
+    }
+
+    @FXML
+    private void handleRowSelect() {
+        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
+            isbnField.setText(selectedBook.getIsbn());
+            titleField.setText(selectedBook.getTitle());
+            authorField.setText(selectedBook.getAuthor());
+
+            if (selectedBook.getYearOfPublication() != null) {
+                yearOfPublicationField.setValue(selectedBook.getYearOfPublication().toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDate());
+            }
+
+            publisherField.setText(selectedBook.getPublisher());
+            imageUrlField.setText(selectedBook.getImageUrl());
+            availableAmountField.setText(String.valueOf(selectedBook.getAvailableAmount()));
+        }
+    }
+
     @FXML
     private void handleBack(ActionEvent event) {
         try {
@@ -130,6 +176,7 @@ public class BookController {
             e.printStackTrace();
         }
     }
+
     private void clearFields() {
         isbnField.clear();
         titleField.clear();

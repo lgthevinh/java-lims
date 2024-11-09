@@ -43,7 +43,6 @@ public class MainViewController {
         isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-//        yearOfPublicationColumn.setCellValueFactory(new PropertyValueFactory<>("yearOfPublication"));
         publisherColumn.setCellValueFactory(new PropertyValueFactory<>("publisher"));
         availableAmountColumn.setCellValueFactory(new PropertyValueFactory<>("availableAmount"));
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");

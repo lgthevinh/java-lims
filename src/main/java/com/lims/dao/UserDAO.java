@@ -2,10 +2,7 @@ package com.lims.dao;
 
 import com.lims.model.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,6 +119,31 @@ public class UserDAO extends DatabaseManager {
                 user.getUserId()
         ));
         conn.close();
+    }
+    public static User getUserBySocialId(String socialId) throws SQLException, ParseException {
+        Connection conn = getConnection();
+        String query = "SELECT * FROM User WHERE social_id = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1, socialId);  // Chuyển socialId thành chuỗi
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            User user = new User(
+                    resultSet.getString("social_id"),
+                    resultSet.getString("name"),
+                    convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
+                    resultSet.getString("address_line"),
+                    resultSet.getString("phone_number"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password")
+            );
+            user.setUserId(resultSet.getInt("id"));
+            conn.close();
+            return user;
+        }
+
+        conn.close();
+        return null;  // Trả về null nếu không tìm thấy user
     }
 
 }

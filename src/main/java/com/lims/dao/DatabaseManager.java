@@ -130,4 +130,8 @@ public class DatabaseManager {
     public static void updateBorrowDetailInDatabase(BorrowDetail borrowDetail) throws SQLException {
         BorrowDetailDAO.updateBorrowDetailInDatabase(borrowDetail);
     }
+
+    public static User getUserBySocialId(String socialId) throws SQLException, ParseException {
+        return UserDAO.getUserBySocialId(socialId);
+    }
 }

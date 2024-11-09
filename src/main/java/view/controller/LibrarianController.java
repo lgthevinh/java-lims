@@ -1,6 +1,7 @@
 package view.controller;
 
 import com.lims.dao.DatabaseManager;
+import com.lims.model.Book;
 import com.lims.model.Librarian;
 import com.lims.model.User;
 import javafx.collections.FXCollections;
@@ -10,15 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 public class LibrarianController {
     @FXML
@@ -61,11 +61,25 @@ public class LibrarianController {
         // Set up the columns in the table
         socialIdColumn.setCellValueFactory(new PropertyValueFactory<>("socialId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
         addressLineColumn.setCellValueFactory(new PropertyValueFactory<>("addressLine"));
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         empIdColumn.setCellValueFactory(new PropertyValueFactory<>("empId"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        dateOfBirthColumn.setCellFactory(column -> {
+            return new TableCell<Librarian, Date>() {
+                @Override
+                protected void updateItem(Date date, boolean empty) {
+                    super.updateItem(date, empty);
+                    if (empty || date == null) {
+                        setText(null);
+                    } else {
+                        setText(dateFormat.format(date));
+                    }
+                }
+            };
+        });
 
         try {
             librarianList.addAll(DatabaseManager.getAllLibrarians());
@@ -75,42 +89,52 @@ public class LibrarianController {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     private void handleAddLibrarian() {
-        String socialId = socialIdField.getText();
-        String name = nameField.getText();
-        Date dateOfBirth = null;
-        if (dateOfBirthField.getValue() != null) {
-            dateOfBirth = java.sql.Date.valueOf(dateOfBirthField.getValue());
-        }
-        String addressLine = addressLineField.getText();
-        String phoneNumber = phoneNumberField.getText();
-        String email = emailField.getText();
-        String password = passwordField.getText();
-        Integer empId = Integer.parseInt(empIdField.getText());
-        User user = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
-        Librarian newLibrarian = new Librarian(user);
-        newLibrarian.setEmpId(empId);
         try {
-            // Check if a librarian with the same user_id already exists
-            if (DatabaseManager.getLibrarianByEmpId(empId) == null) {
-                DatabaseManager.addLibrarianToDatabase(newLibrarian);
-                librarianList.add(newLibrarian);
-            } else {
-                System.out.println("A librarian with this user_id already exists.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+            String socialId = socialIdField.getText();
+            String empId = empIdField.getText();
 
+            if (socialId.isEmpty() || empId.isEmpty()) {
+                System.out.println("Both fields are required!");
+                return;
+            }
+
+            User user = DatabaseManager.getUserBySocialId(socialId);
+
+            if (user == null) {
+                System.out.println("User not found!");
+                return;
+            }
+
+            DatabaseManager.addLibrarianToDatabase(user);
+
+            Librarian librarian = new Librarian(user, empId);
+            librarianList.add(librarian);
+
+            clearFields();
+
+        } catch (SQLException e) {
+            System.out.println("An error occurred while accessing the database.");
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid social ID.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     @FXML
     private void handleDeleteLibrarian() {
         Librarian selectedLibrarian = librarianTable.getSelectionModel().getSelectedItem();
         if (selectedLibrarian != null) {
-            librarianList.remove(selectedLibrarian);
+            try {
+                DatabaseManager.deleteLibrarianFromDatabase(selectedLibrarian);
+                librarianList.remove(selectedLibrarian);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
     @FXML
