@@ -90,13 +90,6 @@ public class LibrarianDAO extends DatabaseManager {
         conn.close();
     }
 
-    public static void addLibrarianToDatabase(Librarian librarian) throws SQLException {
-        Connection conn = getConnection();
-        Statement statement = conn.createStatement();
-        statement.executeUpdate("INSERT INTO Librarian VALUES (null , '%s')".formatted(librarian.getUserId()));
-        conn.close();
-    }
-
     public static void deleteLibrarianFromDatabase(Librarian librarian) throws SQLException {
         Connection conn = getConnection();
         Statement statement = conn.createStatement();

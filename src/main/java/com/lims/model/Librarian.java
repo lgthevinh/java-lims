@@ -5,7 +5,7 @@ import java.util.Date;
 public class Librarian extends User {
     private Integer empId;
 
-    public Librarian() {
+    public Librarian(User user, String empId) {
     }
 
     public Librarian(User user) {
