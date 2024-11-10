@@ -126,6 +126,7 @@ public class StudentController {
             Student student = new Student(user);
             studentList.add(student);
             clearFields();
+            refreshTable();
         } catch (SQLException e) {
             System.out.println("An error occurred while accessing the database.");
             e.printStackTrace();
@@ -147,6 +148,15 @@ public class StudentController {
                 System.out.println("An error occurred while accessing the database.");
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void refreshTable() {
+        studentList.clear();
+        try {
+            studentList.addAll(DatabaseManager.getAllStudents());
+        } catch (ParseException | SQLException e) {
+            e.printStackTrace();
         }
     }
 

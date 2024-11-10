@@ -114,7 +114,7 @@ public class LibrarianController {
             librarianList.add(librarian);
 
             clearFields();
-
+            refreshTable();
         } catch (SQLException e) {
             System.out.println("An error occurred while accessing the database.");
             e.printStackTrace();
@@ -122,6 +122,18 @@ public class LibrarianController {
             System.out.println("Please enter a valid social ID.");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void refreshTable() {
+        librarianList.clear();
+        try {
+            librarianList.addAll(DatabaseManager.getAllLibrarians());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 
