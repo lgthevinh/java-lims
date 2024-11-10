@@ -7,9 +7,6 @@ public class Student extends User {
     private String school;
     private String major;
 
-    public Student() {
-    }
-
     public Student(User user) {
         super(user.getSocialId(), user.getName(), user.getDateOfBirth(), user.getAddressLine(), user.getPhoneNumber(), user.getEmail(), user.getPassword());
     }

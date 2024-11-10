@@ -3,10 +3,7 @@ package com.lims.dao;
 import com.lims.model.Student;
 import com.lims.model.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,14 +88,15 @@ public class StudentDAO extends DatabaseManager {
     }
 
     public static void addStudentToDatabase(User user, String studentId, String school, String major) throws SQLException {
-        Connection conn = getConnection();
-        Statement statement = conn.createStatement();
-        statement.executeUpdate("INSERT INTO Student VALUES ('%s', %d, '%s', %s)".formatted(
-                studentId,
-                user.getUserId(),
-                school,
-                major
-        ));
+        String sql = "INSERT INTO Student (student_id, user_id, school_name, major) VALUES (?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, studentId);
+            pstmt.setInt(2, user.getUserId());
+            pstmt.setString(3, school);
+            pstmt.setString(4, major);
+            pstmt.executeUpdate();
+        }
     }
 
     public static void addStudentToDatabase(Student student) throws SQLException {

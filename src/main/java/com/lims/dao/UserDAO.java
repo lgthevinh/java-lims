@@ -143,7 +143,7 @@ public class UserDAO extends DatabaseManager {
         }
 
         conn.close();
-        return null;  // Trả về null nếu không tìm thấy user
+        return null;
     }
 
 }

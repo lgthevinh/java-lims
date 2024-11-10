@@ -1,5 +1,7 @@
 package view.controller;
 
+import com.lims.dao.DatabaseManager;
+import com.lims.model.Librarian;
 import com.lims.model.Student;
 import com.lims.model.User;
 import javafx.collections.FXCollections;
@@ -9,13 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,46 +72,81 @@ public class StudentController {
         // Set up the columns in the table
         socialIdColumn.setCellValueFactory(new PropertyValueFactory<>("socialId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
         addressLineColumn.setCellValueFactory(new PropertyValueFactory<>("addressLine"));
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         studentIdColumn.setCellValueFactory(new PropertyValueFactory<>("studentId"));
         schoolColumn.setCellValueFactory(new PropertyValueFactory<>("school"));
         majorColumn.setCellValueFactory(new PropertyValueFactory<>("major"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        dateOfBirthColumn.setCellFactory(column -> {
+            return new TableCell<Student, Date>() {
+                @Override
+                protected void updateItem(Date date, boolean empty) {
+                    super.updateItem(date, empty);
+                    if (empty || date == null) {
+                        setText(null);
+                    } else {
+                        setText(dateFormat.format(date));
+                    }
+                }
+            };
+        });
+
+        try {
+            studentList.addAll(DatabaseManager.getAllStudents());
+        } catch (ParseException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleAddStudent() {
-        String socialId = socialIdField.getText();
-        String name = nameField.getText();
-        Date dateOfBirth = null;
-        if (dateOfBirthField.getValue() != null) {
-            dateOfBirth = java.sql.Date.valueOf(dateOfBirthField.getValue());
+        try {
+            String socialId = socialIdField.getText();
+            String studentId = studentIdField.getText();
+            String school = schoolField.getText();
+            String major = majorField.getText();
+
+            if (socialId.isEmpty() || studentId.isEmpty() || school.isEmpty() || major.isEmpty()) {
+                System.out.println("All fields are required!");
+                return;
+            }
+
+            User user = DatabaseManager.getUserBySocialId(socialId);
+
+            if (user == null) {
+                System.out.println("User not found!");
+                return;
+            }
+
+            DatabaseManager.addStudentToDatabase(user, studentId, school, major);
+
+            Student student = new Student(user);
+            studentList.add(student);
+            clearFields();
+        } catch (SQLException e) {
+            System.out.println("An error occurred while accessing the database.");
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid social ID.");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        String addressLine = addressLineField.getText();
-        String phoneNumber = phoneNumberField.getText();
-        String email = emailField.getText();
-        String password = passwordField.getText();
-        String studentId = studentIdField.getText();
-        String school = schoolField.getText();
-        String major = majorField.getText();
-
-        User user = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
-        Student newStudent = new Student(user);
-        newStudent.setStudentId(studentId);
-        newStudent.setSchool(school);
-        newStudent.setMajor(major);
-
-        studentList.add(newStudent);
-        clearFields();
     }
 
     @FXML
     private void handleDeleteStudent() {
         Student selectedStudent = studentTable.getSelectionModel().getSelectedItem();
         if (selectedStudent != null) {
-            studentList.remove(selectedStudent);
+            try {
+                DatabaseManager.deleteStudentFromDatabase(selectedStudent);
+                studentList.remove(selectedStudent);
+            } catch (SQLException e) {
+                System.out.println("An error occurred while accessing the database.");
+                e.printStackTrace();
+            }
         }
     }
 
