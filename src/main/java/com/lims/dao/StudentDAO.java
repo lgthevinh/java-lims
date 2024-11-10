@@ -106,7 +106,7 @@ public class StudentDAO extends DatabaseManager {
         Connection conn = getConnection();
         try {
             String sql = "INSERT INTO Student (student_id, user_id, school_name, major) VALUES (?, ?, ?, ?)";
-            PreparedStatement pstmt = conn.prepareStatement(sql)
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, studentId);
             pstmt.setInt(2, user.getUserId());
             pstmt.setString(3, school);
