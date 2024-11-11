@@ -5,13 +5,13 @@ import java.util.Date;
 public class BorrowDetail {
     private Integer id;
     private String bookIsbn;
-    private int borrowerId;
-    private int librarianId;
+    private Integer borrowerId;
+    private Integer librarianId;
     private Date borrowDate;
     private Date expectedReturnDate;
     private Date actualReturnDate;
 
-    public BorrowDetail(String bookIsbn, int borrowerId, int librarianId, Date borrowDate, Date expectedReturnDate, Date actualReturnDate) {
+    public BorrowDetail(String bookIsbn, Integer borrowerId, Integer librarianId, Date borrowDate, Date expectedReturnDate, Date actualReturnDate) {
         this.bookIsbn = bookIsbn;
         this.borrowerId = borrowerId;
         this.librarianId = librarianId;
@@ -37,19 +37,19 @@ public class BorrowDetail {
         this.bookIsbn = bookIsbn;
     }
 
-    public int getBorrowerId() {
+    public Integer getBorrowerId() {
         return borrowerId;
     }
 
-    public void setBorrowerId(int borrowerId) {
+    public void setBorrowerId(Integer borrowerId) {
         this.borrowerId = borrowerId;
     }
 
-    public int getLibrarianId() {
+    public Integer getLibrarianId() {
         return librarianId;
     }
 
-    public void setLibrarianId(int librarianId) {
+    public void setLibrarianId(Integer librarianId) {
         this.librarianId = librarianId;
     }
 
