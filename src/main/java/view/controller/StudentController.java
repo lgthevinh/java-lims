@@ -175,11 +175,6 @@ public class StudentController {
 
     private void clearFields() {
         socialIdField.clear();
-        nameField.clear();
-        dateOfBirthField.setValue(null);
-        addressLineField.clear();
-        phoneNumberField.clear();
-        emailField.clear();
         passwordField.clear();
         studentIdField.clear();
         schoolField.clear();

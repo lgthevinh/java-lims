@@ -163,11 +163,6 @@ public class LibrarianController {
     }
     private void clearFields() {
         socialIdField.clear();
-        nameField.clear();
-        dateOfBirthField.setValue(null);
-        addressLineField.clear();
-        phoneNumberField.clear();
-        emailField.clear();
         passwordField.clear();
         empIdField.clear();
     }

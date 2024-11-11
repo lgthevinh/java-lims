@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="755.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.UserController">
+<VBox prefHeight="686.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.UserController">
     <children>
         <VBox alignment="CENTER" spacing="10">
         <GridPane alignment="CENTER" hgap="10" vgap="10">
@@ -56,11 +56,11 @@
         <TableView fx:id="userTable">
             <columns>
                 <TableColumn fx:id="socialIdColumn" prefWidth="57.0" text="Social ID" />
-                <TableColumn fx:id="nameColumn" prefWidth="152.0" text="Name" />
-                <TableColumn fx:id="dateOfBirthColumn" prefWidth="91.0" text="Date of Birth" />
-                <TableColumn fx:id="addressLineColumn" prefWidth="117.0" text="Address Line" />
-                <TableColumn fx:id="phoneNumberColumn" prefWidth="153.0" text="Phone Number" />
-                <TableColumn fx:id="emailColumn" prefWidth="184.0" text="Email" />
+                <TableColumn fx:id="nameColumn" prefWidth="185.0" text="Name" />
+                <TableColumn fx:id="dateOfBirthColumn" prefWidth="135.0" text="Date of Birth" />
+                <TableColumn fx:id="addressLineColumn" prefWidth="166.0" text="Address Line" />
+                <TableColumn fx:id="phoneNumberColumn" prefWidth="145.0" text="Phone Number" />
+                <TableColumn fx:id="emailColumn" prefWidth="236.0" text="Email" />
             </columns>
         </TableView>
         <Button onAction="#handleBack" text="Back">

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="755.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.BookController">
+<StackPane prefHeight="660.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.BookController">
     <children>
         <VBox alignment="CENTER" spacing="10">
             <GridPane alignment="CENTER" hgap="10" vgap="10">
@@ -58,12 +58,12 @@
             <TableView fx:id="bookTable">
                 <columns>
                     <TableColumn fx:id="isbnColumn" prefWidth="51.0" text="ISBN" />
-                    <TableColumn fx:id="titleColumn" prefWidth="148.0" text="Title" />
-                    <TableColumn fx:id="authorColumn" prefWidth="116.0" text="Author" />
-                    <TableColumn fx:id="yearOfPublicationColumn" maxWidth="164.0" minWidth="-1.0" prefWidth="117.0" text="Year of Publication" />
-                    <TableColumn fx:id="publisherColumn" minWidth="0.0" prefWidth="101.0" text="Publisher" />
-                    <TableColumn fx:id="imageUrlColumn" minWidth="0.0" prefWidth="101.0" text="Image URL" />
-                    <TableColumn fx:id="availableAmountColumn" minWidth="0.0" prefWidth="114.0" text="Available Amount" />
+                    <TableColumn fx:id="titleColumn" prefWidth="221.0" text="Title" />
+                    <TableColumn fx:id="authorColumn" prefWidth="101.0" text="Author" />
+                    <TableColumn fx:id="yearOfPublicationColumn" maxWidth="192.0" minWidth="-1.0" prefWidth="122.0" text="Year of Publication" />
+                    <TableColumn fx:id="publisherColumn" minWidth="0.0" prefWidth="115.0" text="Publisher" />
+                    <TableColumn fx:id="imageUrlColumn" minWidth="0.0" prefWidth="222.0" text="Image URL" />
+                    <TableColumn fx:id="availableAmountColumn" minWidth="0.0" prefWidth="121.0" text="Available Amount" />
                 </columns>
             </TableView>
             <Button onAction="#handleBack" text="Back">
