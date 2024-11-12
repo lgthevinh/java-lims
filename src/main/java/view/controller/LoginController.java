@@ -23,11 +23,12 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (isValidCredentials(username, password)) {
+        String viewPath = getViewPathForCredentials(username, password);
+        if (viewPath != null) {
             showAlert(AlertType.INFORMATION, "Login Successful", "Welcome " + username + "!");
             try {
                 Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource(viewPath));
                 stage.setScene(new Scene(root));
                 stage.centerOnScreen();
                 stage.show();
@@ -39,9 +40,13 @@ public class LoginController {
         }
     }
 
-    private boolean isValidCredentials(String username, String password) {
-        // Replace with actual validation logic, e.g., database check
-        return "1".equals(username) && "1".equals(password);
+    private String getViewPathForCredentials(String username, String password) {
+        if ("1".equals(username) && "1".equals(password)) {
+            return "/fxml/MainView.fxml";
+        } else if ("2".equals(username) && "2".equals(password)) {
+            return "/fxml/MainUserView.fxml";
+        }
+        return null;
     }
 
     private void showAlert(AlertType alertType, String title, String message) {

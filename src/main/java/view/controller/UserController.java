@@ -58,7 +58,6 @@ public class UserController {
         // Set up the columns in the table
         socialIdColumn.setCellValueFactory(new PropertyValueFactory<>("socialId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
         addressLineColumn.setCellValueFactory(new PropertyValueFactory<>("addressLine"));
         phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
