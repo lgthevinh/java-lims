@@ -40,6 +40,11 @@
                     <Button onAction="#handleDeleteBook" text="Delete Book" />
                     <Button onAction="#handleUpdateBook" text="Update Book" />
                 </HBox>
+            <HBox prefHeight="25.0" prefWidth="122.0" GridPane.rowIndex="7">
+               <children>
+                  <Button onAction="#handleAddBookByApi" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Add Book By API" />
+               </children>
+            </HBox>
                 <columnConstraints>
                     <ColumnConstraints />
                     <ColumnConstraints />

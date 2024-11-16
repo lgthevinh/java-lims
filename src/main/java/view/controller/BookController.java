@@ -109,6 +109,20 @@ public class BookController {
     }
 
     @FXML
+    private void handleAddBookByApi() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SearchBookByApiView.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(loader.load()));
+            stage.setTitle("Search Book by API");
+            stage.centerOnScreen();
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void handleDeleteBook() {
         Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
