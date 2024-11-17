@@ -48,6 +48,8 @@ public class SearchBookByApiController {
     @FXML
     private Button cancelButton;
 
+    private BookController bookController;
+
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     @FXML
@@ -81,7 +83,8 @@ public class SearchBookByApiController {
             return;
         }
 
-        String apiUrl = "https://www.googleapis.com/books/v1/volumes?q=" + query + "&maxResults=40";
+        String apiKey = "AIzaSyCHhMgtREyCQjs6DMmU8T0VzdsfPtykspI";
+        String apiUrl = "https://www.googleapis.com/books/v1/volumes?q=" + query + "&maxResults=40&key=" + apiKey;
 
         try {
             // Send GET request
@@ -92,7 +95,7 @@ public class SearchBookByApiController {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+            Thread.sleep(2000);
             if (response.statusCode() == 200) {
                 // Parse JSON response
                 String responseBody = response.body();
@@ -175,9 +178,19 @@ public class SearchBookByApiController {
         alert.showAndWait();
     }
 
+    public void setBookController(BookController bookController) {
+        this.bookController = bookController;
+    }
+
     @FXML
     private void addSelectedBook() {
-
+        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+        if (selectedBook != null && bookController != null) {
+            bookController.addBookFromApi(selectedBook); // Gửi sách sang BookController
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Book added successfully!");
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a book to add.");
+        }
     }
 
     @FXML

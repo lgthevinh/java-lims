@@ -23,7 +23,7 @@
         </columns>
     </TableView>
     <HBox alignment="CENTER" spacing="10.0">
-        <Button text="Add Selected Book" />
+        <Button onAction="#addSelectedBook" text="Add Selected Book" />
         <Button onAction="#cancel" text="Cancel" />
       <VBox.margin>
          <Insets right="20.0" />

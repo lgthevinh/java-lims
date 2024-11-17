@@ -108,12 +108,25 @@ public class BookController {
         clearFields();
     }
 
+    public void addBookFromApi(Book book) {
+        bookList.add(book);
+        try {
+            DatabaseManager.addBookToDatabase(book);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void handleAddBookByApi() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SearchBookByApiView.fxml"));
+            Parent root = loader.load();
+            SearchBookByApiController controller = loader.getController();
+            controller.setBookController(this);
+
             Stage stage = new Stage();
-            stage.setScene(new Scene(loader.load()));
+            stage.setScene(new Scene(root));
             stage.setTitle("Search Book by API");
             stage.centerOnScreen();
             stage.show();
