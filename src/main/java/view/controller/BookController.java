@@ -85,6 +85,7 @@ public class BookController {
         }
         bookTable.setOnMouseClicked(event -> handleRowSelect());
     }
+
     @FXML
     private void handleAddBook() {
         String isbn = isbnField.getText();

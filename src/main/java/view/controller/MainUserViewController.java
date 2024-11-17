@@ -10,10 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -64,6 +61,38 @@ public class MainUserViewController {
                 }
             };
         });
+        // Tạo Context Menu cho ISBN
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem copyIsbnItem = new MenuItem("Copy ISBN");
+
+        // Gắn hành động copy khi chọn menu
+        copyIsbnItem.setOnAction(event -> {
+            Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+            if (selectedBook != null) {
+                copyToClipboard(selectedBook.getIsbn());
+            } else {
+                System.out.println("No book selected");
+            }
+        });
+
+        contextMenu.getItems().add(copyIsbnItem);
+
+        // Gắn Context Menu vào mỗi cell của cột ISBN
+        isbnColumn.setCellFactory(column -> {
+            TableCell<Book, String> cell = new TableCell<>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty ? null : item);
+
+                    // Chỉ gắn Context Menu nếu cell không rỗng
+                    if (!empty) {
+                        setContextMenu(contextMenu);
+                    }
+                }
+            };
+            return cell;
+        });
         bookTable.setItems(bookList);
         try {
             bookList.addAll(DatabaseManager.getAllBooks());
@@ -73,9 +102,18 @@ public class MainUserViewController {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    private void copyToClipboard(String text) {
+        javafx.scene.input.Clipboard clipboard = javafx.scene.input.Clipboard.getSystemClipboard();
+        javafx.scene.input.ClipboardContent content = new javafx.scene.input.ClipboardContent();
+        content.putString(text);
+        clipboard.setContent(content);
+    }
+
     public void setBookList(List<Book> books) {
         bookList.setAll(books);
     }
+
     @FXML
     private void handleSearch() {
         String searchText = searchField.getText().toLowerCase();
@@ -86,6 +124,7 @@ public class MainUserViewController {
                 .collect(Collectors.toList());
         bookTable.setItems(FXCollections.observableArrayList(filteredBooks));
     }
+
     @FXML
     private void handleLogout(ActionEvent event) {
         try {
@@ -104,7 +143,19 @@ public class MainUserViewController {
 
     @FXML
     public void handleManageUsers(ActionEvent event) {
-        loadView("/fxml/UserInforView.fxml", event);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BorrowBookView.fxml"));
+        loadView(loader, event);
+    }
+
+    @FXML
+    public void handleBorrowBook(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BorrowBookView.fxml"));
+        loadView(loader, event);
+        BorrowBookController borrowBookController = loader.getController();
+        borrowBookController.setBookList(bookList);
+    }
+    public ObservableList<Book> getBookList() {
+        return bookList;
     }
 
     @FXML
@@ -112,10 +163,10 @@ public class MainUserViewController {
         System.exit(0);
     }
 
-    private void loadView(String fxmlPath, ActionEvent event) {
+    private void loadView(FXMLLoader loader, ActionEvent event) {
         try {
+            Parent root = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
             FadeTransition fadeTransition = new FadeTransition();
             fadeTransition.setDuration(Duration.millis(500));
             fadeTransition.setNode(root);
