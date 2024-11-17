@@ -1,6 +1,8 @@
 package view.controller;
+import animatefx.animation.FadeIn;
 import com.lims.dao.DatabaseManager;
 import com.lims.model.Book;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.util.Duration;
 public class MainViewController {
     @FXML
     private TableView<Book> bookTable;
@@ -87,6 +90,9 @@ public class MainViewController {
         try {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
+            FadeIn fadeIn = new FadeIn(root);
+            fadeIn.setSpeed(1.0);
+            fadeIn.play();
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();
@@ -122,6 +128,14 @@ public class MainViewController {
         try {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+
+            FadeTransition fadeTransition = new FadeTransition();
+            fadeTransition.setDuration(Duration.millis(500));
+            fadeTransition.setNode(root);
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(1);
+            fadeTransition.play();
+
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();

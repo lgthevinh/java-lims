@@ -1,4 +1,5 @@
 package view.controller;
+import animatefx.animation.ZoomIn;
 import com.lims.dao.DatabaseManager;
 import com.lims.model.Book;
 import javafx.collections.FXCollections;
@@ -196,6 +197,9 @@ public class BookController {
         try {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
+            ZoomIn zoomIn = new ZoomIn(root);
+            zoomIn.setSpeed(1.0);
+            zoomIn.play();
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();

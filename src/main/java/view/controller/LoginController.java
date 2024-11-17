@@ -1,6 +1,8 @@
 package view.controller;
 
+import animatefx.animation.ZoomIn;
 import com.lims.model.User;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 
 public class LoginController {
     @FXML
@@ -29,6 +33,11 @@ public class LoginController {
             try {
                 Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
                 Parent root = FXMLLoader.load(getClass().getResource(viewPath));
+
+                ZoomIn zoomIn = new ZoomIn(root);
+                zoomIn.setSpeed(1.0);
+                zoomIn.play();
+
                 stage.setScene(new Scene(root));
                 stage.centerOnScreen();
                 stage.show();

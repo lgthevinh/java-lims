@@ -1,5 +1,6 @@
 package view.controller;
 
+import animatefx.animation.ZoomIn;
 import com.lims.dao.DatabaseManager;
 import com.lims.model.User;
 import javafx.collections.FXCollections;
@@ -127,6 +128,9 @@ public class UserInforController {
         try {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainUserView.fxml"));
+            ZoomIn zoomIn = new ZoomIn(root);
+            zoomIn.setSpeed(1.0);
+            zoomIn.play();
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();
