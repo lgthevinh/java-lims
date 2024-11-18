@@ -62,7 +62,9 @@ more information about the DAO pattern [here](https://en.wikipedia.org/wiki/Data
 
 ### Development manual:
 
-0. Import static methods
+#### DAO Methods
+
+0. Import static methods/class
 
 ```java
 // import static com.lims.dao.DatabaseManager.*; (All methods are structurize in DAO Objects) (version 2)
@@ -321,6 +323,14 @@ updateBorrowDetailInDatabase(borrowDetail);
     - BorrowDetail: BorrowDetail object
 - Return type: None
 - Note: This method take borrow detail object and get the id from the object and update the borrow detail in the database (the id in the object should be the same as the id in the database)
+
+#### Authentication & Authorization methods/annotations
+
+0. To be updated
+
+#### Utils & APIs
+
+0. To be updated
 
 ### Versioning
 

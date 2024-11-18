@@ -1,22 +1,25 @@
 package org.example;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import com.lims.controller.AuthenticationController;
+import com.lims.controller.AuthorizationController;
 
-public class Main extends Application {
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
-        primaryStage.setTitle("Library Management System");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
+public class Main {
 
     public static void main(String[] args) {
-        launch(args);
+        System.out.println("Data core");
+
+        AuthenticationController.deleteAuthentication();
+
+        if (!AuthenticationController.isAuthenticated()) {
+            AuthenticationController.authenticate("trinhngocthong@gmail.com", "tnt123");
+        }
+
+        try {
+            System.out.println(AuthorizationController.isAuthorized(0) ? "Admin" : "User");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
