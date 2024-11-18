@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="613.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.BorrowBookController">
+    <children>
+        <VBox alignment="CENTER" spacing="10">
+            <GridPane alignment="CENTER" hgap="10" vgap="10">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+                <Label text="Book ISBN:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="bookIsbnField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="Borrower ID:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="borrowerIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Borrow Date:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <DatePicker fx:id="borrowDateField" prefHeight="25.0" prefWidth="249.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Expected Return Date:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <DatePicker fx:id="expectedReturnDateField" layoutX="327.0" layoutY="135.0" prefHeight="25.0" prefWidth="249.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <Button onAction="#handleBorrowBook" text="Borrow Book" />
+                </HBox>
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />  
+                </rowConstraints>
+            </GridPane>
+            <TableView fx:id="borrowDetailTable" prefHeight="343.0" prefWidth="755.0">
+                <columns>
+                    <TableColumn fx:id="bookIsbnColumn" prefWidth="143.0" text="ISBN" />
+                    <TableColumn fx:id="actualReturnDateColumn" prefWidth="209.0" text="Book" />
+                    <TableColumn fx:id="borrowerIdColumn" prefWidth="146.0" text="Borrower ID" />
+                    <TableColumn fx:id="borrowDateColumn" prefWidth="197.0" text="Borrow Date" />
+                    <TableColumn fx:id="expectedReturnDateColumn" prefWidth="206.0" text="Expected Return Date" />
+                </columns>
+            </TableView>
+            <Button onAction="#handleBack" text="Back" />
+        </VBox>
+    </children>
+</StackPane>
