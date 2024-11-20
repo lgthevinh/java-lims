@@ -47,7 +47,7 @@
             <TableView fx:id="borrowDetailTable" prefHeight="343.0" prefWidth="755.0">
                 <columns>
                     <TableColumn fx:id="bookIsbnColumn" prefWidth="143.0" text="ISBN" />
-                    <TableColumn fx:id="actualReturnDateColumn" prefWidth="209.0" text="Book" />
+                    <TableColumn fx:id="titleColumn" prefWidth="209.0" text="Book" />
                     <TableColumn fx:id="borrowerIdColumn" prefWidth="146.0" text="Borrower ID" />
                     <TableColumn fx:id="borrowDateColumn" prefWidth="197.0" text="Borrow Date" />
                     <TableColumn fx:id="expectedReturnDateColumn" prefWidth="206.0" text="Expected Return Date" />

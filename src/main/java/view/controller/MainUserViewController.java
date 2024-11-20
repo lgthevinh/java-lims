@@ -143,16 +143,16 @@ public class MainUserViewController {
 
     @FXML
     public void handleManageUsers(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BorrowBookView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserInforView.fxml"));
         loadView(loader, event);
     }
 
     @FXML
-    public void handleBorrowBook(ActionEvent event) {
+    public void handleBorrowBook(ActionEvent event) throws SQLException, ParseException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/BorrowBookView.fxml"));
         loadView(loader, event);
-        BorrowBookController borrowBookController = loader.getController();
-        borrowBookController.setBookList(bookList);
+        BorrowBookController controller = loader.getController();
+        controller.setBookList(FXCollections.observableArrayList(DatabaseManager.getAllBooks()));
     }
     public ObservableList<Book> getBookList() {
         return bookList;

@@ -22,13 +22,17 @@ public class BorrowDetailDAO extends DatabaseManager {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM BorrowDetail");
             while (resultSet.next()) {
+                String borrowDateStr = resultSet.getString("borrow_date");
+                String expectedReturnDateStr = resultSet.getString("expected_return_date");
+                String actualReturnDateStr = resultSet.getString("actual_return_date");
+
                 BorrowDetail borrowDetail = new BorrowDetail(
                         resultSet.getString("book_isbn"),
                         resultSet.getInt("borrower_id"),
                         resultSet.getInt("librarian_id"),
-                        convertStringToDatetime("MM-dd-yyyy", resultSet.getString("borrow_date")),
-                        convertStringToDatetime("MM-dd-yyyy", resultSet.getString("expected_return_date")),
-                        convertStringToDatetime("MM-dd-yyyy", resultSet.getString("actual_return_date"))
+                        convertStringToDatetime("MM-dd-yyyy", borrowDateStr),
+                        convertStringToDatetime("MM-dd-yyyy", expectedReturnDateStr),
+                        actualReturnDateStr == null || "NULL".equals(actualReturnDateStr) ? null : convertStringToDatetime("MM-dd-yyyy", actualReturnDateStr)
                 );
                 borrowDetailList.add(borrowDetail);
             }
@@ -69,13 +73,15 @@ public class BorrowDetailDAO extends DatabaseManager {
         Connection conn = getConnection();
         try {
             Statement statement = conn.createStatement();
+            String actualReturnDate = borrowDetail.getActualReturnDate() != null ?
+                    formatDatetime("MM-dd-yyyy", borrowDetail.getActualReturnDate()) : "NULL";
             statement.executeUpdate("INSERT INTO BorrowDetail VALUES (null, '%s', %d, %d, '%s', '%s', '%s')".formatted(
                     borrowDetail.getBookIsbn(),
                     borrowDetail.getBorrowerId(),
                     borrowDetail.getLibrarianId(),
                     formatDatetime("MM-dd-yyyy", borrowDetail.getBorrowDate()),
                     formatDatetime("MM-dd-yyyy", borrowDetail.getExpectedReturnDate()),
-                    formatDatetime("MM-dd-yyyy", borrowDetail.getActualReturnDate())
+                    actualReturnDate
             ));
             conn.close();
         } catch (SQLException e) {
