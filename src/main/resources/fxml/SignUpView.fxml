@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefWidth="648.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.SignUpController">
+    <children>
+        <ImageView fitHeight="443.0" fitWidth="648.0" pickOnBounds="true">
+            <image>
+                <Image url="@../images/background.png" />
+            </image>
+        </ImageView>
+        <BorderPane layoutX="75.0" layoutY="40.0" prefHeight="363.0" prefWidth="498.0" style="-fx-background-color: rgba(224, 224, 224, 0.5); -fx-background-radius: 35 35 35 35; -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.2), 15, 0.3, 0, 0);">
+            <right>
+                <VBox alignment="CENTER" focusTraversable="true" prefHeight="363.0" prefWidth="254.0" style="-fx-background-radius: 35 35 35 35; -fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="45.0" fitWidth="181.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/logo.png" />
+                            </image>
+                        </ImageView>
+                        <GridPane alignment="CENTER" hgap="10" prefHeight="160.0" prefWidth="324.0" vgap="10">
+                            <padding>
+                                <Insets bottom="20" left="20" right="20" top="20" />
+                            </padding>
+                            <Label alignment="CENTER" prefHeight="30.0" prefWidth="78.0" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                <font>
+                                    <Font name="System Bold" size="12.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="usernameField" prefHeight="37.0" prefWidth="149.0" promptText="Email" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label alignment="CENTER" prefHeight="29.0" prefWidth="66.0" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                <font>
+                                    <Font name="System Bold" size="12.0" />
+                                </font>
+                            </Label>
+                            <PasswordField fx:id="passwordField" prefHeight="37.0" prefWidth="149.0" promptText="Password" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     <Label alignment="CENTER" layoutX="30.0" layoutY="89.0" prefHeight="38.0" prefWidth="66.0" text="Confirm:" GridPane.rowIndex="2">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
+                     <PasswordField fx:id="confirmPasswordField" layoutX="106.0" layoutY="75.0" prefHeight="37.0" prefWidth="149.0" promptText="Confirm Password" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <columnConstraints>
+                                <ColumnConstraints />
+                                <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                            </rowConstraints>
+                        </GridPane>
+                        <HBox alignment="CENTER" spacing="10">
+                            <Button alignment="CENTER" onAction="#handleSignUp" prefHeight="31.0" prefWidth="70.0" style="-fx-background-color: #aad7fa; -fx-background-radius: 25;" text="Sign Up">
+                                <effect>
+                                    <DropShadow height="12.21" radius="5.605" width="12.21" />
+                                </effect>
+                            </Button>
+                        </HBox>
+                    </children>
+                </VBox>
+            </right>
+            <center>
+                <Pane opacity="0.0" prefHeight="363.0" prefWidth="270.0" style="-fx-background-radius: 35 35 35 35;" BorderPane.alignment="CENTER" />
+            </center>
+        </BorderPane>
+        <Label alignment="CENTER" layoutX="136.0" layoutY="114.0" prefHeight="47.0" prefWidth="117.0" text="J-LiMS">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font>
+            <effect>
+                <Glow level="0.39" />
+            </effect>
+        </Label>
+        <Line endX="100.0" layoutX="199.0" layoutY="161.0" startX="-100.0" />
+        <Label layoutX="105.0" layoutY="159.0" prefHeight="159.0" prefWidth="188.0" text="A computerized system for Libraries to manage books, manage students, calculate fines, produce reports and manage daily book transaction." wrapText="true">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Label>
+    </children>
+</Pane>

@@ -1,5 +1,6 @@
 package view.controller;
 
+import animatefx.animation.FadeIn;
 import animatefx.animation.ZoomIn;
 import com.lims.model.User;
 import javafx.animation.FadeTransition;
@@ -15,12 +16,23 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class LoginController {
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+
+    public static final String[][] ADMIN_ACCOUNTS = {
+            {"chuanhquoc2410@gmail.com", "24102005"},
+            {"2", "2"},
+            {"3", "3"}
+    };
+
+    public static final Map<String, String> userAccounts = new HashMap<>();
 
     @FXML
     public void handleLogin(ActionEvent event) {
@@ -49,14 +61,37 @@ public class LoginController {
         }
     }
 
+    @FXML
+    public void handleSignUp(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/SignUpView.fxml"));
+
+            FadeIn fadeIn = new FadeIn(root);
+            fadeIn.setSpeed(0.5);
+            fadeIn.play();
+
+            stage.setScene(new Scene(root));
+            stage.centerOnScreen();
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "Unable to load SignUp view.");
+        }
+    }
+
     private String getViewPathForCredentials(String username, String password) {
-        if ("1".equals(username) && "1".equals(password)) {
-            return "/fxml/MainView.fxml";
-        } else if ("2".equals(username) && "2".equals(password)) {
+        for (String[] admin : ADMIN_ACCOUNTS) {
+            if (admin[0].equals(username) && admin[1].equals(password)) {
+                return "/fxml/MainView.fxml";
+            }
+        }
+        if (userAccounts.containsKey(username) && userAccounts.get(username).equals(password)) {
             return "/fxml/MainUserView.fxml";
         }
         return null;
     }
+
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
