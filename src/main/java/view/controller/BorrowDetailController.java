@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-public class BorrowBookController {
+public class BorrowDetailController {
     @FXML
     private TableView<BorrowDetail> borrowDetailTable;
     @FXML
@@ -35,6 +35,8 @@ public class BorrowBookController {
     @FXML
     private TableColumn<BorrowDetail, Date> expectedReturnDateColumn;
     @FXML
+    private TableColumn<BorrowDetail, Date> actualReturnDateColumn;
+    @FXML
     private TextField bookIsbnField;
     @FXML
     private TextField borrowerIdField;
@@ -44,7 +46,8 @@ public class BorrowBookController {
     private DatePicker borrowDateField;
     @FXML
     private DatePicker expectedReturnDateField;
-
+    @FXML
+    private DatePicker actualReturnDateField;
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
     private ObservableList<BorrowDetail> borrowDetailList = FXCollections.observableArrayList();
     @FXML
@@ -102,6 +105,20 @@ public class BorrowBookController {
                 }
             };
         });
+        actualReturnDateColumn.setCellValueFactory(new PropertyValueFactory<>("actualReturnDate"));
+        actualReturnDateColumn.setCellFactory(column -> {
+            return new TableCell<BorrowDetail, Date>() {
+                @Override
+                protected void updateItem(Date date, boolean empty) {
+                    super.updateItem(date, empty);
+                    if (empty || date == null) {
+                        setText(null);
+                    } else {
+                        setText(dateFormat.format(date));
+                    }
+                }
+            };
+        });
         try {
             // Load the book list from the database
             borrowDetailList.addAll(DatabaseManager.getAllBorrowDetail());
@@ -109,44 +126,12 @@ public class BorrowBookController {
             e.printStackTrace();
         }
     }
-    @FXML
-    private void handleBorrowBook() {
-        try {
-            String bookIsbn = bookIsbnField.getText();
-            Integer borrowerId = Integer.parseInt(borrowerIdField.getText());
-            Integer librarianId = null;
-            Date borrowDate = null;
-            Date expectedReturnDate = null;
-            if (borrowDateField.getValue() != null) {
-                borrowDate = java.sql.Date.valueOf(borrowDateField.getValue());
-            }
-            if (expectedReturnDateField.getValue() != null) {
-                expectedReturnDate = java.sql.Date.valueOf(expectedReturnDateField.getValue());
-            }
-            BorrowDetail newBorrowDetail = new BorrowDetail(
-                    bookIsbn,
-                    borrowerId,
-                    null,
-                    borrowDate,
-                    expectedReturnDate,
-                    null
-            );
 
-            BorrowDetailDAO.addBorrowDetailToDatabase(newBorrowDetail);
-            borrowDetailList.add(newBorrowDetail);
-            clearFields();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void setBookList(ObservableList<Book> bookList) {
-        this.bookList = bookList;
-    }
     @FXML
     private void handleBack(ActionEvent event) {
         try {
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainUserView.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
             ZoomIn zoomIn = new ZoomIn(root);
             zoomIn.setSpeed(1.0);
             zoomIn.play();
