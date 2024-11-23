@@ -16,9 +16,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Scanner;
 
 public class LoginController {
     @FXML
@@ -34,31 +36,67 @@ public class LoginController {
 
     public static final Map<String, String> userAccounts = new HashMap<>();
 
+    public LoginController() {
+        loadUserAccounts();
+    }
+
+    private void loadUserAccounts() {
+        try {
+            File authFile = new File("src/main/resources/auth/data.txt");
+            Scanner scanner = new Scanner(authFile);
+            Base64.Decoder decoder = Base64.getDecoder();
+
+            while (scanner.hasNextLine()) {
+                String encodedLine = scanner.nextLine();
+                String decodedLine = new String(decoder.decode(encodedLine));
+                String[] credentials = decodedLine.split(":");
+
+                if (credentials.length == 2) {
+                    userAccounts.put(credentials[0], credentials[1]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void handleLogin(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        String viewPath = getViewPathForCredentials(username, password);
-        if (viewPath != null) {
-            showAlert(AlertType.INFORMATION, "Login Successful", "Welcome " + username + "!");
-            try {
-                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getResource(viewPath));
+        if (isValidLogin(username, password)) {
+            String viewPath = getViewPathForCredentials(username, password);
+            if (viewPath != null) {
+                showAlert(AlertType.INFORMATION, "Login Successful", "Welcome " + username + "!");
+                try {
+                    Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource(viewPath));
 
-                ZoomIn zoomIn = new ZoomIn(root);
-                zoomIn.setSpeed(1.0);
-                zoomIn.play();
+                    ZoomIn zoomIn = new ZoomIn(root);
+                    zoomIn.setSpeed(1.0);
+                    zoomIn.play();
 
-                stage.setScene(new Scene(root));
-                stage.centerOnScreen();
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
+                    stage.setScene(new Scene(root));
+                    stage.centerOnScreen();
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             showAlert(AlertType.ERROR, "Login Failed", "Invalid username or password.");
         }
+    }
+
+    private boolean isValidLogin(String username, String password) {
+        for (String[] admin : ADMIN_ACCOUNTS) {
+            if (admin[0].equals(username) && admin[1].equals(password)) {
+                return true;
+            }
+        }
+
+        return userAccounts.containsKey(username) && userAccounts.get(username).equals(password);
     }
 
     @FXML
@@ -91,7 +129,6 @@ public class LoginController {
         }
         return null;
     }
-
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

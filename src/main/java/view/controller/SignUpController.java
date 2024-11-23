@@ -16,6 +16,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Base64;
+
 import static view.controller.LoginController.userAccounts;
 
 
@@ -33,7 +38,6 @@ public class SignUpController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        // Kiểm tra thông tin nhập
         if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Sign Up Failed", "All fields are required!");
             return;
@@ -55,6 +59,8 @@ public class SignUpController {
         }
 
         userAccounts.put(username, password);
+        saveUserToFile(username, password);
+
         showAlert(Alert.AlertType.INFORMATION, "Sign Up Successful", "Your account has been created!");
         System.out.println("User accounts: " + userAccounts);
 
@@ -72,6 +78,24 @@ public class SignUpController {
         } catch (Exception e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "Unable to load Login view.");
+        }
+    }
+
+    private void saveUserToFile(String username, String password) {
+        try {
+            String concatenated = username + ":" + password;
+            String encoded = Base64.getEncoder().encodeToString(concatenated.getBytes());
+
+            File authFile = new File("src/main/resources/auth/data.txt");
+            FileWriter fileWriter = new FileWriter(authFile, true);
+
+            fileWriter.write(encoded + "\n");
+            fileWriter.close();
+
+            System.out.println("Account saved to authentication file for user: " + username);
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving authentication data, please try again later...");
+            e.printStackTrace();
         }
     }
 
