@@ -2,6 +2,7 @@ package view.controller;
 
 import animatefx.animation.FadeIn;
 import animatefx.animation.ZoomIn;
+import com.lims.dao.DatabaseManager;
 import com.lims.model.User;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,36 +32,12 @@ public class LoginController {
     private PasswordField passwordField;
 
     public static final String[][] ADMIN_ACCOUNTS = {
-            {"chuanhquoc2410@gmail.com", "24102005"},
+            {"1", "1"},
             {"2", "2"},
             {"3", "3"}
     };
 
     public static final Map<String, String> userAccounts = new HashMap<>();
-
-    public LoginController() {
-        loadUserAccounts();
-    }
-
-    private void loadUserAccounts() {
-        try {
-            File authFile = new File("src/main/resources/auth/data.txt");
-            Scanner scanner = new Scanner(authFile);
-            Base64.Decoder decoder = Base64.getDecoder();
-
-            while (scanner.hasNextLine()) {
-                String encodedLine = scanner.nextLine();
-                String decodedLine = new String(decoder.decode(encodedLine));
-                String[] credentials = decodedLine.split(":");
-
-                if (credentials.length == 2) {
-                    userAccounts.put(credentials[0], credentials[1]);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public void handleLogin(ActionEvent event) {
@@ -70,8 +49,12 @@ public class LoginController {
             if (viewPath != null) {
                 showAlert(AlertType.INFORMATION, "Login Successful", "Welcome " + username + "!");
                 try {
+//                    User user = DatabaseManager.getUserByEmail(username);
                     Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
                     Parent root = FXMLLoader.load(getClass().getResource(viewPath));
+
+                    UserInforController userInforController = new UserInforController();
+//                    userInforController.setLoggedInUser(user);
 
                     ZoomIn zoomIn = new ZoomIn(root);
                     zoomIn.setSpeed(1.0);
@@ -95,8 +78,18 @@ public class LoginController {
                 return true;
             }
         }
+        try {
+            User user = DatabaseManager.getUserByEmail(username);
+            if (user != null && user.getPassword().equals(password)) {
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
-        return userAccounts.containsKey(username) && userAccounts.get(username).equals(password);
+        return false;
     }
 
     @FXML
@@ -124,8 +117,15 @@ public class LoginController {
                 return "/fxml/MainView.fxml";
             }
         }
-        if (userAccounts.containsKey(username) && userAccounts.get(username).equals(password)) {
-            return "/fxml/MainUserView.fxml";
+        try {
+            User user = DatabaseManager.getUserByEmail(username);
+            if (user != null && user.getPassword().equals(password)) {
+                return "/fxml/MainUserView.fxml";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return null;
     }

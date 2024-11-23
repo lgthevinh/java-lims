@@ -3,37 +3,17 @@ package view.controller;
 import animatefx.animation.ZoomIn;
 import com.lims.dao.DatabaseManager;
 import com.lims.model.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.ZoneId;
 
 public class UserInforController {
-    @FXML
-    private TableView<User> userTable;
-    @FXML
-    private TableColumn<User, String> socialIdColumn;
-    @FXML
-    private TableColumn<User, String> nameColumn;
-    @FXML
-    private TableColumn<User, Date> dateOfBirthColumn;
-    @FXML
-    private TableColumn<User, String> addressLineColumn;
-    @FXML
-    private TableColumn<User, String> phoneNumberColumn;
-    @FXML
-    private TableColumn<User, String> emailColumn;
     @FXML
     private TextField socialIdField;
     @FXML
@@ -49,77 +29,43 @@ public class UserInforController {
     @FXML
     private TextField passwordField;
 
-    private ObservableList<User> userList = FXCollections.observableArrayList();
+    private User loggedInUser;
 
-    @FXML
-    private void initialize() {
-        // Initialize the user table with the user list
-        userTable.setItems(userList);
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
 
-        // Set up the columns in the table
-        socialIdColumn.setCellValueFactory(new PropertyValueFactory<>("socialId"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        addressLineColumn.setCellValueFactory(new PropertyValueFactory<>("addressLine"));
-        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        dateOfBirthColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
-        dateOfBirthColumn.setCellFactory(column -> {
-            return new TableCell<User, Date>() {
-                @Override
-                protected void updateItem(Date date, boolean empty) {
-                    super.updateItem(date, empty);
-                    if (empty || date == null) {
-                        setText(null);
-                    } else {
-                        setText(dateFormat.format(date));
-                    }
-                }
-            };
-        });
-
-        try {
-            userList.addAll(DatabaseManager.getAllUsers());
-        } catch (SQLException | ParseException e) {
-            throw new RuntimeException(e);
+        socialIdField.setText(user.getSocialId());
+        nameField.setText(user.getName());
+        addressLineField.setText(user.getAddressLine());
+        phoneNumberField.setText(user.getPhoneNumber());
+        emailField.setText(user.getEmail());
+        passwordField.setText("");
+        if (user.getDateOfBirth() != null) {
+            dateOfBirthField.setValue(user.getDateOfBirth().toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDate());
         }
+
     }
 
     @FXML
-    private void handleAddUser() {
-        String socialId = socialIdField.getText();
-        String name = nameField.getText();
-        Date dateOfBirth = null;
-        if (dateOfBirthField.getValue() != null) {
-            dateOfBirth = java.sql.Date.valueOf(dateOfBirthField.getValue());
-        }
-        String addressLine = addressLineField.getText();
-        String phoneNumber = phoneNumberField.getText();
-        String email = emailField.getText();
-        String password = passwordField.getText();
-
-        User newUser = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
-
-        try {
-            DatabaseManager.addUserToDatabase(newUser);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        userList.add(newUser);
-        clearFields();
-    }
-
-    @FXML
-    private void handleDeleteUser() {
-        User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        if (selectedUser != null) {
-            try {
-                DatabaseManager.deleteUserFromDatabase(selectedUser);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+    private void handleUpdateUser() {
+        if (passwordField.getText().equals(loggedInUser.getPassword())) {
+            loggedInUser.setName(nameField.getText());
+            loggedInUser.setAddressLine(addressLineField.getText());
+            loggedInUser.setPhoneNumber(phoneNumberField.getText());
+            loggedInUser.setEmail(emailField.getText());
+            if (dateOfBirthField.getValue() != null) {
+                loggedInUser.setDateOfBirth(java.sql.Date.valueOf(dateOfBirthField.getValue()));
             }
-            userList.remove(selectedUser);
+            try {
+                DatabaseManager.updateUserInDatabase(loggedInUser);
+                showAlert("Success", "Information updated successfully.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Error", "Failed to update information.");
+            }
+        } else {
+            showAlert("Error", "Incorrect password.");
         }
     }
 
@@ -139,13 +85,11 @@ public class UserInforController {
         }
     }
 
-    private void clearFields() {
-        socialIdField.clear();
-        nameField.clear();
-        dateOfBirthField.setValue(null);
-        addressLineField.clear();
-        phoneNumberField.clear();
-        emailField.clear();
-        passwordField.clear();
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

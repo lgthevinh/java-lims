@@ -2,117 +2,75 @@ package view.controller;
 
 import animatefx.animation.FadeIn;
 import animatefx.animation.ZoomIn;
+import com.lims.dao.DatabaseManager;
 import com.lims.model.User;
-import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Base64;
-
-import static view.controller.LoginController.userAccounts;
-
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SignUpController {
     @FXML
-    private TextField usernameField;
+    private TextField socialIdField;
     @FXML
-    private PasswordField passwordField;
+    private TextField nameField;
     @FXML
-    private PasswordField confirmPasswordField;
+    private DatePicker dateOfBirthField;
+    @FXML
+    private TextField addressLineField;
+    @FXML
+    private TextField phoneNumberField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField passwordField;
 
     @FXML
-    public void handleSignUp(ActionEvent event) {
-        String username = usernameField.getText().trim();
+    private void handleSignUp(ActionEvent event) {
+        String socialId = socialIdField.getText();
+        String name = nameField.getText();
+        Date dateOfBirth = null;
+        if (dateOfBirthField.getValue() != null) {
+            dateOfBirth = java.sql.Date.valueOf(dateOfBirthField.getValue());
+        }
+        String addressLine = addressLineField.getText();
+        String phoneNumber = phoneNumberField.getText();
+        String email = emailField.getText();
         String password = passwordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
 
-        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Sign Up Failed", "All fields are required!");
-            return;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            showAlert(Alert.AlertType.ERROR, "Sign Up Failed", "Passwords do not match!");
-            return;
-        }
-
-        if (isAdmin(username)) {
-            showAlert(Alert.AlertType.ERROR, "Sign Up Failed", "This username is reserved for admin accounts!");
-            return;
-        }
-
-        if (userAccounts.containsKey(username)) {
-            showAlert(Alert.AlertType.ERROR, "Sign Up Failed", "This username is already taken!");
-            return;
-        }
-
-        userAccounts.put(username, password);
-        saveUserToFile(username, password);
-
-        showAlert(Alert.AlertType.INFORMATION, "Sign Up Successful", "Your account has been created!");
-        System.out.println("User accounts: " + userAccounts);
+        User newUser = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
 
         try {
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginView.fxml"));
+            DatabaseManager.addUserToDatabase(newUser);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+        try {
+
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserInforView.fxml"));
+            Parent root = loader.load();
             FadeIn fadeIn = new FadeIn(root);
             fadeIn.setSpeed(0.5);
             fadeIn.play();
-
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "Unable to load Login view.");
         }
     }
 
-    private void saveUserToFile(String username, String password) {
-        try {
-            String concatenated = username + ":" + password;
-            String encoded = Base64.getEncoder().encodeToString(concatenated.getBytes());
-
-            File authFile = new File("src/main/resources/auth/data.txt");
-            FileWriter fileWriter = new FileWriter(authFile, true);
-
-            fileWriter.write(encoded + "\n");
-            fileWriter.close();
-
-            System.out.println("Account saved to authentication file for user: " + username);
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving authentication data, please try again later...");
-            e.printStackTrace();
-        }
-    }
-
-    private boolean isAdmin(String username) {
-        for (String[] admin : LoginController.ADMIN_ACCOUNTS) {
-            if (admin[0].equals(username)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

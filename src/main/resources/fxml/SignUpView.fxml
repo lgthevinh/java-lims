@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
@@ -26,7 +26,7 @@
                 <Image url="@../images/background.png" />
             </image>
         </ImageView>
-        <BorderPane layoutX="75.0" layoutY="40.0" prefHeight="363.0" prefWidth="498.0" style="-fx-background-color: rgba(224, 224, 224, 0.5); -fx-background-radius: 35 35 35 35; -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.2), 15, 0.3, 0, 0);">
+        <BorderPane layoutX="75.0" layoutY="26.0" prefHeight="390.0" prefWidth="498.0" style="-fx-background-color: rgba(224, 224, 224, 0.5); -fx-background-radius: 35 35 35 35; -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.2), 15, 0.3, 0, 0);">
             <right>
                 <VBox alignment="CENTER" focusTraversable="true" prefHeight="363.0" prefWidth="254.0" style="-fx-background-radius: 35 35 35 35; -fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
                     <children>
@@ -35,35 +35,63 @@
                                 <Image url="@../images/logo.png" />
                             </image>
                         </ImageView>
-                        <GridPane alignment="CENTER" hgap="10" prefHeight="160.0" prefWidth="324.0" vgap="10">
+                        <GridPane alignment="CENTER" hgap="10" prefHeight="277.0" prefWidth="254.0" vgap="10">
                             <padding>
                                 <Insets bottom="20" left="20" right="20" top="20" />
                             </padding>
-                            <Label alignment="CENTER" prefHeight="30.0" prefWidth="78.0" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label alignment="CENTER" prefHeight="30.0" prefWidth="78.0" text="Social ID:" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                 <font>
                                     <Font name="System Bold" size="12.0" />
                                 </font>
                             </Label>
-                            <TextField fx:id="usernameField" prefHeight="37.0" prefWidth="149.0" promptText="Email" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                            <Label alignment="CENTER" prefHeight="29.0" prefWidth="66.0" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <TextField fx:id="socialIdField" prefHeight="34.0" prefWidth="132.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label alignment="CENTER" prefHeight="12.0" prefWidth="66.0" text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1">
                                 <font>
                                     <Font name="System Bold" size="12.0" />
                                 </font>
                             </Label>
-                            <PasswordField fx:id="passwordField" prefHeight="37.0" prefWidth="149.0" promptText="Password" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                     <Label alignment="CENTER" layoutX="30.0" layoutY="89.0" prefHeight="38.0" prefWidth="66.0" text="Confirm:" GridPane.rowIndex="2">
+                     <TextField fx:id="nameField" layoutX="106.0" layoutY="32.0" prefHeight="9.0" prefWidth="132.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     <Label alignment="CENTER" layoutX="30.0" layoutY="89.0" prefHeight="38.0" prefWidth="66.0" text="Birthday:" GridPane.rowIndex="2">
                         <font>
                            <Font name="System Bold" size="12.0" />
                         </font>
                      </Label>
-                     <PasswordField fx:id="confirmPasswordField" layoutX="106.0" layoutY="75.0" prefHeight="37.0" prefWidth="149.0" promptText="Confirm Password" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     <Label alignment="CENTER" layoutX="30.0" layoutY="100.0" prefHeight="38.0" prefWidth="66.0" text="Address:" GridPane.rowIndex="3">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="addressLineField" layoutX="112.0" layoutY="98.0" prefHeight="33.0" prefWidth="138.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     <Label alignment="CENTER" layoutX="30.0" layoutY="135.0" prefHeight="38.0" prefWidth="66.0" text="Phone:" GridPane.rowIndex="4">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="phoneNumberField" layoutX="112.0" layoutY="135.0" prefHeight="14.0" prefWidth="132.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                     <Label alignment="CENTER" layoutX="30.0" layoutY="170.0" prefHeight="38.0" prefWidth="66.0" text="Email:" GridPane.rowIndex="5">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="emailField" layoutX="112.0" layoutY="170.0" prefHeight="14.0" prefWidth="132.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     <Label alignment="CENTER" layoutX="30.0" layoutY="197.0" prefHeight="22.0" prefWidth="66.0" text="Password:" GridPane.rowIndex="6">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="passwordField" layoutX="112.0" layoutY="205.0" prefHeight="14.0" prefWidth="132.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 35;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                     <DatePicker fx:id="dateOfBirthField" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                             <columnConstraints>
                                 <ColumnConstraints />
                                 <ColumnConstraints />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints />
-                                <RowConstraints />
+                                <RowConstraints prefHeight="25.0" />
+                                <RowConstraints prefHeight="25.0" />
+                                <RowConstraints prefHeight="25.0" />
+                                <RowConstraints prefHeight="25.0" />
+                                <RowConstraints prefHeight="25.0" />
+                        <RowConstraints prefHeight="25.0" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
                             </rowConstraints>
                         </GridPane>

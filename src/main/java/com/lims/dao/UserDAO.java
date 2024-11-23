@@ -188,5 +188,4 @@ public class UserDAO extends DatabaseManager {
         }
 
     }
-
 }
