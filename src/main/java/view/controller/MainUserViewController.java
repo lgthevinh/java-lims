@@ -2,6 +2,7 @@ package view.controller;
 import animatefx.animation.FadeIn;
 import com.lims.dao.DatabaseManager;
 import com.lims.model.Book;
+import com.lims.model.User;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,11 +62,9 @@ public class MainUserViewController {
                 }
             };
         });
-        // Tạo Context Menu cho ISBN
         ContextMenu contextMenu = new ContextMenu();
         MenuItem copyIsbnItem = new MenuItem("Copy ISBN");
 
-        // Gắn hành động copy khi chọn menu
         copyIsbnItem.setOnAction(event -> {
             Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
             if (selectedBook != null) {
@@ -76,16 +75,12 @@ public class MainUserViewController {
         });
 
         contextMenu.getItems().add(copyIsbnItem);
-
-        // Gắn Context Menu vào mỗi cell của cột ISBN
         isbnColumn.setCellFactory(column -> {
             TableCell<Book, String> cell = new TableCell<>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
                     setText(empty ? null : item);
-
-                    // Chỉ gắn Context Menu nếu cell không rỗng
                     if (!empty) {
                         setContextMenu(contextMenu);
                     }
@@ -142,9 +137,12 @@ public class MainUserViewController {
     }
 
     @FXML
-    public void handleManageUsers(ActionEvent event) {
+    public void handleManageUsers(ActionEvent event) throws SQLException, ParseException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserInforView.fxml"));
         loadView(loader, event);
+        User loggedInUser = DatabaseManager.getUserByEmail(LoginController.loggedInUserEmail);
+        UserInforController controller = loader.getController();
+        controller.setLoggedInUser(loggedInUser);
     }
 
     @FXML

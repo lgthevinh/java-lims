@@ -49,18 +49,23 @@ public class SignUpController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
+        if (socialId.isEmpty() || name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Registration Failed", "Please fill in all required fields.");
+            return;
+        }
+
         User newUser = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
 
         try {
             DatabaseManager.addUserToDatabase(newUser);
+            showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Your account has been created successfully!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         try {
-
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserInforView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml"));
             Parent root = loader.load();
             FadeIn fadeIn = new FadeIn(root);
             fadeIn.setSpeed(0.5);
@@ -72,5 +77,11 @@ public class SignUpController {
             e.printStackTrace();
         }
     }
-
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

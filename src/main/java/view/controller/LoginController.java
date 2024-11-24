@@ -25,11 +25,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+
+
 public class LoginController {
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+
+    public static String loggedInUserEmail;
 
     public static final String[][] ADMIN_ACCOUNTS = {
             {"1", "1"},
@@ -45,16 +49,20 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (isValidLogin(username, password)) {
+            loggedInUserEmail = username;
             String viewPath = getViewPathForCredentials(username, password);
             if (viewPath != null) {
                 showAlert(AlertType.INFORMATION, "Login Successful", "Welcome " + username + "!");
                 try {
-//                    User user = DatabaseManager.getUserByEmail(username);
+                    User user = DatabaseManager.getUserByEmail(username);
                     Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource(viewPath));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(viewPath));
+                    Parent root = loader.load();
 
                     UserInforController userInforController = new UserInforController();
-//                    userInforController.setLoggedInUser(user);
+                    if(viewPath.equals("/fxml/MainUserView.fxml")) {
+                        MainUserViewController controller = loader.getController();
+                    }
 
                     ZoomIn zoomIn = new ZoomIn(root);
                     zoomIn.setSpeed(1.0);
