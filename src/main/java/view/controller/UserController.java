@@ -113,15 +113,41 @@ public class UserController {
     @FXML
     private void handleDeleteUser() {
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        if (selectedUser != null) {
+
+        if (selectedUser == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No User Selected");
+            alert.setContentText("Please select a user to delete.");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Delete");
+        confirmAlert.setHeaderText("Are you sure you want to delete this user?");
+        confirmAlert.setContentText("Username: " + selectedUser.getName() + "\nID: " + selectedUser.getUserId() + "\nThis action cannot be undone.");
+
+        if (confirmAlert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             try {
                 DatabaseManager.deleteUserFromDatabase(selectedUser);
+                userList.remove(selectedUser);
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Deleted");
+                successAlert.setHeaderText("User Deleted");
+                successAlert.setContentText("The user \"" + selectedUser.getName() + "\" has been deleted successfully.");
+                successAlert.showAndWait();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Failed to Delete User");
+                errorAlert.setContentText("There was an error deleting the user from the database. Please try again.");
+                errorAlert.showAndWait();
             }
-            userList.remove(selectedUser);
         }
     }
+
 
     @FXML
     private void handleBack(ActionEvent event) {

@@ -34,6 +34,7 @@ public class BorrowDetailDAO extends DatabaseManager {
                         convertStringToDatetime("MM-dd-yyyy", expectedReturnDateStr),
                         actualReturnDateStr == null || "NULL".equals(actualReturnDateStr) ? null : convertStringToDatetime("MM-dd-yyyy", actualReturnDateStr)
                 );
+                borrowDetail.setId(resultSet.getInt("id"));
                 borrowDetailList.add(borrowDetail);
             }
             conn.close();

@@ -140,15 +140,42 @@ public class BookController {
     @FXML
     private void handleDeleteBook() {
         Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
-        if (selectedBook != null) {
+
+        if (selectedBook == null) {
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Book Selected");
+            alert.setContentText("Please select a book to delete.");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Delete");
+        confirmAlert.setHeaderText("Are you sure you want to delete this book?");
+        confirmAlert.setContentText("Book Title: " + selectedBook.getTitle() + "\nThis action cannot be undone.");
+
+        if (confirmAlert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             bookList.remove(selectedBook);
             try {
                 DatabaseManager.deleteBookFromDatabase(selectedBook.getIsbn());
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Deleted");
+                successAlert.setHeaderText("Book Deleted");
+                successAlert.setContentText("The book \"" + selectedBook.getTitle() + "\" has been deleted successfully.");
+                successAlert.showAndWait();
             } catch (SQLException e) {
                 e.printStackTrace();
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Failed to Delete Book");
+                errorAlert.setContentText("There was an error deleting the book from the database. Please try again.");
+                errorAlert.showAndWait();
             }
         }
     }
+
 
     @FXML
     private void handleUpdateBook() {

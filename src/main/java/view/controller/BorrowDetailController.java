@@ -142,6 +142,47 @@ public class BorrowDetailController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void handleDeleteDetail() {
+        BorrowDetail selectedBorrowDetail = borrowDetailTable.getSelectionModel().getSelectedItem();
+
+        if (selectedBorrowDetail == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Borrow Detail Selected");
+            alert.setContentText("Please select a borrow detail to delete.");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Delete");
+        confirmAlert.setHeaderText("Are you sure you want to delete this borrow detail?");
+        confirmAlert.setContentText("This action cannot be undone.");
+
+        if (confirmAlert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+            try {
+                BorrowDetailDAO.deleteBorrowDetailFromDatabase(selectedBorrowDetail);
+                borrowDetailList.remove(selectedBorrowDetail);
+                borrowDetailTable.refresh();
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Deleted");
+                successAlert.setHeaderText("Borrow Detail Deleted");
+                successAlert.setContentText("The selected borrow detail has been successfully deleted.");
+                successAlert.showAndWait();
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Database Error");
+                errorAlert.setContentText("Failed to delete the borrow detail. Please try again.");
+                errorAlert.showAndWait();
+            }
+        }
+    }
+
     private void clearFields() {
         bookIsbnField.clear();
         borrowerIdField.clear();

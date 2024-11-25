@@ -141,16 +141,41 @@ public class StudentController {
     @FXML
     private void handleDeleteStudent() {
         Student selectedStudent = studentTable.getSelectionModel().getSelectedItem();
-        if (selectedStudent != null) {
+
+        if (selectedStudent == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Student Selected");
+            alert.setContentText("Please select a student to delete.");
+            alert.showAndWait();
+            return;
+        }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Delete");
+        confirmAlert.setHeaderText("Are you sure you want to delete this student?");
+        confirmAlert.setContentText("Name: " + selectedStudent.getName() + "\nThis action cannot be undone.");
+
+        if (confirmAlert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             try {
                 DatabaseManager.deleteStudentFromDatabase(selectedStudent);
                 studentList.remove(selectedStudent);
+
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Deleted");
+                successAlert.setHeaderText("Student Deleted");
+                successAlert.setContentText("The student \"" + selectedStudent.getName() + "\" has been deleted successfully.");
+                successAlert.showAndWait();
             } catch (SQLException e) {
-                System.out.println("An error occurred while accessing the database.");
-                e.printStackTrace();
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Failed to Delete Student");
+                errorAlert.setContentText("There was an error deleting the student from the database. Please try again.");
+                errorAlert.showAndWait();
             }
         }
     }
+
 
     private void refreshTable() {
         studentList.clear();
