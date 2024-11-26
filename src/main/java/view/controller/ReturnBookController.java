@@ -114,7 +114,6 @@ public class ReturnBookController {
 
     @FXML
     private void returnBook() {
-        // Lấy borrow detail được chọn từ bảng
         BorrowDetail selectedBorrowDetail = borrowDetailTable.getSelectionModel().getSelectedItem();
 
         if (selectedBorrowDetail == null) {
@@ -126,7 +125,6 @@ public class ReturnBookController {
             return;
         }
 
-        // Xác nhận việc trả sách
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Confirm Return");
         confirmAlert.setHeaderText("Are you sure you want to return this book?");
@@ -134,17 +132,13 @@ public class ReturnBookController {
 
         if (confirmAlert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             try {
-                // Lấy thời gian hiện tại làm thời gian trả sách thực
                 Date actualReturnDate = new Date();
                 selectedBorrowDetail.setActualReturnDate(actualReturnDate);
 
-                // Cập nhật vào cơ sở dữ liệu
                 BorrowDetailDAO.updateBorrowDetailInDatabase(selectedBorrowDetail);
 
-                // Làm mới bảng
                 borrowDetailTable.refresh();
 
-                // Hiển thị thông báo thành công
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                 successAlert.setTitle("Return Successful");
                 successAlert.setHeaderText("Book Returned Successfully");
@@ -153,7 +147,6 @@ public class ReturnBookController {
             } catch (SQLException e) {
                 e.printStackTrace();
 
-                // Hiển thị thông báo lỗi
                 Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setTitle("Error");
                 errorAlert.setHeaderText("Database Error");
