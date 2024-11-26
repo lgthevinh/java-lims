@@ -152,6 +152,15 @@ public class MainUserViewController {
         BorrowBookController controller = loader.getController();
         controller.setBookList(FXCollections.observableArrayList(DatabaseManager.getAllBooks()));
     }
+
+    @FXML
+    public void handleReturnBook(ActionEvent event) throws SQLException, ParseException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReturnBookView.fxml"));
+        loadView(loader, event);
+        ReturnBookController controller = loader.getController();
+        controller.setBorrowDetailList(FXCollections.observableArrayList(DatabaseManager.getAllBorrowDetail()));
+    }
+
     public ObservableList<Book> getBookList() {
         return bookList;
     }

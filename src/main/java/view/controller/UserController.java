@@ -126,7 +126,7 @@ public class UserController {
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Confirm Delete");
         confirmAlert.setHeaderText("Are you sure you want to delete this user?");
-        confirmAlert.setContentText("Username: " + selectedUser.getName() + "\nID: " + selectedUser.getUserId() + "\nThis action cannot be undone.");
+        confirmAlert.setContentText("Username: " + selectedUser.getName() + "\nThis action cannot be undone.");
 
         if (confirmAlert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             try {

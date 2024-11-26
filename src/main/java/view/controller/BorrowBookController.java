@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 public class BorrowBookController {
     @FXML
@@ -108,6 +109,7 @@ public class BorrowBookController {
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
+        borrowDetailTable.setOnMouseClicked(event -> handleRowSelect());
     }
     @FXML
     private void handleBorrowBook() {
@@ -139,9 +141,28 @@ public class BorrowBookController {
             throw new RuntimeException(e);
         }
     }
+
     public void setBookList(ObservableList<Book> bookList) {
         this.bookList = bookList;
     }
+
+    @FXML
+    private void handleRowSelect() {
+        BorrowDetail selectedBorrowDetail = borrowDetailTable.getSelectionModel().getSelectedItem();
+        if (selectedBorrowDetail != null) {
+            bookIsbnField.setText(selectedBorrowDetail.getBookIsbn());
+            borrowerIdField.setText(selectedBorrowDetail.getBorrowerId().toString());
+            if (selectedBorrowDetail.getBorrowDate() != null) {
+                borrowDateField.setValue(selectedBorrowDetail.getBorrowDate().toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDate());
+            }
+            if (selectedBorrowDetail.getExpectedReturnDate() != null) {
+                expectedReturnDateField.setValue(selectedBorrowDetail.getExpectedReturnDate().toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDate());
+            }
+        }
+    }
+
     @FXML
     private void handleBack(ActionEvent event) {
         try {

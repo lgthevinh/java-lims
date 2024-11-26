@@ -41,8 +41,6 @@ public class LoginController {
             {"3", "3"}
     };
 
-    public static final Map<String, String> userAccounts = new HashMap<>();
-
     @FXML
     public void handleLogin(ActionEvent event) {
         String username = usernameField.getText();

@@ -17,7 +17,7 @@
             <children>
                 <Button onAction="#handleManageUsers" text="Update User's Infor" />
                 <Button onAction="#handleBorrowBook" text="Borrow Books" />
-                <Button text="Return Books" />
+                <Button onAction="#handleReturnBook" text="Return Books" />
             </children>
         </HBox>
         <HBox alignment="CENTER" spacing="10">
