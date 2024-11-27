@@ -19,7 +19,7 @@
                     <Insets bottom="20" left="20" right="20" top="20" />
                 </padding>
                 <Label text="Social ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <TextField fx:id="socialIdField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <TextField fx:id="socialIdField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label text="Date of Birth:" GridPane.columnIndex="0" GridPane.rowIndex="2" />

@@ -137,6 +137,14 @@ public class ReturnBookController {
 
                 BorrowDetailDAO.updateBorrowDetailInDatabase(selectedBorrowDetail);
 
+                String bookIsbn = selectedBorrowDetail.getBookIsbn();
+                Book book = bookList.stream()
+                        .filter(b -> b.getIsbn().equals(bookIsbn))
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Book not found!"));
+                book.setAvailableAmount(book.getAvailableAmount() + 1);
+                DatabaseManager.updateBookInDatabase(book);
+
                 borrowDetailTable.refresh();
 
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);

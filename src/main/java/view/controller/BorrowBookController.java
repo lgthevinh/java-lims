@@ -135,6 +135,14 @@ public class BorrowBookController {
             );
 
             BorrowDetailDAO.addBorrowDetailToDatabase(newBorrowDetail);
+
+            Book book = bookList.stream()
+                    .filter(b -> b.getIsbn().equals(bookIsbn))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Book not found!"));
+            book.setAvailableAmount(book.getAvailableAmount() - 1);
+            DatabaseManager.updateBookInDatabase(book);
+
             borrowDetailList.add(newBorrowDetail);
             clearFields();
         } catch (Exception e) {

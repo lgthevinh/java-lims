@@ -50,6 +50,7 @@ public class UserInforController {
     @FXML
     private void handleUpdateUser() {
         if (passwordField.getText().equals(loggedInUser.getPassword())) {
+            loggedInUser.setSocialId(socialIdField.getText());
             loggedInUser.setName(nameField.getText());
             loggedInUser.setAddressLine(addressLineField.getText());
             loggedInUser.setPhoneNumber(phoneNumberField.getText());
