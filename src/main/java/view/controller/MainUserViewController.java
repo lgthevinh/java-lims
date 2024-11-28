@@ -9,10 +9,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -22,6 +27,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static view.controller.GenerateQRController.generateQRCode;
+
 public class MainUserViewController {
     @FXML
     private TableView<Book> bookTable;
@@ -118,6 +126,40 @@ public class MainUserViewController {
                         book.getIsbn().toLowerCase().contains(searchText))
                 .collect(Collectors.toList());
         bookTable.setItems(FXCollections.observableArrayList(filteredBooks));
+    }
+
+    @FXML
+    private void handleShowQR() {
+        Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+        if (selectedBook != null) {
+            // Tạo chuỗi thông tin cho QR code
+            String qrContent = String.format("https://books.google.com/books?vid=ISBN:%s", selectedBook.getIsbn());
+
+            // Tạo QR code image
+            WritableImage qrImage = generateQRCode(qrContent, 250, 250);
+            ImageView qrImageView = new ImageView(qrImage);
+
+            // Tạo stage mới để hiển thị QR code
+            Stage qrStage = new Stage();
+            qrStage.centerOnScreen();
+            qrStage.initModality(Modality.APPLICATION_MODAL);
+            qrStage.setTitle("QR Code");
+
+            VBox qrVBox = new VBox(10);
+            qrVBox.setAlignment(Pos.CENTER);
+            qrVBox.getChildren().add(qrImageView);
+
+            Scene qrScene = new Scene(qrVBox, 300, 300);
+            qrStage.setScene(qrScene);
+
+            // Lấy vị trí của main window
+            Stage mainStage = (Stage) bookTable.getScene().getWindow();
+            mainStage.centerOnScreen();
+            qrStage.setX(mainStage.getX() + (mainStage.getWidth() - qrStage.getWidth()) / 2);
+            qrStage.setY(mainStage.getY() + (mainStage.getHeight() - qrStage.getHeight()) / 2);
+
+            qrStage.show();
+        }
     }
 
     @FXML

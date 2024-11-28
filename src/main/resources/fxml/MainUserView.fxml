@@ -24,6 +24,7 @@
             <children>
                 <TextField fx:id="searchField" promptText="Search Books" />
                 <Button onAction="#handleSearch" text="Search" />
+                <Button onAction="#handleShowQR" text="Show QR" />
             </children>
         </HBox>
         <TableView fx:id="bookTable">
