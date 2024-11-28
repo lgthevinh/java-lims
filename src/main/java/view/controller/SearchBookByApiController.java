@@ -1,6 +1,7 @@
 package view.controller;
 
 import com.lims.dao.DatabaseManager;
+import view.controller.BookController;
 import com.lims.model.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -185,13 +186,25 @@ public class SearchBookByApiController {
     @FXML
     private void addSelectedBook() {
         Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
-        if (selectedBook != null && bookController != null) {
-            bookController.addBookFromApi(selectedBook); // Gửi sách sang BookController
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Book added successfully!");
-        } else {
+
+        if (selectedBook == null) {
             showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a book to add.");
+            return;
         }
+
+        // Kiểm tra trùng ISBN trong BookController
+        for (Book book : bookController.bookTable.getItems()) {
+            if (book.getIsbn().equals(selectedBook.getIsbn())) {
+                showAlert(Alert.AlertType.WARNING, "Duplicate Book", "A book with the same ISBN already exists in the library.");
+                return;
+            }
+        }
+
+        // Thêm sách vào danh sách của BookController
+        bookController.addBookFromApi(selectedBook);
+        showAlert(Alert.AlertType.INFORMATION, "Success", "Book added successfully!");
     }
+
 
     @FXML
     private void cancel() {

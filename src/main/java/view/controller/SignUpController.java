@@ -3,6 +3,7 @@ package view.controller;
 import animatefx.animation.FadeIn;
 import animatefx.animation.ZoomIn;
 import com.lims.dao.DatabaseManager;
+import com.lims.dao.UserDAO;
 import com.lims.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,10 +55,19 @@ public class SignUpController {
             return;
         }
 
+        try {
+            if (DatabaseManager.getUserByEmail(email) != null) {
+                showAlert(Alert.AlertType.ERROR, "Registration Failed", "Email is already in use. Please use a different email.");
+                return;
+            }
+        } catch (SQLException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+
         User newUser = new User(socialId, name, dateOfBirth, addressLine, phoneNumber, email, password);
 
         try {
-            DatabaseManager.addUserToDatabase(newUser);
+            UserDAO.addUserToDatabase(newUser);
             showAlert(Alert.AlertType.INFORMATION, "Registration Successful", "Your account has been created successfully!");
         } catch (SQLException e) {
             throw new RuntimeException(e);

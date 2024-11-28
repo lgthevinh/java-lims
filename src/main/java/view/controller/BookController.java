@@ -19,7 +19,7 @@ import java.time.ZoneId;
 import java.util.Date;
 public class BookController {
     @FXML
-    private TableView<Book> bookTable;
+    TableView<Book> bookTable;
     @FXML
     private TableColumn<Book, String> isbnColumn;
     @FXML
@@ -86,6 +86,14 @@ public class BookController {
         bookTable.setOnMouseClicked(event -> handleRowSelect());
     }
 
+    public void addBookFromApi(Book book) {
+        bookList.add(book);
+        try {
+            DatabaseManager.addBookToDatabase(book);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void handleAddBook() {
         String isbn = isbnField.getText();
@@ -97,27 +105,50 @@ public class BookController {
         }
         String publisher = publisherField.getText();
         String imageUrl = imageUrlField.getText();
-        Integer availableAmount = Integer.parseInt(availableAmountField.getText());
+        Integer availableAmount = null;
+        try {
+            availableAmount = Integer.parseInt(availableAmountField.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Input");
+            alert.setHeaderText("Invalid Amount");
+            alert.setContentText("Please enter a valid number for available amount.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Kiểm tra sách trùng ISBN
+        boolean isDuplicate = bookList.stream().anyMatch(book -> book.getIsbn().equals(isbn));
+        if (isDuplicate) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Duplicate Book");
+            alert.setHeaderText("Book Already Exists");
+            alert.setContentText("A book with ISBN \"" + isbn + "\" already exists in the system.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Tạo đối tượng Book mới
         Book newBook = new Book(isbn, title, author, yearOfPublication, publisher, imageUrl, availableAmount);
-        // Save the book to the database
+
+        // Lưu sách vào cơ sở dữ liệu
         try {
             DatabaseManager.addBookToDatabase(newBook);
         } catch (SQLException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Database Error");
+            alert.setHeaderText("Failed to Add Book");
+            alert.setContentText("There was an error adding the book to the database. Please try again.");
+            alert.showAndWait();
+            return;
         }
-        // Add the book to the observable list
+
+        // Thêm sách vào danh sách hiển thị
         bookList.add(newBook);
         clearFields();
     }
 
-    public void addBookFromApi(Book book) {
-        bookList.add(book);
-        try {
-            DatabaseManager.addBookToDatabase(book);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     private void handleAddBookByApi() {
