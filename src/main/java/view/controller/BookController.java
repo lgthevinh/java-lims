@@ -117,7 +117,6 @@ public class BookController {
             return;
         }
 
-        // Kiểm tra sách trùng ISBN
         boolean isDuplicate = bookList.stream().anyMatch(book -> book.getIsbn().equals(isbn));
         if (isDuplicate) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -128,10 +127,8 @@ public class BookController {
             return;
         }
 
-        // Tạo đối tượng Book mới
         Book newBook = new Book(isbn, title, author, yearOfPublication, publisher, imageUrl, availableAmount);
 
-        // Lưu sách vào cơ sở dữ liệu
         try {
             DatabaseManager.addBookToDatabase(newBook);
         } catch (SQLException e) {
@@ -144,7 +141,6 @@ public class BookController {
             return;
         }
 
-        // Thêm sách vào danh sách hiển thị
         bookList.add(newBook);
         clearFields();
     }

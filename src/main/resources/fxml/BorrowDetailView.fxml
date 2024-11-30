@@ -31,7 +31,7 @@
                 <DatePicker fx:id="expectedReturnDateField" layoutX="327.0" layoutY="135.0" prefHeight="25.0" prefWidth="249.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="5">
                     <Button onAction="#handleDeleteDetail" text="Delete Detail" />
-                    <Button mnemonicParsing="false" text="Update Detail" />
+                    <Button onAction="#handleUpdateDetail" text="Update Detail" />
                 </HBox>
             <Label prefHeight="17.0" prefWidth="118.0" text="Actual Return Date:" GridPane.rowIndex="4" />
             <DatePicker prefHeight="25.0" prefWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />

@@ -43,6 +43,36 @@ public class LibrarianDAO extends DatabaseManager {
         }
     }
 
+    public static Librarian getLibrarianByEmail(String email) throws SQLException, ParseException {
+        Connection conn = getConnection();
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM Librarian INNER JOIN User ON Librarian.user_id = User.id WHERE email = '" + email + "'"
+            );
+            if (resultSet.next()) {
+                User user = new User(
+                        resultSet.getString("social_id"),
+                        resultSet.getString("name"),
+                        convertStringToDatetime("MM-dd-yyyy", resultSet.getString("date_of_birth")),
+                        resultSet.getString("address_line"),
+                        resultSet.getString("phone_number"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password")
+                );
+                Librarian librarian = new Librarian(user);
+                librarian.setEmpId(resultSet.getInt("emp_id"));
+                conn.close();
+                return librarian;
+            }
+            conn.close();
+            return null;
+        } catch (SQLException | ParseException e) {
+            conn.close();
+            throw e;
+        }
+    }
+
     public static Librarian getLibrarianById(Integer id) throws SQLException, ParseException {
         Connection conn = getConnection();
         try {

@@ -192,7 +192,6 @@ public class SearchBookByApiController {
             return;
         }
 
-        // Kiểm tra trùng ISBN trong BookController
         for (Book book : bookController.bookTable.getItems()) {
             if (book.getIsbn().equals(selectedBook.getIsbn())) {
                 showAlert(Alert.AlertType.WARNING, "Duplicate Book", "A book with the same ISBN already exists in the library.");
@@ -200,7 +199,6 @@ public class SearchBookByApiController {
             }
         }
 
-        // Thêm sách vào danh sách của BookController
         bookController.addBookFromApi(selectedBook);
         showAlert(Alert.AlertType.INFORMATION, "Success", "Book added successfully!");
     }

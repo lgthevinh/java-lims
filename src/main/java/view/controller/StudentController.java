@@ -204,7 +204,6 @@ public class StudentController {
 
     private void clearFields() {
         socialIdField.clear();
-        passwordField.clear();
         studentIdField.clear();
         schoolField.clear();
         majorField.clear();

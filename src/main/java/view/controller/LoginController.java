@@ -3,6 +3,8 @@ package view.controller;
 import animatefx.animation.FadeIn;
 import animatefx.animation.ZoomIn;
 import com.lims.dao.DatabaseManager;
+import com.lims.dao.LibrarianDAO;
+import com.lims.model.Librarian;
 import com.lims.model.User;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -78,13 +80,17 @@ public class LoginController {
         }
     }
 
-    private boolean isValidLogin(String username, String password) {
+    static boolean isValidLogin(String username, String password) {
         for (String[] admin : ADMIN_ACCOUNTS) {
             if (admin[0].equals(username) && admin[1].equals(password)) {
                 return true;
             }
         }
         try {
+            Librarian librarian = LibrarianDAO.getLibrarianByEmail(username);
+            if (librarian != null && librarian.getPassword().equals(password)) {
+                return true;
+            }
             User user = DatabaseManager.getUserByEmail(username);
             if (user != null && user.getPassword().equals(password)) {
                 return true;
@@ -124,6 +130,10 @@ public class LoginController {
             }
         }
         try {
+            Librarian librarian = LibrarianDAO.getLibrarianByEmail(username);
+            if (librarian != null && librarian.getPassword().equals(password)) {
+                return "/fxml/MainView.fxml";
+            }
             User user = DatabaseManager.getUserByEmail(username);
             if (user != null && user.getPassword().equals(password)) {
                 return "/fxml/MainUserView.fxml";

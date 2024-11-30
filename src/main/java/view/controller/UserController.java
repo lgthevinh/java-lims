@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class UserController {
@@ -83,6 +84,7 @@ public class UserController {
         } catch (SQLException | ParseException e) {
             throw new RuntimeException(e);
         }
+        userTable.setOnMouseClicked(event -> handaleRowSelect());
     }
 
     @FXML
@@ -108,6 +110,72 @@ public class UserController {
 
         userList.add(newUser);
         clearFields();
+    }
+
+    @FXML
+    private void handleUpdateUser() {
+        User selectedUser = userTable.getSelectionModel().getSelectedItem();
+
+        if (selectedUser == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No User Selected");
+            alert.setContentText("Please select a user to update.");
+            alert.showAndWait();
+            return;
+        }
+
+        try {
+            selectedUser.setSocialId(socialIdField.getText());
+            selectedUser.setName(nameField.getText());
+
+            if (dateOfBirthField.getValue() != null) {
+                Date dateOfBirth = java.sql.Date.valueOf(dateOfBirthField.getValue());
+                selectedUser.setDateOfBirth(dateOfBirth);
+            }
+
+            selectedUser.setAddressLine(addressLineField.getText());
+            selectedUser.setPhoneNumber(phoneNumberField.getText());
+            selectedUser.setEmail(emailField.getText());
+            selectedUser.setPassword(passwordField.getText());
+
+            DatabaseManager.updateUserInDatabase(selectedUser);
+
+            userTable.refresh();
+
+            clearFields();
+
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Update Successful");
+            successAlert.setHeaderText("User Updated");
+            successAlert.setContentText("The user \"" + selectedUser.getName() + "\" has been updated successfully.");
+            successAlert.showAndWait();
+        } catch (SQLException e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText("Failed to Update User");
+            errorAlert.setContentText("There was an error updating the user in the database. Please try again.");
+            errorAlert.showAndWait();
+        }
+    }
+
+
+    @FXML
+    private void handaleRowSelect() {
+        User selectedUser = userTable.getSelectionModel().getSelectedItem();
+
+        if (selectedUser != null) {
+            socialIdField.setText(selectedUser.getSocialId());
+            nameField.setText(selectedUser.getName());
+            if (selectedUser.getDateOfBirth() != null) {
+                dateOfBirthField.setValue(selectedUser.getDateOfBirth().toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDate());
+            }
+            addressLineField.setText(selectedUser.getAddressLine());
+            phoneNumberField.setText(selectedUser.getPhoneNumber());
+            emailField.setText(selectedUser.getEmail());
+            passwordField.setText(selectedUser.getPassword());
+        }
     }
 
     @FXML

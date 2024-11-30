@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="695.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.StudentController">
+<VBox prefHeight="659.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.StudentController">
     <children>
         <VBox alignment="CENTER" spacing="10">
         <GridPane alignment="CENTER" hgap="10" vgap="10">
@@ -21,15 +21,13 @@
             </padding>
             <Label text="Social ID:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <TextField fx:id="socialIdField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Student ID:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="studentIdField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="School:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <TextField fx:id="schoolField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Major:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="majorField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Label text="Student ID:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="studentIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="School:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="schoolField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Major:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="majorField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <Button onAction="#handleAddStudent" text="Add Student" />
                 <Button onAction="#handleDeleteStudent" text="Delete Student" />
             </HBox>
@@ -38,7 +36,6 @@
                <ColumnConstraints />
             </columnConstraints>
             <rowConstraints>
-               <RowConstraints />
                <RowConstraints />
                <RowConstraints />
                <RowConstraints />

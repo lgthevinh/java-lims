@@ -2,8 +2,10 @@ package view.controller;
 import animatefx.animation.ZoomIn;
 import com.lims.dao.BorrowDetailDAO;
 import com.lims.dao.DatabaseManager;
+import com.lims.dao.UserDAO;
 import com.lims.model.Book;
 import com.lims.model.BorrowDetail;
+import com.lims.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -114,8 +116,14 @@ public class BorrowBookController {
     @FXML
     private void handleBorrowBook() {
         try {
+            String currentUserEmail = LoginController.loggedInUserEmail;
+            User currentUser = UserDAO.getUserByEmail(currentUserEmail);
+
+            if (currentUser == null) {
+                throw new RuntimeException("Cannot find the logged-in user.");
+            }
             String bookIsbn = bookIsbnField.getText();
-            Integer borrowerId = Integer.parseInt(borrowerIdField.getText());
+            Integer borrowerId = currentUser.getUserId();
             Integer librarianId = null;
             Date borrowDate = null;
             Date expectedReturnDate = null;
@@ -188,7 +196,6 @@ public class BorrowBookController {
     }
     private void clearFields() {
         bookIsbnField.clear();
-        borrowerIdField.clear();
         borrowDateField.setValue(null);
         expectedReturnDateField.setValue(null);
     }

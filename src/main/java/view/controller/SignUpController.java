@@ -37,6 +37,7 @@ public class SignUpController {
     @FXML
     private TextField passwordField;
 
+
     @FXML
     private void handleSignUp(ActionEvent event) {
         String socialId = socialIdField.getText();
@@ -87,6 +88,7 @@ public class SignUpController {
             e.printStackTrace();
         }
     }
+
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

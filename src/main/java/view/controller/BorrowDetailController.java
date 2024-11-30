@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 public class BorrowDetailController {
     @FXML
@@ -125,6 +126,7 @@ public class BorrowDetailController {
         } catch (SQLException | ParseException e) {
             e.printStackTrace();
         }
+        borrowDetailTable.setOnMouseClicked(event -> handleRowSelect());
     }
 
     @FXML
@@ -179,6 +181,63 @@ public class BorrowDetailController {
                 errorAlert.setHeaderText("Database Error");
                 errorAlert.setContentText("Failed to delete the borrow detail. Please try again.");
                 errorAlert.showAndWait();
+            }
+        }
+    }
+
+    @FXML
+    private void handleUpdateDetail() {
+        BorrowDetail selectedBorrowDetail = borrowDetailTable.getSelectionModel().getSelectedItem();
+        if (selectedBorrowDetail == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Borrow Detail Selected");
+            alert.setContentText("Please select a borrow detail to update.");
+            alert.showAndWait();
+            return;
+        }
+
+        try {
+            BorrowDetail updatedBorrowDetail = new BorrowDetail(
+                    bookIsbnField.getText(),
+                    Integer.parseInt(borrowerIdField.getText()),
+                    Integer.parseInt(librarianIdField.getText()),
+                    borrowDateField.getValue() != null ? Date.from(borrowDateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()) : null,
+                    expectedReturnDateField.getValue() != null ? Date.from(expectedReturnDateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()) : null,
+                    actualReturnDateField.getValue() != null ? Date.from(actualReturnDateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()) : null
+            );
+            updatedBorrowDetail.setId(selectedBorrowDetail.getId());
+            BorrowDetailDAO.updateBorrowDetailInDatabase(updatedBorrowDetail);
+            borrowDetailList.set(borrowDetailList.indexOf(selectedBorrowDetail), updatedBorrowDetail);
+            borrowDetailTable.refresh();
+            clearFields();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to Update Borrow Detail");
+            alert.setContentText("There was an error updating the borrow detail. Please try again.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void handleRowSelect() {
+        BorrowDetail selectedBorrowDetail = borrowDetailTable.getSelectionModel().getSelectedItem();
+        if (selectedBorrowDetail != null) {
+            bookIsbnField.setText(selectedBorrowDetail.getBookIsbn());
+            borrowerIdField.setText(selectedBorrowDetail.getBorrowerId().toString());
+            if (selectedBorrowDetail.getBorrowDate() != null) {
+                borrowDateField.setValue(selectedBorrowDetail.getBorrowDate().toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDate());
+            }
+            if (selectedBorrowDetail.getExpectedReturnDate() != null) {
+                expectedReturnDateField.setValue(selectedBorrowDetail.getExpectedReturnDate().toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDate());
+            }
+            if (selectedBorrowDetail.getActualReturnDate() != null) {
+                actualReturnDateField.setValue(selectedBorrowDetail.getActualReturnDate().toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDate());
             }
         }
     }

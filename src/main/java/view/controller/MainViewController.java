@@ -94,14 +94,12 @@ public class MainViewController {
     private void handleShowQR() {
         Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
-            // Tạo chuỗi thông tin cho QR code
+
             String qrContent = String.format("https://books.google.com/books?vid=ISBN:%s", selectedBook.getIsbn());
 
-            // Tạo QR code image
             WritableImage qrImage = generateQRCode(qrContent, 250, 250);
             ImageView qrImageView = new ImageView(qrImage);
 
-            // Tạo stage mới để hiển thị QR code
             Stage qrStage = new Stage();
             qrStage.centerOnScreen();
             qrStage.initModality(Modality.APPLICATION_MODAL);
@@ -114,7 +112,6 @@ public class MainViewController {
             Scene qrScene = new Scene(qrVBox, 300, 300);
             qrStage.setScene(qrScene);
 
-            // Lấy vị trí của main window
             Stage mainStage = (Stage) bookTable.getScene().getWindow();
             mainStage.centerOnScreen();
             qrStage.setX(mainStage.getX() + (mainStage.getWidth() - qrStage.getWidth()) / 2);

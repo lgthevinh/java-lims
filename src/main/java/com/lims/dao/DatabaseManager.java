@@ -134,4 +134,8 @@ public class DatabaseManager {
     public static User getUserBySocialId(String socialId) throws SQLException, ParseException {
         return UserDAO.getUserBySocialId(socialId);
     }
+
+    public static Librarian getLibrarianByEmail(String email) throws SQLException, ParseException {
+        return LibrarianDAO.getLibrarianByEmail(email);
+    }
 }

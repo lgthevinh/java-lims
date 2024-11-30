@@ -95,17 +95,16 @@ public class LibrarianController {
     private void handleAddLibrarian() {
         try {
             String socialId = socialIdField.getText();
-            String empId = empIdField.getText();
-
-            if (socialId.isEmpty() || empId.isEmpty()) {
-                System.out.println("Both fields are required!");
-                return;
-            }
+            String empId = null;
 
             User user = DatabaseManager.getUserBySocialId(socialId);
 
             if (user == null) {
                 System.out.println("User not found!");
+                return;
+            }
+
+            if (!showAdminLoginDialog()) {
                 return;
             }
 
@@ -125,6 +124,26 @@ public class LibrarianController {
             e.printStackTrace();
         }
     }
+
+    private boolean showAdminLoginDialog() {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Admin Authentication");
+        dialog.setHeaderText("Admin Login Required");
+        dialog.setContentText("Please enter your admin username and password (format: username,password):");
+
+        String credentials = dialog.showAndWait().orElse(null);
+        if (credentials != null && !credentials.isEmpty()) {
+            String[] parts = credentials.split(",");
+            if (parts.length == 2) {
+                String username = parts[0].trim();
+                String password = parts[1].trim();
+                return LoginController.isValidLogin(username, password);
+            }
+        }
+        showAlert(Alert.AlertType.ERROR, "Authentication Failed", "Invalid admin credentials.");
+        return false;
+    }
+
 
     @FXML
     private void refreshTable() {
@@ -176,6 +195,15 @@ public class LibrarianController {
         }
     }
 
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
 
     @FXML
     private void handleBack(ActionEvent event) {
@@ -194,7 +222,6 @@ public class LibrarianController {
     }
     private void clearFields() {
         socialIdField.clear();
-        passwordField.clear();
         empIdField.clear();
     }
 }

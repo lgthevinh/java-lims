@@ -203,7 +203,6 @@ public class ReturnBookController {
     }
     private void clearFields() {
         bookIsbnField.clear();
-        borrowerIdField.clear();
         borrowDateField.setValue(null);
         expectedReturnDateField.setValue(null);
     }
