@@ -336,14 +336,23 @@ updateBorrowDetailInDatabase(borrowDetail);
 
 Some of the methods or features may not be implemented yet, we will keep note of the changes in the versioning in this document.
 
-Current version: 1.1.0
+Current version: 1.2.0
 
 - Version 1.0.0: Initial release
     - Basic CRUD operations for Book, User, Librarian, Student and BorrowDetail (all base on Object class, no primitive data type parameters implemented yet)
     - Singleton class
-    - No exception handling
-    - No pagination
     - Manual testing (no unit test created yet)
 
-- Version 1.1.0: Additional changes:
+- Version 1.1.0: Fixing bug & error handling
   - Additional query function (getUserByEmail)
+  - Many more DAO methods
+  - Exception handling
+
+- Version 1.2.0: Reported version
+  - Authentication & Authorization
+  - Unit testing (currently implementing for BookDAO)
+
+- Version 2.0.0: Creators vision (on design)
+  - SDK Wrapper (LiMS SDK) allow development on Kotlin Multiplatform
+  - Thread implementation
+  - Master & Slave (on host & on connect machine) allow multi machine can connect to one hosted database
