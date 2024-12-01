@@ -337,7 +337,7 @@ bool authed = AuthenticationController.isAuthenticated();
 
 - Return type: authentication status (boolean)
 - Note: This method check if current program is authenticated (by checking the auth data file). If the program is
-  authenticated, it return `true`, else `false`
+  authenticated, it returns `true`, else `false`
 
 3. Delete authentication data
 
