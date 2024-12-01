@@ -19,14 +19,14 @@ Cons:
 - Can be complex for beginners
 - Package structure can be complex
 
-Currently MVC pattern is implemented in this project as follows:
+Currently, MVC pattern is implemented in this project as follows:
 
 - Model: com.lims.model
 - View: com.resources.view
 - Controller: com.lims.controller (this is view controller, logic code is implemented directly in the view controller)
 
 This is not the final implementation of the MVC pattern, it may change down the road because we detected some issues in
-development and manatenance of the project.
+development and maintenance of the project.
 
 ## Coding Standards
 
@@ -100,7 +100,6 @@ addBookToDatabase(book);
 
 - Parameters:
     - Book: Book object
-- Return type: None
 
 4. Delete book from database
 
@@ -110,7 +109,6 @@ deleteBookFromDatabase(isbn)
 
 - Parameters:
   - ISBN: String (ISBN of the book)
-- Return type: None
 
 5. Update book in the database
 
@@ -120,7 +118,6 @@ updateBookInDatabase(book);
 
 - Parameters:
     - Book: Book object
-- Return type: None
 - Note: This method take book object and get the ISBN from the object and update the book in the database (the ISBN in the object should be the same as the ISBN in the database)
 
 6. Get all user from database
@@ -150,7 +147,6 @@ addUserToDatabase(user);
 
 - Parameters:
     - User: User object
-- Return type: None
 - Note: If the user is already in the database, it will throw an exception (not implemented yet)
 
 9. Delete user from the database
@@ -161,7 +157,6 @@ deleteUserFromDatabase(id);
 
 - Parameters:
     - id: int (User id) This parameter should match the id in the database
-- Return type: None
 
 10. Update user in the database
 
@@ -171,7 +166,6 @@ updateUserInDatabase(user);
 
 - Parameters:
     - User: User object
-- Return type: None
 - Note: This method take user object and get the id from the object and update the user in the database (the id in the object should be the same as the id in the database)
 
 11. Get all librarian from the database
@@ -205,7 +199,6 @@ addLirarianToDatabase(user); // Recommended
 - Parameters:
   - Method 1: Librarian object
   - Method 2: User object (this is recommended due to complex logic when construct Librarian object)
-- Return type: None
 - Note: If the librarian is already in the database, it will throw an exception
 
 14. Delete librarian from the database
@@ -216,7 +209,6 @@ deleteLibrarianFromDatabase(librarian);
 
 - Parameters:
     - Librarian: Librarian object
-- Return type: None
 
 16. Get all student from the database
 
@@ -224,7 +216,6 @@ deleteLibrarianFromDatabase(librarian);
 List<Student> studentList = getAllStudent();
 ```
 
-- Parameters: None
 - Return type: Array list of Student objects
 
 17. Get student by student id (id)
@@ -249,7 +240,6 @@ addStudentToDatabase(user, studentId, school, major);
 - Parameters:
   - Method 1: Student object
   - Method 2: User object, String, String, String
-- Return type: None
 - Note: If the student is already in the database, it will throw an exception
 
 19. Delete student from the database
@@ -260,7 +250,6 @@ deleteStudentFromDatabase(student);
 
 - Parameters:
     - Student: Student object
-- Return type: None
 - Note: This method will delete the student from the database, 
 
 20. Update student in the database
@@ -271,7 +260,6 @@ updateStudentInDatabase(student);
 
 - Parameters:
     - Student: Student object
-- Return type: None
 - Note: This method take student object and get the id from the object and update the student in the database (the id in the object should be the same as the id in the database)
 
 21. Get all borrow details from the database
@@ -280,7 +268,6 @@ updateStudentInDatabase(student);
 List<BorrowDetail> borrowDetails = getAllBorrowDetail();
 ```
 
-- Parameters: None
 - Return type: Array list of BorrowDetail objects
 
 22. Get borrow detail by borrow id
@@ -301,7 +288,6 @@ addBorrowDetailToDatabase(borrowDetail);
 
 - Parameters:
     - BorrowDetail: BorrowDetail object
-- Return type: None
 
 24. Delete borrow detail from the database
 
@@ -311,7 +297,6 @@ deleteBorrowDetailFromDatabase(borrowDetail);
 
 - Parameters:
     - BorrowDetail: BorrowDetail object
-- Return type: None
 - Note: This method will delete the borrow detail from the database, be sure the id in the borrow detail object is the same as the id of the data in the database
 
 25. Update borrow detail in the database
@@ -322,16 +307,46 @@ updateBorrowDetailInDatabase(borrowDetail);
 
 - Parameters:
     - BorrowDetail: BorrowDetail object
-- Return type: None
 - Note: This method take borrow detail object and get the id from the object and update the borrow detail in the database (the id in the object should be the same as the id in the database)
 
 #### Authentication & Authorization methods/annotations
 
-0. To be updated
+0. Import authentication and authorization object.
 
-#### Utils & APIs
+```java
+import com.lims.controller.AuthenticationController;
+import com.lims.controller.AuthorizationController;
+```
 
-0. To be updated
+1. Authenticate
+
+```java
+authenticate("email","password");
+```
+
+- Parameters:
+  - email & password: String
+- Note: This method take email & password, find user by email and check the password. If authenticate success an auth
+  file (.txt) will be generated and store encoded auth information.
+
+2. Check if authenticated
+
+```java
+bool authed = AuthenticationController.isAuthenticated();
+```
+
+- Return type: authentication status (boolean)
+- Note: This method check if current program is authenticated (by checking the auth data file). If the program is
+  authenticated, it return `true`, else `false`
+
+3. Delete authentication data
+
+```java
+deleteAuthentication();
+```
+
+- Note: This method is to delete authentication data (likelihood to sign out if you do not want the auth data to store
+  on the machine). It will erase all data in auth file
 
 ### Versioning
 
@@ -355,5 +370,6 @@ Current version: 1.2.0
 
 - Version 2.0.0: Creators vision (on design)
   - SDK Wrapper (LiMS SDK) allow development on Kotlin Multiplatform
+  - Data store in appdata path
   - Thread implementation
   - Master & Slave (on host & on connect machine) allow multi machine can connect to one hosted database
