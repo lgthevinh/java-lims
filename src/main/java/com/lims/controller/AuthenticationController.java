@@ -11,7 +11,13 @@ import java.util.Scanner;
 
 public class AuthenticationController {
 
+    private final AuthenticationController authenticationController = new AuthenticationController();
+
     static final String authDataPath = "src/main/resources/auth/data.txt";
+
+    private AuthenticationController() {
+        System.out.println("Authentication Controller");
+    }
 
     private static File getFile() throws IOException {
         File authData = new File(authDataPath);
@@ -19,6 +25,10 @@ public class AuthenticationController {
             System.out.println("AUTH FIlE NOT FOUND, recreating auth data file...");
         }
         return authData;
+    }
+
+    public AuthenticationController getInstance() {
+        return this.authenticationController;
     }
 
     /**

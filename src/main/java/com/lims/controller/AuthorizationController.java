@@ -9,6 +9,16 @@ import java.util.Scanner;
 
 public class AuthorizationController {
 
+    private final AuthorizationController authorizationController = new AuthorizationController();
+
+    private AuthorizationController() {
+        System.out.println("Authorization controller created");
+    }
+
+    public AuthorizationController getInstance() {
+        return this.authorizationController;
+    }
+
     static final String authDataPath = "src/main/resources/auth/data.txt";
 
     private static File getFile() throws IOException {
