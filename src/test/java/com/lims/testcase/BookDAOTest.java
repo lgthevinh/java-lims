@@ -63,7 +63,6 @@ class BookDAOTest {
 
     @BeforeEach
     void setUp() throws SQLException {
-        // Add new Book object
         for (Book book : initializeBookList()) {
             DatabaseManager.addBookToDatabase(book);
         }
@@ -71,7 +70,6 @@ class BookDAOTest {
 
     @AfterEach
     void tearDown() throws SQLException {
-        // Delete book
         for (Book book : initializeBookList()) {
             DatabaseManager.deleteBookFromDatabase(book.getIsbn());
         }
@@ -86,7 +84,6 @@ class BookDAOTest {
     @Test
     void getBookByISBN() {
         Book testBook = initializeTestBook1();
-        // Test added book
         try {
             Book book = DatabaseManager.getBookByISBN("9786043456905");
             assert book != null;
