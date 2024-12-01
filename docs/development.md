@@ -1,11 +1,12 @@
-# Java LiMS Development guides and documents
+# Java LiMS Data-core Development guides and documents
 
 Before start developing or contributing to this project, you should follow some rules in this project
 
 ## Design Pattern 
 
 We have looked through several design patterns, we have decided to use the MVC (Model-View-Controller) design
-pattern.This pattern is widely used in the industry, it is easy to understand and implement. You can find more
+pattern as a base to design the sdk (data-core). This pattern is widely used in the industry, it is easy to understand
+and implement. You can find more
 information about the MVC design pattern [here](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller).
 
 Pros:
