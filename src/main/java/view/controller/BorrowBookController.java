@@ -22,6 +22,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
+
 public class BorrowBookController {
     @FXML
     private TableView<BorrowDetail> borrowDetailTable;
@@ -54,10 +56,21 @@ public class BorrowBookController {
     private void initialize() {
         try {
             bookList.addAll(DatabaseManager.getAllBooks());
-        } catch (SQLException e) {
-            System.out.println("Error: " + e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+            String currentUserEmail = LoginController.loggedInUserEmail;
+            User currentUser = UserDAO.getUserByEmail(currentUserEmail);
+
+            if (currentUser == null) {
+                throw new RuntimeException("User information not found.");
+            }
+            int currentUserId = currentUser.getUserId();
+            List<BorrowDetail> allBorrowDetails = BorrowDetailDAO.getAllBorrowDetail();
+            List<BorrowDetail> userBorrowDetails = allBorrowDetails.stream()
+                    .filter(borrowDetail -> borrowDetail.getBorrowerId() == currentUserId)
+                    .toList();
+
+            borrowDetailList.addAll(userBorrowDetails);
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
         }
         // Initialize the borrow detail table with the borrow detail list
         borrowDetailTable.setItems(borrowDetailList);
@@ -105,12 +118,12 @@ public class BorrowBookController {
                 }
             };
         });
-        try {
-            // Load the book list from the database
-            borrowDetailList.addAll(DatabaseManager.getAllBorrowDetail());
-        } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // Load the book list from the database
+//            borrowDetailList.addAll(DatabaseManager.getAllBorrowDetail());
+//        } catch (SQLException | ParseException e) {
+//            e.printStackTrace();
+//        }
         borrowDetailTable.setOnMouseClicked(event -> handleRowSelect());
     }
     @FXML
@@ -167,7 +180,6 @@ public class BorrowBookController {
         BorrowDetail selectedBorrowDetail = borrowDetailTable.getSelectionModel().getSelectedItem();
         if (selectedBorrowDetail != null) {
             bookIsbnField.setText(selectedBorrowDetail.getBookIsbn());
-            borrowerIdField.setText(selectedBorrowDetail.getBorrowerId().toString());
             if (selectedBorrowDetail.getBorrowDate() != null) {
                 borrowDateField.setValue(selectedBorrowDetail.getBorrowDate().toInstant()
                         .atZone(ZoneId.systemDefault()).toLocalDate());
