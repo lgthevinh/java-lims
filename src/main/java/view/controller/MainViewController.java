@@ -1,6 +1,7 @@
 package view.controller;
 import animatefx.animation.FadeIn;
 import com.lims.dao.DatabaseManager;
+import javafx.scene.control.*;
 import  view.controller.GenerateQRController;
 import com.lims.model.Book;
 import javafx.animation.FadeTransition;
@@ -12,10 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.sql.SQLException;
@@ -77,6 +74,35 @@ public class MainViewController {
                 }
             };
         });
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem copyIsbnItem = new MenuItem("Copy ISBN");
+
+        copyIsbnItem.setOnAction(event -> {
+            Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+            if (selectedBook != null) {
+                copyToClipboard(selectedBook.getIsbn());
+            } else {
+                System.out.println("No book selected");
+            }
+        });
+
+        contextMenu.getItems().add(copyIsbnItem);
+
+        isbnColumn.setCellFactory(column -> {
+            TableCell<Book, String> cell = new TableCell<>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setText(empty ? null : item);
+                    if (!empty) {
+                        setContextMenu(contextMenu);
+                    }
+                }
+            };
+            return cell;
+        });
+
         bookTable.setItems(bookList);
         try {
             bookList.addAll(DatabaseManager.getAllBooks());
@@ -88,6 +114,14 @@ public class MainViewController {
     }
     public void setBookList(List<Book> books) {
         bookList.setAll(books);
+    }
+
+    @FXML
+    private void copyToClipboard(String text) {
+        javafx.scene.input.Clipboard clipboard = javafx.scene.input.Clipboard.getSystemClipboard();
+        javafx.scene.input.ClipboardContent content = new javafx.scene.input.ClipboardContent();
+        content.putString(text);
+        clipboard.setContent(content);
     }
 
     @FXML
